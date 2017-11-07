@@ -1,24 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CityComponent } from './city/city.component';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { MyMaterialModule } from './mymaterial.module';
+import { CityWeatherResolverService } from './city-weather-resolver.service';
 import { HomeComponent } from './home/home.component';
-
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
+    AppComponent, 
+    CityComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'my-app'}),
+    BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
+    BrowserAnimationsModule,
+    MyMaterialModule,
+    HttpClientModule,
+    BrowserTransferStateModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full'},
-      { path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
-      { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}
+      {
+        path: ':city', component: CityComponent, resolve: { weather: CityWeatherResolverService }
+      }
     ])
   ],
-  providers: [],
+  providers: [CityWeatherResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

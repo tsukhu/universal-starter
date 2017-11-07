@@ -1,0 +1,15 @@
+<div class="app-fullpage">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button> Weather
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened>
+      <mat-nav-list *ngFor="let city of cities">
+        <a mat-list-item [routerLink]="['/', city]">{{city}}</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
+</div>
