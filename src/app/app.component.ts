@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  cities = ['Paris', 'London', 'San Fransisco'];
+  cities = ['Paris', 'London', 'San Francisco'];
 }
