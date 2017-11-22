@@ -25,7 +25,8 @@
     "generate:prerender": "cd dist && node prerender",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:prerender": "cd dist/browser && http-server",
-    "serve:ssr": "node dist/server"
+    "serve:ssr": "node dist/server",
+    "serve:browser": "http-server dist/browser -c-1 --cors"
   },
   "private": true,
   "dependencies": {
