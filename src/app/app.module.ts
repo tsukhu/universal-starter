@@ -6,25 +6,26 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { MyMaterialModule } from './mymaterial.module';
 import { CityWeatherResolverService } from './city-weather-resolver.service';
 import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     CityComponent,
     HomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
     BrowserAnimationsModule,
-    MyMaterialModule,
     HttpClientModule,
     BrowserTransferStateModule,
     RouterModule.forRoot([
       {
-        path: ':city', component: CityComponent, resolve: { weather: CityWeatherResolverService }
-      }
+        path: 'city/:city', component: CityComponent, resolve: { weather: CityWeatherResolverService }
+      },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule' },
+      { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule' }
     ])
   ],
   providers: [CityWeatherResolverService],
