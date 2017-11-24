@@ -3,9 +3,9 @@
 
 @import 'assets/styles/global/global.css';
 
-$fallback: Georgia, serif;
+$fallback: Helvetica, serif;
 
-html, body, mat-sidenav-container, .app-fullpage {
+html, body, .app-fullpage {
   font-family: $fallback;
   margin: 0;
   width: 100%;

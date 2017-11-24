@@ -12,11 +12,8 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     WebFont.load({
       custom: {
-        families: ['Roboto',
-        'Omnes-ATT-W02'],
-        urls: [
-          'assets/styles/global/global.css'
-        ]
+        families: ['Helvetica',
+        'Omnes-ATT-W02']
       },
       active: function() {
         sessionStorage.fonts = true;
