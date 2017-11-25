@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { CityWeatherResolverService } from './city-weather-resolver.service';
 import { HomeComponent } from './home/home.component';
 import { LayoutModule } from './common/layout.module';
+import { AppState } from './common/services/app.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { LayoutModule } from './common/layout.module';
       { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule' }
     ])
   ],
-  providers: [CityWeatherResolverService],
+  providers: [
+    CityWeatherResolverService,
+    AppState],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
