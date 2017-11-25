@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CityWeatherResolverService } from './city-weather-resolver.service';
 import { HomeComponent } from './home/home.component';
+import { LayoutModule } from './common/layout.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,7 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserTransferStateModule,
+    LayoutModule,
     RouterModule.forRoot([
       {
         path: 'city/:city', component: CityComponent, resolve: { weather: CityWeatherResolverService }

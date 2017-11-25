@@ -7,5 +7,4 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AppComponent {
   @Input() loading: boolean = false;
-  cities = ['Paris', 'London', 'San Francisco'];
 }
