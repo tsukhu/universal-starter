@@ -22,9 +22,9 @@ export class AppState {
   public get state() {
     const found = this.transferState.hasKey(RESULT_KEY);
     if (found) {
-      const res = Observable.of(this.transferState.get<InternalStateType>(RESULT_KEY, null));
+      const res = this.transferState.get<InternalStateType>(RESULT_KEY, null);
       this.transferState.remove(RESULT_KEY);
-      return this._clone(res);
+      return this._state = this._clone(res);
     } else {
       this._state = this._clone(this._state);
       this.transferState.onSerialize(RESULT_KEY, () => this._state);
