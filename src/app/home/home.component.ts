@@ -4,7 +4,7 @@ import { AppState } from '../common/services/app.service';
 
 @Component({
   selector: 'home',
-  template: `<h3>{{ message }}</h3>`
+  template: `<h3 i18n="@@topWelcome">Welcome to {{ message }}</h3>`
 })
 export class HomeComponent implements OnInit {
   public message: string;
