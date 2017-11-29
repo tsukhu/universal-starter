@@ -1,0 +1,62 @@
+@import '../../../app.component.scss';
+/* Global */
+
+.unlock-block {
+    padding: 50px 0px;
+    text-align: center;
+}
+
+.unlock-device,
+.unlock-status {
+    padding: 0 30px;
+}
+
+.unlock-block a {
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.unlock-device {
+    margin-bottom: 30px;
+}
+
+.unlock-device-img,
+.unlock-status-img {
+    // background-image: url('../../assets/images/ico-unlock-blue-40x30.png');
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 30px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.unlock-status-img {
+    // background-image: url('../../assets/images/ico-checkunlock-blue-40x30.png');
+}
+
+@media (min-width:768px) and (max-width:1024px) {}
+
+@media (min-width:768px) and (max-width:1024px) {}
+
+@media (min-width:768px) {
+    .unlock-block {
+        display: flex;
+    }
+    .unlock-block .unlock-device,
+    .unlock-block .unlock-status {
+        flex: 1;
+    }
+    .unlock-device,
+    .unlock-status {
+        padding: 0 50px;
+    }
+    .unlock-device-img,
+    .unlock-status-img {
+        width: 60px;
+        height: 45px;
+        // background-image: url('../../assets/images/ico-unlock-blue-60x45.png');
+    }
+    .unlock-status-img {
+        // background-image: url('../../assets/images/ico-checkunlock-blue-60x45.png');
+    }
+}
