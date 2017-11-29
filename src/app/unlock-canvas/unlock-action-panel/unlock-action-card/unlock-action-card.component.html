@@ -1,19 +1,5 @@
-<div class="container">
-    <div class="unlock-block">
-        <div class="unlock-device">
-            <div class="unlock-device-img"></div>
-            <a href="javascript:void(0);">Unlock your Device</a>
-            <div>Make sure you have the wireless number and IMEI handy. Don't know your IMEI? Dial *#06# on your mobile phone
-                to find it. It may take up to 2 days for us to process your request.
-            </div>
-        </div>
-        <div class="unlock-status">
-            <div class="unlock-status-img"></div>
-            <a href="javascript:void(0)">Unlock your Device</a>
-            <div>Make sure you have the wireless number and IMEI handy. Don't know your IMEI? Dial *#06# on your mobile phone
-                to find it. It may take up to 2 days for us to process your request.
-            </div>
-        </div>
-    </div>
+<div class="unlock-device">
+    <div class="unlock-device-img" [ngStyle]="{'background-image':'url('+actionCard?.img+')'}"></div>
+    <a href="javascript:void(0);">{{actionCard?.unlockyourDevice}}</a>
+    <div [innerHTML]="actionCard?.unlockDeviceDescription"></div>
 </div>
-<hr class="lite">

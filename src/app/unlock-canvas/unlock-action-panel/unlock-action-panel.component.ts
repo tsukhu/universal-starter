@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'unlock-action-panel',
@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnlockActionPanelComponent implements OnInit {
 
+  @Input()
+  public actionPanel;
+  
   constructor() { }
 
   ngOnInit() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { UnlockService } from "../common/services/unlock.service";
 
 @Component({
   selector: 'unlock-canvas',
@@ -9,14 +10,16 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 export class UnlockCanvasComponent implements OnInit {
   unlockCanvas: any;
 
-  constructor(private http: HttpClient) { 
+  constructor(private unlockService: UnlockService) { 
   }
 
   ngOnInit() {
-    this.http.get('../assets/content/unlockCanvas.json')
-      .subscribe(data => {
-        this.unlockCanvas =  data;
-      });
+      this.unlockService.UnlockDevice().subscribe(
+        (data: any) => {
+          this.unlockCanvas = data.unlockPortalLabelAndErrorObj[0];
+        }
+      )
+       
   }
 
 }

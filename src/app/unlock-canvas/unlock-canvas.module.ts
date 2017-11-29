@@ -6,6 +6,7 @@ import { UnlockPanelComponent } from "./unlock-panel/unlock-panel.component";
 import { UnlockActionPanelComponent } from "./unlock-action-panel/unlock-action-panel.component";
 import { CommonModule } from "@angular/common";
 import { UnlockActionCardComponent } from "./unlock-action-panel/unlock-action-card/index";
+import { UnlockService } from "../common/services/unlock.service";
 
 @NgModule({
   declarations: [UnlockCanvasComponent, UnlockPanelComponent, UnlockActionPanelComponent, UnlockActionCardComponent],
@@ -14,6 +15,9 @@ import { UnlockActionCardComponent } from "./unlock-action-panel/unlock-action-c
     RouterModule.forChild([
       { path: '', component: UnlockCanvasComponent, pathMatch: 'full' }
     ])
+  ],
+  providers: [
+    UnlockService
   ]
 })
 export class UnlockCanvasModule {
