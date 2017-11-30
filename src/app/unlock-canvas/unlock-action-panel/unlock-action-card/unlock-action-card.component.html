@@ -1,5 +1,5 @@
 <div class="unlock-device">
     <div class="unlock-device-img" [ngStyle]="{'background-image':'url('+actionCard?.img+')'}"></div>
-    <a href="javascript:void(0);">{{actionCard?.unlockyourDevice}}</a>
+    <a href="{{actionCard.link}}">{{actionCard?.unlockyourDevice}}</a>
     <div [innerHTML]="actionCard?.unlockDeviceDescription"></div>
 </div>

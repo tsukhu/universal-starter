@@ -2,22 +2,19 @@ import { NgModule, Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { AppState } from '../common/services/app.service';
 import { CommonModule } from "@angular/common";
-import { CustomerTypeCanvasComponent } from './index';
 import { UnlockService } from '../common/services/unlock.service';
-import { ModalComponent } from '../common/modal/index';
-import { ModalService } from '../common/modal/modal.service';
+import { ModalComponent, ModalService } from '../common/modal/index';
 import { EligibleUnlockComponent } from '../common/eligible-unlock/index';
-import { WirelessNumberComponent } from "./wireless-number/index";
-import { StepIndicatorComponent } from "./step-indicator/index";
 import { AccountInformationComponent } from "./account-information/index";
 import { ConfirmationComponent } from "./confirmation/index";
+import { UnlockStatusComponent } from "./index";
 
 @NgModule({
-  declarations: [CustomerTypeCanvasComponent, StepIndicatorComponent, WirelessNumberComponent, AccountInformationComponent, ConfirmationComponent, ModalComponent, EligibleUnlockComponent],
+  declarations: [UnlockStatusComponent, AccountInformationComponent, ConfirmationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', component: CustomerTypeCanvasComponent, pathMatch: 'full' }
+      { path: '', component: UnlockStatusComponent, pathMatch: 'full' }
     ])
   ],
   providers: [
@@ -25,6 +22,6 @@ import { ConfirmationComponent } from "./confirmation/index";
     ModalService
   ]
 })
-export class CustomerTypeCanvasModule {
+export class UnlockStatusModule {
 
 }

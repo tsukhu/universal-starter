@@ -15,12 +15,14 @@
             {
             "img": "../../../assets/images/ico-unlock-blue-60x45.png",
             "unlockyourDevice": "Unlock your device",
-            "unlockDeviceDescription": "Make sure you have the wireless number and IMEI handy. Don't know your IMEI? Dial <b>*#06#</b> on your mobile phone to find it. It may take up to 2 days for us to process your request."
+            "unlockDeviceDescription": "Make sure you have the wireless number and IMEI handy. Don't know your IMEI? Dial <b>*#06#</b> on your mobile phone to find it. It may take up to 2 days for us to process your request.",
+            "link": "./device-unlock" 
             },
             {
             "img": "../../../assets/images/ico-checkunlock-blue-60x45.png",
             "unlockyourDevice": "Check an unlock status",
-            "unlockDeviceDescription": "Make sure you have your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email."
+            "unlockDeviceDescription": "Make sure you have your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email.",
+            "link": "./unlock-status" 
             }
             ],
 			"DUEnterYourWirelessNumberStep" : "Enter your wireless number",
@@ -59,7 +61,48 @@
 				"If you have a business-owned device, your company must authorize you to unlock it."
             ],
             "ImpNoteTitle": "Look! The important legal stuff.",
-            "ImpNoteDescp": "AT&T reserves the right to deny any unlock request that it concludes would result in an abuse of this policy or is part of an effort to defraud AT&T or its customers. AT&T further reserves the right to alter this unlocking policy at its discretion without advance notice. If during any one month, more than 100 requests are made from a single source, and if more than 10% of those requests are duplicate IMEI numbers, AT&T will no longer process unlock requests from that source."            
+            "ImpNoteDescp": "AT&T reserves the right to deny any unlock request that it concludes would result in an abuse of this policy or is part of an effort to defraud AT&T or its customers. AT&T further reserves the right to alter this unlocking policy at its discretion without advance notice. If during any one month, more than 100 requests are made from a single source, and if more than 10% of those requests are duplicate IMEI numbers, AT&T will no longer process unlock requests from that source.",
+            "accountHolderFirstnameLabel": "Account holder's first name",
+            "accountHolderFirstnameRequiredError": "Enter your first name.",
+            "accountHolderLastnameLabel": "Account holder's last name",
+            "accountHolderLastnameRequiredError": "Enter your last name.",
+            "passcodeLabel": "AT&T wireless security passcode",
+            "passcoderequiredLabel": "(Required if created)",
+            "passcodeRequiredError": "Please enter valid Account Passcode",
+            "passcodeErrorValidation": "Enter a valid 4 to 8-digit passcode.",
+            "forgotPasswordLink": "Forgot your passcode?",
+            "emailLabel": "Email address",
+            "emailValidationError": "Enter a valid email address.",
+            "emailRequiredError": "Enter an email address.",
+			"confirmEmail" : "Enter your email again",
+            "emailMismatchError" : "Email addresses don't match. Try again.",
+            "militaryPersonalRadiolabel": "Active deployed military personnel?",
+            "emailHelpText" : "We'll send you a link to confirm your unlock request.",                                 
+			"whatnextTitle" : "What's next?",
+			"whatnextInstructionLine1" : "We'll send you a link to confirm your unlock request.",			
+            "whatnextInstructionLine2" : "<strong>Note:</strong> Use it within 24 hours or we'll need to cancel your request.",
+            "makeLabel": "Make",
+            "modelLabel": "Model",
+            "thankUPageTitle" : "Thanks! We're emailing you a link.",
+			"step1ToFollowOnThankUPage" : "When you get the email, confirm your request within 24 hours.",
+			"step2ToFollowOnThankUPage" : "Check your spam folder if you don't see an email from us.",
+			"step3ToFollowOnThankUPagePart1" : "Remember, your request number is",
+			"step3ToFollowOnThankUPagePart2" : "Keep it handy in case you need it later.",
+            "step4ToFollowOnThankUPage" : "Be sure to use the link we send you within 24 hours or we'll have to cancel this request.",
+            "unlockPortalIRUHeaderTitle" : "Check your unlock status",
+            "checkstatusIntroTxt": "Enter your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email.",                                    
+            "currentStatusLabel": "Current Status",
+            "orderPending" : "Pending",
+            "pendingEmailConfirm": "<p>Your unlock request is on hold until we receive your confirmation.</p><p>To complete your request, follow the confirmation link in the email we sent you.</p><p><b>Note:</b> If you can't find the email, check your spam folder or <a href='#'>submit a new request</a>.</p>",            
+            "imeiNumberLabel": "IMEI Number",
+            "requestDateTimeLabel": "Request Date/Time",
+            "requestNumberStatusLabel": "Request Number",
+            "deviceUnlockSupportLabel": "Device unlock support",
+            "checkAnotherUnlockStatusLabel": "Check status of another device",
+            "submitButton": "Submit",
+            "backButton": "Back",
+            "ULP_1010": "Looks like this email address is associated with fraud. Please enter a new email address.",
+            "nextButton": "Next"
         }
     ]
 }

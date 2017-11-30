@@ -1,10 +1,12 @@
 <div *ngIf="devicePortal">
     <div class="container">
+        
         <div class="title1">{{devicePortal?.unlockPortalPageHeaderTitle}}</div>
         <div [innerHTML]="devicePortal?.landingPageFirstParagraph"></div>
         <h3 class="heading-sub-section">{{devicePortal?.landingPageSecondParagraph}}</h3>
         <p>{{devicePortal?.landingPageThirdParagraph}}</p>
         <p><span [innerHTML]="devicePortal?.landingPageFourthParagraph"></span> <a href="javascript:void(0);" onclick="window.open('https://www.att.com/offers/international-plans/day-pass.html','newwindow','left=10,top=10,height='+ (window.innerHeight - 20) +',width='+ (window.innerWidth- 20) +''); return false">{{devicePortal?.InternationaldayPassText}}</a>.</p>
+
     </div>
     <hr class="lite">
 </div>

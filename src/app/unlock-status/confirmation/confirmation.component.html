@@ -1,0 +1,35 @@
+<div class="row">
+<div class="span12">
+            <h1 class="heading-page">{{cms?.unlockPortalIRUHeaderTitle}}</h1>
+            <h2 class="heading-sub-section">{{cms?.currentStatusLabel}} - {{cms?.orderPending}}</h2>
+            <p [innerHTML]="cms?.pendingEmailConfirm"><p>
+    <hr class="hr-dotted dark">
+    <div class="row">
+        <div class="span2">
+            <h5 class="heading-small-emphasis">{{cms?.imeiNumberLabel}}</h5>
+            <p>XXXXXXXXX</p>
+        </div>
+        <div class="span2">
+            <h5 class="heading-small-emphasis">{{cms?.requestDateTimeLabel}}</h5>
+            <p>XXXXXXXXXX</p>
+        </div>
+        <div class="span2">
+            <h5 class="heading-small-emphasis">{{cms?.requestNumberStatusLabel}}</h5>
+            <p>XXXXXXXXXX</p>
+        </div>
+        <div class="span2">
+            <h5 class="heading-small-emphasis">{{cms?.currentStatusLabel}}</h5>
+            <p>XXXXXXXXXX</p>
+        </div>                
+    </div>
+    <hr class="hr-dotted dark">
+</div>
+<div class="span3">
+    <div class="three-links">
+
+    <a>{{cms?.deviceUnlockSupportLabel}}</a>
+    <a>{{cms?.checkAnotherUnlockStatusLabel}}</a>
+    <a>{{cms?.unlockPortalPageHeaderTitle}}</a>
+    </div>
+</div>
+</div>
