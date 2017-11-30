@@ -1,0 +1,12 @@
+@import '../app.component.scss';
+form-panel{
+    display: inline-block;
+    padding: 20px 0;
+}
+
+@media (min-width:768px) {
+    /* Tab and Desktop */
+    form-panel{
+        padding: 50px 0;
+    }
+}

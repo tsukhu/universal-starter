@@ -1,0 +1,8 @@
+@import '../../app.component.scss';
+
+@media (min-width:768px) {
+    /* Tab and Desktop */
+    .cta-button-group .btn {
+        width: 150px;
+    }
+}

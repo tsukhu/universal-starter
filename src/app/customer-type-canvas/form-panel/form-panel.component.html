@@ -1,0 +1,98 @@
+<!-- <div class="col-sm-3 col-md-3 radioButtonMargin">
+    <label for="att_cust" class="radio-inline paddingLft">
+        <span>
+            <input class="radioBtnOpacity" tabindex="0" name="attcust" id="att_cust" type="radio" checked="checked" value="true">
+            <span id="att_custRadioImg" class="radioBtnClickedImg radio-inline"></span>
+            <span>Yes</span>
+        </span>
+    </label>
+    <label for="notatt_cust" class="radio-inline">
+        <input class="radioBtnOpacity" tabindex="0" name="attcust" id="notatt_cust" type="radio" value="false">
+        <span id="notatt_custRadioImg" class="radioBtnImg radio-inline"></span>
+        <span>No</span>
+    </label>
+    <div class="error">
+        <div class="error errorMsgs">Select a customer type option to continue</div>
+    </div>
+</div> -->
+
+
+<!-- radios -->
+<form class="radio-form">
+    <h4 id="radiolabel1" class="heading-small-content-emphasis">{{formPanel?.radioLabel}}</h4>
+    <fieldset role="radiogroup" aria-labelledby="radiolabel1">
+       <div class="form-row">
+          <label for="opt1" class="radio" data-role="radio">
+             <input type="radio" name="radioOptions" id="opt1" value="option1">
+             <i class="skin"></i>
+             <span>{{formPanel?.yesRadioLabel}}</span>
+          </label>
+       </div>
+       <div class="form-row">
+          <label for="opt2" class="radio" data-role="radio">
+             <input type="radio" name="radioOptions" id="opt2" value="option2">
+             <i class="skin"></i>
+             <span>{{formPanel?.noRadioLabel}}</span>
+          </label>
+       </div>
+    </fieldset>
+ </form>
+
+ <div class="span6 span12-sm">
+ <div class="form-row">
+    <label for="textinputID_01">{{formPanel?.wirelessNumberLabel}}</label>
+    <div class="field-group">
+       <input id="textinputID_01" placeholder="Ex: 1234567890" class="span12" type="text">
+       <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+    </div>
+    <div aria-live="polite" aria-atomic="true" class="error-msg" tabindex="-1" id="field_01">
+       <i class="icon-badgealert" aria-hidden="true"></i> {{formPanel?.wirelessNumberRequiredError}}
+    </div>
+    <p class="required-text"><em>{{formPanel?.wirelessNumberTooltip}}</em></p>
+ </div>
+</div>
+
+<div class="span6 span12-sm">
+    <div class="form-row">
+       <label for="textinputID_01">{{formPanel?.imeiLabel}}</label>
+       <div class="field-group">
+          <input id="textinputID_01" placeholder="(15 Digits)" class="span12" type="text">
+          <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+       </div>
+       <div aria-live="polite" aria-atomic="true" class="error-msg" tabindex="-1" id="field_01">
+          <i class="icon-badgealert" aria-hidden="true"></i> {{formPanel?.imeiRequiredError}}
+       </div>
+       <p class="required-text"><em [innerHTML]="formPanel?.ImeiCaptionHelpText"></em></p>
+    </div>
+   </div>
+ 
+ <!-- error state -->
+ <!-- <h2 id="radiolabel3" class="ds2 heading-small-content-emphasis">Radio error treatment</h2>
+ <fieldset role="radiogroup" aria-labelledby="radiolabel3">
+    <div class="form-row error">
+       <label for="optionsRadios7" class="radio" data-role="radio">
+          <input type="radio" name="optionsRadios2" id="optionsRadios6" value="option6" required>
+          <i class="skin"></i>
+          <span>Error label 1 (unchecked)</span>
+       </label>
+    </div>
+    <div class="form-row error">
+       <label for="optionsRadios7" class="radio" data-role="radio">
+          <input type="radio" name="optionsRadios2" id="optionsRadios7" value="option7" required checked>
+          <i class="skin"></i>
+          <span>Error label 2(checked)</span>
+       </label>
+    </div>
+ </fieldset> -->
+                 
+ 
+<div class="form-row">
+  <label for="terms2" class="checkbox">
+     <input id="terms2" type="checkbox" value="">
+     <i class="skin"></i>
+     <span>{{formPanel?.acknowledgementTxt}} <a href="javascript:void(0);"  (click)="modalService.open('eligble-unlock-modal')">{{formPanel?.modalLinkTxt}}</a></span>
+  </label>
+</div>
+
+
+<modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)"><eligible-unlock></eligible-unlock></modal>
