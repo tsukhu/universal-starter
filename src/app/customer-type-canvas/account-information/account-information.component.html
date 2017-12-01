@@ -1,147 +1,158 @@
-<div class="row">
-   <div class="span12">
-      <!--<p class="required-text"><em>All fields required unless noted.</em></p>-->
-      <form class="account-form">
-         <fieldset>
-            <div class="row">
-                <div class="form-row">
-                    <label for="textinputID-5a">{{cms?.wirelessNumberLabel}}</label>
-                    <div class="field-group">
-                    <input id="textinputID-5a" placeholder="Ex: 1234567890" class="span12" type="text" disabled="">
-                    <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+<div class="container">
+    <!-- <step-indicator class="d-b" [stepIndicator]="cms" [stepIndex]="2"></step-indicator> -->
+    <div class="row">
+        <div class="span12">            
+            <!--<p class="required-text"><em>All fields required unless noted.</em></p>-->
+            <form class="account-form">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-row">
+                            <label for="textinputID-5a">{{cms?.wirelessNumberLabel}}</label>
+                            <div class="field-group">
+                                <input id="textinputID-5a" placeholder="Ex: 1234567890" class="span12" type="text" [disabled]="true" name="wirelessNumber" [(ngModel)]="wirelessNumber">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+                            </div>
+                            <div aria-live="polite" aria-atomic="true" class="error-msg">
+                                <i class="icon-badgealert" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div aria-live="polite" aria-atomic="true" class="error-msg">
-                        <i class="icon-badgealert" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
 
-             <div class="row">
-                <div class="form-row span5">
-                    <label for="last_name">{{cms?.accountHolderFirstnameLabel}}</label>
-                    <div class="field-group">
-                    <input class="form-control" id="last_name" class="span12" name="lastname" placeholder="Ex: Smith" tabindex="0" type="text" data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address" aria-required="true">
-                    <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
-                    </div>
-                    <div aria-live="polite" aria-atomic="true" class="error-msg">
-                        <i class="icon-badgealert" aria-hidden="true"></i>
-                    {{cms?.accountHolderFirstnameRequiredError}}
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="form-row span5">
+                            <label for="last_name">{{cms?.accountHolderFirstnameLabel}}</label>
+                            <div class="field-group">
+                                <input class="form-control" id="last_name" class="span12" name="lastname" placeholder="Ex: Smith" tabindex="0" type="text"
+                                    data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address"
+                                    aria-required="true" [(ngModel)]="firstName" (keyup)="validateNext($event)">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+                            </div>
+                            <div *ngIf="accFirstNameValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.accountHolderFirstnameRequiredError}}
+                            </div>
+                        </div>
 
-                <div class="form-row span5 offset1">
-                    <label for="address1">{{cms?.accountHolderLastnameLabel}}</label>
-                    <div class="field-group">
-                        <input id="address1" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address" aria-required="true" placeholder="Ex: Mary">
-                        <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                        <div class="form-row span5 offset1">
+                            <label for="address1">{{cms?.accountHolderLastnameLabel}}</label>
+                            <div class="field-group">
+                                <input id="address1" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="text"
+                                    aria-label="Street address" aria-required="true" 
+                                    placeholder="Ex: Mary" [(ngModel)]="lastName" (keyup)="validateNext($event)">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                            </div>
+                            <div *ngIf="accLastNameValidErr" aria-live="polite" class="error-msg-color" id="street_address">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.accountHolderLastnameRequiredError}}
+                            </div>
+                        </div>
                     </div>
-                    <div aria-live="polite" class="error-msg" id="street_address">
-                        <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.accountHolderLastnameRequiredError}}
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-row span5">
-                    <label for="passcode">{{cms?.passcodeLabel}}</label>
-                    <div class="field-group">
-                    <input class="form-control" id="passcode" class="span12" name="lastname" placeholder="●●●●" tabindex="0" type="text" data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address" aria-required="true">
-                    <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+                    <div class="row">
+                        <div class="form-row span5">
+                            <label for="passcode">{{cms?.passcodeLabel}}</label>
+                            <div class="field-group">
+                                <input class="form-control" id="passcode" class="span12" name="lastname" placeholder="●●●●" tabindex="0" type="password" data-validate="address1"
+                                    maxlength="35" data-required="true" type="text" 
+                                    aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (keyup)="validateNext($event)">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+                            </div>
+                            <div aria-live="polite" aria-atomic="true" class="error-msg">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.forgotPasswordLink}}
+                            </div>
+                            <!-- <a href="https://www.att.com/esupport/article.html#!/wireless/KM1049472" target="_blank"> -->
+                            <a href="javascript:void(0);" onclick="window.open('https://www.att.com/esupport/article.html#!/wireless/KM1049472','newwindow','left=10,top=10,height='+ (window.innerHeight - 20) +',width='+ (window.innerWidth- 20) +''); return false"><em>{{cms?.forgotPasswordLink}}</em></a>
+                        </div>
                     </div>
-                    <div aria-live="polite" aria-atomic="true" class="error-msg">
-                        <i class="icon-badgealert" aria-hidden="true"></i>
-                    {{cms?.forgotPasswordLink}}
-                    </div>
-                    <a href="javascript:void(0);"><em>{{cms?.forgotPasswordLink}}</em></a>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-row span5">
-                    <label for="email">{{cms?.emailLabel}}</label>
-                    <div class="field-group">
-                    <input class="form-control" id="email" class="span12" name="lastname" placeholder="Ex: name@email.com" tabindex="0" type="text" data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address" aria-required="true">
-                    <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
-                    </div>
-                    <div aria-live="polite" aria-atomic="true" class="error-msg">
-                        <i class="icon-badgealert" aria-hidden="true"></i>
-                    {{cms?.emailRequiredError}}
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="form-row span5">
+                            <label for="email">{{cms?.emailLabel}}</label>
+                            <div class="field-group">
+                                <input class="form-control" id="email" class="span12" name="lastname" placeholder="Ex: name@email.com" tabindex="0" type="email"
+                                    data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address"
+                                    aria-required="true" [(ngModel)]="email" (keyup)="validateNext($event)">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+                            </div>
+                            <div *ngIf="emailValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailRequiredError}}
+                            </div>
+                        </div>
 
-                <div class="form-row span5 offset1">
-                    <label for="email_again">{{cms?.confirmEmail}}</label>
-                    <div class="field-group">
-                        <input id="email_again" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address" aria-required="true" placeholder="Ex: name@email.com">
-                        <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                        <div class="form-row span5 offset1">
+                            <label for="email_again">{{cms?.confirmEmail}}</label>
+                            <div class="field-group">
+                                <input id="email_again" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="email"
+                                    aria-label="Street address" aria-required="true" 
+                                    placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (keyup)="validateNext($event)">
+                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                            </div>
+                            <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailMismatchError}}
+                            </div>
+                        </div>
                     </div>
-                    <div aria-live="polite" class="error-msg" id="street_address">
-                        <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailMismatchError}}
-                    </div>
-                </div>
-            </div>
-         </fieldset>  
-            <h4 id="radiolabel1" class="heading-small-content-emphasis">{{cms?.militaryPersonalRadiolabel}}</h4>
-            <fieldset role="radiogroup" aria-labelledby="radiolabel1" class="radio-ibl">
-            <div class="form-row">
-                <label for="opt1" class="radio" data-role="radio">
-                    <input type="radio" name="radioOptions" id="opt1" value="option1">
+                </fieldset>
+                <h4 id="radiolabel1" class="heading-small-content-emphasis">{{cms?.militaryPersonalRadiolabel}}</h4>
+                <fieldset role="radiogroup" aria-labelledby="radiolabel1" class="radio-ibl">
+                    <div class="form-row">
+                        <label for="opt1" class="radio" data-role="radio" >
+                    <input type="radio" name="radioOptions" id="opt1" value="true" [checked]="mulitaryPersonnel" (change)="onMilitaryPersonnelChange(true)">
                     <i class="skin"></i>
                     <span>{{cms?.yesRadioLabel}}</span>
                 </label>
-            </div>
-            <div class="form-row">
-                <label for="opt2" class="radio" data-role="radio">
-                    <input type="radio" name="radioOptions" id="opt2" value="option2">
+                    </div>
+                    <div class="form-row">
+                        <label for="opt2" class="radio" data-role="radio">
+                    <input type="radio" name="radioOptions" id="opt2" value="false" [checked]="mulitaryPersonnel" (change)="onMilitaryPersonnelChange(true)">
                     <i class="skin"></i>
                     <span>{{cms?.noRadioLabel}}</span>
                 </label>
-            </div>
-            </fieldset>
-      </form>
-   </div>
-</div>
-
-<!-- Account Information - 2nd form start -->
-<div class="row">
-   <div class="span5">
-      <form class="account-form">
-         <fieldset>
-            <div class="form-row">
-                <label for="IMEI">{{cms?.imeiLabel}}</label>
-               <div class="field-group">
-                  <input id="IMEI" name="street2" class="span12"  maxlength="35" placeholder="Ex: 12345678901234" type="text" aria-label="Apartment or suite number optional">
-                  <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
-               </div>
-               <div aria-live="polite" class="error-msg" id="street_address2">
-                  <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
-               </div>
-               <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
-            </div>
-         </fieldset>
-      </form>
-   </div>
-</div>
-
-<div class="row" style="margin-top: 40px;">
-    <div class="span4">
-        <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
-        <p>XXXXXXXXXXX</p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-    <div class="span4">
-        <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
-        <p>XXXXXXXX</p>
+
+    <!-- Account Information - 2nd form start -->
+    <!-- <div class="row">
+        <div class="span5">
+            <form class="account-form">
+                <fieldset>
+                    <div class="form-row">
+                        <label for="IMEI">{{cms?.imeiLabel}}</label>
+                        <div class="field-group">
+                            <input id="IMEI" name="street2" class="span12" maxlength="35" placeholder="Ex: 12345678901234" type="text" aria-label="Apartment or suite number optional">
+                            <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                        </div>
+                        <div aria-live="polite" class="error-msg-color" id="street_address2">
+                            <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
+                        </div>
+                        <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-</div>
-<hr class="lite">
 
-<h3 class="heading-small-content-emphasis">{{cms?.whatnextTitle}}</h3>
-<p>{{cms?.whatnextInstructionLine1}}</p>
-<p [innerHTML]="cms?.whatnextInstructionLine2"></p>
-<!-- Account Information - 2nd form end -->
+    <div class="row" style="margin-top: 40px;">
+        <div class="span4">
+            <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
+            <p>XXXXXXXXXXX</p>
+        </div>
+        <div class="span4">
+            <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
+            <p>XXXXXXXX</p>
+        </div>
+    </div>
+    <hr class="lite">
 
-<hr class="lite">
-<div class="cta-button-group nodots align-right">
-    <button class="btn btn-primary-functional" type="button">{{cms?.submitButton}}</button>
-    <button class="btn btn-secondary" type="button">{{cms?.backButton}}</button>
+    <h3 class="heading-small-content-emphasis">{{cms?.whatnextTitle}}</h3>
+    <p>{{cms?.whatnextInstructionLine1}}</p>
+    <p [innerHTML]="cms?.whatnextInstructionLine2"></p> -->
+    <!-- Account Information - 2nd form end -->
+
+    <hr class="lite">
+    <div class="cta-button-group nodots align-right">
+        <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.nextButton}}</button>
+        <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{cms?.backButton}}</button>
+    </div>
 </div>

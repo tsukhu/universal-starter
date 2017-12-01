@@ -7,17 +7,26 @@ import { UnlockService } from '../common/services/unlock.service';
 import { ModalComponent } from '../common/modal/index';
 import { ModalService } from '../common/modal/modal.service';
 import { EligibleUnlockComponent } from '../common/eligible-unlock/index';
+/*  */
 import { WirelessNumberComponent } from "./wireless-number/index";
 import { StepIndicatorComponent } from "./step-indicator/index";
 import { AccountInformationComponent } from "./account-information/index";
 import { ConfirmationComponent } from "./confirmation/index";
+/*  */
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [CustomerTypeCanvasComponent, StepIndicatorComponent, WirelessNumberComponent, AccountInformationComponent, ConfirmationComponent, ModalComponent, EligibleUnlockComponent],
+  declarations: [CustomerTypeCanvasComponent, 
+     StepIndicatorComponent,
+     WirelessNumberComponent, 
+    // AccountInformationComponent, 
+    // ConfirmationComponent, 
+    ModalComponent, EligibleUnlockComponent],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild([
-      { path: '', component: CustomerTypeCanvasComponent, pathMatch: 'full' }
+      { path: '', component: CustomerTypeCanvasComponent, pathMatch: 'full' },
     ])
   ],
   providers: [

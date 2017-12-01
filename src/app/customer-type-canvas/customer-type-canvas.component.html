@@ -1,9 +1,22 @@
 <div class="container">
-    <step-indicator class="d-b" [stepIndicator]="unlockCanvas"></step-indicator>
+    <step-indicator class="d-b" [stepIndicator]="unlockCanvas" [stepIndex]="1"></step-indicator>
     <wireless-number class="d-b" [cms]="unlockCanvas"></wireless-number>
-    <account-information class="d-b" [cms]="unlockCanvas"></account-information>
-    <confirmation class="d-b" [cms]="unlockCanvas"></confirmation>
+    <!-- <account-information class="d-b" [cms]="unlockCanvas"></account-information>
+    <confirmation class="d-b" [cms]="unlockCanvas"></confirmation> -->
+
+    
     <!--<navigate-panel [navigatePanel]="unlockCanvas"></navigate-panel>-->
+  
+<!-- old code done rajaram
+        <step-indicator class="d-b" [stepIndicator]="unlockCanvas"></step-indicator>
+     <p>{{unlockCanvas?.introTextBeforeLink}}
+        <a href="javascript:void(0);" (click)="modalService.open('eligble-unlock-modal')">{{unlockCanvas?.modalLinkTxtIntroParagraph}}</a> {{unlockCanvas?.introTextAfterLink}}</p>
+    <hr class="hr-dotted dark">
+
+    <form-panel [formPanel]="unlockCanvas"></form-panel> -->
+    <!-- <hr class="hr-dotted dark">
+    <navigate-panel [navigatePanel]="unlockCanvas"></navigate-panel> -->
+    
 </div>
 
 <modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)"><eligible-unlock></eligible-unlock></modal>

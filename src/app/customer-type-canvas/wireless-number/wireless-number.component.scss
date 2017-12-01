@@ -9,10 +9,13 @@
         }
     }
 }
-
 @media (min-width:768px) {
     /* Tab and Desktop */
     .cta-button-group .btn {
         width: 150px;
     }
+}
+
+.error-msg-color {
+    color: red;
 }
