@@ -1,0 +1,41 @@
+.searchBar {
+    position: relative;
+}
+
+.btn-search {
+    top: -1.3rem;
+    left: -1.5rem;
+}
+
+.icon-right:before {
+    content: unset;
+}
+
+.icon-hamburger {
+    color: white;
+}
+
+.shopAndSupportText {
+    margin-top: 0;
+}
+
+.ub_header {
+    font-family: font-regular,Omnes-ATT-W02,Arial;
+}
+
+@media (min-width:768px) {
+    /* Tab and Desktop */
+    .btn-search {
+        top: 1.2rem;
+        left: 1rem;
+    }
+}
+
+@media (min-width:1024px) {
+    /* Tab and Desktop */
+    .btn-search {
+        top: 0.8rem;
+        left: auto;
+    }
+}
+
