@@ -18,6 +18,8 @@ import { AccountInformationComponent } from './customer-type-canvas/account-info
 import { ModalService } from './common/modal/modal.service';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/step-indicator.component';
+import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status-confirmation/unlock-status-confirmation.component";
+import { UnlockStatusService } from "./common/services/unlock-status.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/st
     HomeComponent,
     AccountInformationComponent,
     AccountIEMIInformationComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    UnlockStatusConfirmationComponent
     //StepIndicatorComponent
   ],
   imports: [
@@ -49,11 +52,12 @@ import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/st
       { path: 'unlockstep2', component: AccountInformationComponent },
       { path: 'unlockstep3', component: AccountIEMIInformationComponent },
       { path: 'unlockConfirm', component: ConfirmationComponent },
+      { path: 'unlock-status-confirm', component: UnlockStatusConfirmationComponent },
     ], { useHash: true })
   ],
   providers: [
     CityWeatherResolverService,
-    PreloaderService, ModalService, UnlockService,
+    PreloaderService, ModalService, UnlockService, UnlockStatusService, 
     AppState],
   bootstrap: [AppComponent]
 })

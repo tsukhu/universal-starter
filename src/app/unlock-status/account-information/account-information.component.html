@@ -4,10 +4,10 @@
    <div class="span5">
       <form id="billingAddress">
          <fieldset>
-            <div class="form-row">
+            <div class="form-row" [ngClass]="nonAttImeiReqErr?'error':''">
                 <label for="IMEI">{{cms?.imeiLabel}}</label>
                <div class="field-group">
-                  <input id="IMEI" name="street2" class="span12"  maxlength="35" placeholder="Ex: 12345678901234" type="text" aria-label="Apartment or suite number optional">
+                  <input id="IMEI" name="street2" class="span12" placeholder="Ex: 12345678901234" type="text" minlength="15" maxlength="15" (keyup)="validateNext($event)" [(ngModel)]="imeiNumber" aria-label="Apartment or suite number optional">
                   <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                </div>
                <div aria-live="polite" class="error-msg" id="street_address2">
@@ -15,14 +15,14 @@
                </div>
                <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
             </div>
-            <div class="form-row">
+            <div class="form-row" [ngClass]="nonAttReqNoErr?'error':''">
                <label for="req_num">{{cms?.requestNumberStatusLabel}}</label>
                <div class="field-group">
-                  <input id="req_num" name="city" class="span12" data-validate="city" maxlength="35" type="text" data-required="true" aria-required="true" placeholder="Ex: AB1234C678">
+                  <input id="req_num" name="city" class="span12" data-validate="city" type="text" minlength="10" maxlength="10" (keyup)="validateNext($event)" [(ngModel)]="requestNumber" data-required="true" aria-required="true" placeholder="Ex: AB1234C678">
                   <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                </div>
                <div aria-live="polite" class="error-msg" id="city_field">
-                  <i class="icon-badgealert" aria-hidden="true"></i>
+                  <i class="icon-badgealert" aria-hidden="true"></i>  {{cms?.requestNumberRequiredError}}
                </div>
             </div>
             <div class="form-row">
@@ -38,6 +38,6 @@
 
 <hr class="lite">
 <div class="cta-button-group nodots align-right">
-    <button class="btn btn-primary-functional" type="button">{{cms?.nextButton}}</button>
+    <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.nextButton}}</button>
     <button class="btn btn-secondary" type="button">{{cms?.backButton}}</button>
 </div>
