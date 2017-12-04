@@ -14,3 +14,7 @@
 .att_preloader_stop{
   display: none;
 }
+
+.error-msg {
+  padding: 5px 0px 8px 18px !important;
+}

@@ -19,6 +19,8 @@ import { ModalService } from './common/modal/modal.service';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/step-indicator.component';
 import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
+import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status-confirmation/unlock-status-confirmation.component";
+import { UnlockStatusService } from "./common/services/unlock-status.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-in
     AccountInformationComponent,
     AccountIEMIInformationComponent,
     ConfirmationComponent,
-    ImeiContactInfoComponent
+    ImeiContactInfoComponent,
+    UnlockStatusConfirmationComponent
     //StepIndicatorComponent
   ],
   imports: [
@@ -48,19 +51,16 @@ import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-in
       { path: 'unlock-canvas', loadChildren: './unlock-canvas/unlock-canvas.module#UnlockCanvasModule' },
       { path: 'device-unlock', loadChildren: './customer-type-canvas/customer-type-canvas.module#CustomerTypeCanvasModule' },
       { path: 'unlock-status', loadChildren: './unlock-status/unlock-status.module#UnlockStatusModule' },
-      { path: 'unlockstep2', component: AccountInformationComponent,
-        //  resolve: {
-        //     transaction: TransactionResolver
-        // }
-      },
+      { path: 'unlockstep2', component: AccountInformationComponent},
       { path: 'unlockstep3', component: AccountIEMIInformationComponent },
       { path: 'unlockConfirm', component: ConfirmationComponent },
-      { path: 'nonattunlock', component: ImeiContactInfoComponent}
+      { path: 'nonattunlock', component: ImeiContactInfoComponent},
+      { path: 'unlock-status-confirm', component: UnlockStatusConfirmationComponent },
     ], { useHash: true })
   ],
   providers: [
     CityWeatherResolverService,
-    PreloaderService, ModalService, UnlockService,
+    PreloaderService, ModalService, UnlockService, UnlockStatusService, 
     AppState],
   bootstrap: [AppComponent]
 })

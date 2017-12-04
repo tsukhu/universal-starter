@@ -23,7 +23,7 @@
             "img": "../../../assets/images/ico-checkunlock-blue-60x45.png",
             "unlockyourDevice": "Check an unlock status",
             "unlockDeviceDescription": "Make sure you have your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email.",
-            "link": "./unlock-status" 
+            "link": "../unlock-status" 
          
             }
             ],
@@ -102,6 +102,7 @@
             "imeiNumberLabel": "IMEI Number",
             "requestDateTimeLabel": "Request Date/Time",
             "requestNumberStatusLabel": "Request Number",
+            "requestNumberRequiredError": "Enter your request number.",
             "deviceUnlockSupportLabel": "Device unlock support",
             "checkAnotherUnlockStatusLabel": "Check status of another device",
             "submitButton": "Submit",
