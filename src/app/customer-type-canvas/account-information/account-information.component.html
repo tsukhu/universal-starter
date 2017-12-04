@@ -1,4 +1,24 @@
 <div class="container">
+    
+    <div class="step-indicator">
+    <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
+    <ul class="steps">
+        <li [ngClass]="{'step-on': true }" >
+            <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{cms?.DUEnterYourWirelessNumberStep}}</div>
+            <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
+        </li>
+        <li [ngClass]="{'step-on': true }">
+            <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{cms?.DUAccountInformationStep}}</div>
+            <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
+        </li>
+        <li [ngClass]="{'step-on': stepIndex == 3 }">
+            <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
+            <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
+        </li>
+    </ul>
+</div>
+
+
     <!-- <step-indicator class="d-b" [stepIndicator]="cms" [stepIndex]="2"></step-indicator> -->
     <div class="row">
         <div class="span12">            
@@ -50,13 +70,13 @@
                         <div class="form-row span5">
                             <label for="passcode">{{cms?.passcodeLabel}}</label>
                             <div class="field-group">
-                                <input class="form-control" id="passcode" class="span12" name="lastname" placeholder="●●●●" tabindex="0" type="password" data-validate="address1"
-                                    maxlength="35" data-required="true" type="text" 
+                                <input class="form-control" id="passcode" class="span12" name="password" placeholder="●●●●" tabindex="0" type="password" data-validate="address1"
+                                    maxlength="35" data-required="true" 
                                     aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
-                            <div aria-live="polite" aria-atomic="true" class="error-msg">
-                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.forgotPasswordLink}}
+                            <div *ngIf="passcodeValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.passcodeRequiredError}}
                             </div>
                             <!-- <a href="https://www.att.com/esupport/article.html#!/wireless/KM1049472" target="_blank"> -->
                             <a href="javascript:void(0);" onclick="window.open('https://www.att.com/esupport/article.html#!/wireless/KM1049472','newwindow','left=10,top=10,height='+ (window.innerHeight - 20) +',width='+ (window.innerWidth- 20) +''); return false"><em>{{cms?.forgotPasswordLink}}</em></a>
@@ -67,8 +87,8 @@
                         <div class="form-row span5">
                             <label for="email">{{cms?.emailLabel}}</label>
                             <div class="field-group">
-                                <input class="form-control" id="email" class="span12" name="lastname" placeholder="Ex: name@email.com" tabindex="0" type="email"
-                                    data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address"
+                                <input class="form-control" id="email" class="span12" name="email" placeholder="Ex: name@email.com" tabindex="0" type="email"
+                                    data-validate="address1" maxlength="35" data-required="true"  aria-label="Street address"
                                     aria-required="true" [(ngModel)]="email" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
@@ -80,7 +100,7 @@
                         <div class="form-row span5 offset1">
                             <label for="email_again">{{cms?.confirmEmail}}</label>
                             <div class="field-group">
-                                <input id="email_again" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="email"
+                                <input id="email_again" name="confirmEmail" class="span12" data-validate="address1" maxlength="35" data-required="true" type="email"
                                     aria-label="Street address" aria-required="true" 
                                     placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
@@ -88,6 +108,9 @@
                             <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailMismatchError}}
                             </div>
+                            <!-- <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailMismatchError}}
+                            </div> -->
                         </div>
                     </div>
                 </fieldset>

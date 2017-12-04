@@ -1,4 +1,21 @@
 <div class="container">
+     <div class="step-indicator">
+        <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
+        <ul class="steps">
+            <li [ngClass]="{'step-on': true }">
+                <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{cms?.DUEnterYourWirelessNumberStep}}</div>
+                <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
+            </li>
+            <li [ngClass]="{'step-on': true }">
+                <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{cms?.DUAccountInformationStep}}</div>
+                <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
+            </li>
+            <li [ngClass]="{'step-on': true }">
+                <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
+                <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
+            </li>
+        </ul>
+    </div>
     <div class="span12">
         <div class="step-sub-heading step-confirmation">
             <div class="row-nowrap align-items-center">
@@ -11,7 +28,7 @@
         <div class="confirmation-within-process">
             <p>1. {{cms?.step1ToFollowOnThankUPage}}</p>
             <p>2. {{cms?.step2ToFollowOnThankUPage}}</p>
-            <p>3. {{cms?.step3ToFollowOnThankUPagePart1}} XXXXXX {{cms?.step3ToFollowOnThankUPagePart2}}</p><br/>
+            <p>3. {{cms?.step3ToFollowOnThankUPagePart1}} <b>{{requestNo}}</b> {{cms?.step3ToFollowOnThankUPagePart2}}</p><br/>
             <p>{{cms?.step4ToFollowOnThankUPage}}</p>
         </div>
     </div>

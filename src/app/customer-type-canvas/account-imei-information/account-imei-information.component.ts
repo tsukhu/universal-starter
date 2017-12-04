@@ -49,6 +49,8 @@ export class AccountIEMIInformationComponent implements OnInit {
 
   unlockPrevious() {
     this.route.navigate(['/unlockstep2']);
+
+    this.route.navigate(['/unlockstep2']);
   }
 
 
@@ -66,7 +68,7 @@ export class AccountIEMIInformationComponent implements OnInit {
     if (this.imeiNumber.length == 15) {
       this.isInvalid = false;
       this.preloader.start();
-      this.unlockService.iemiOrderFlow(this.imeiNumber)
+      this.unlockService.imeiMakeModelResponse(this.imeiNumber)
         .subscribe((data: any) => {
           console.log("validate iemi");
           console.log(data);

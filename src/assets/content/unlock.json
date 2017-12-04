@@ -29,7 +29,8 @@
             ],
 			"DUEnterYourWirelessNumberStep" : "Enter your wireless number",
 			"DUEnterYourIMEIStep" : "Enter your IMEI",
-			"DUAccountInformationStep" : "Account information",
+            "DUAccountInformationStep" : "Account information",
+            "DUAContactInformationStep" : "Contact information",
 			"DUConfirmationStep" : "Confirmation",            
             "introTextBeforeLink": "Be sure you’re",
             "modalLinkTxtIntroParagraph" : "eligible to unlock",
@@ -68,6 +69,8 @@
             "accountHolderFirstnameRequiredError": "Enter your first name.",
             "accountHolderLastnameLabel": "Account holder's last name",
             "accountHolderLastnameRequiredError": "Enter your last name.",
+            "imeiContactInfoFirstnameLabel": "First name",
+            "imeiContactInfoLastnameLabel": "Last name",
             "passcodeLabel": "AT&T wireless security passcode",
             "passcoderequiredLabel": "(Required if created)",
             "passcodeRequiredError": "Please enter valid Account Passcode",
@@ -104,7 +107,8 @@
             "submitButton": "Submit",
             "backButton": "Back",
             "ULP_1010": "Looks like this email address is associated with fraud. Please enter a new email address.",
-            "nextButton": "Next"
+            "nextButton": "Next",
+            "wirelessTelephoneNumberLabel": "Wireless telephone number"
         }
     ]
 }

@@ -13,7 +13,7 @@ export class WirelessNumberComponent implements OnInit {
 
   @Input()
   public cms;
-
+  stepIndex = 1;
   customerType: boolean = true;
   isInvalid: boolean = true;
   wirelessNumber: string = undefined;
@@ -27,6 +27,7 @@ export class WirelessNumberComponent implements OnInit {
   attWrlsValidServerErr: boolean = false;
 
   nonAttImeiReqErr: boolean = false;
+  errorMessage: boolean  = false;
 
   deviceMake: string;
   deviceModel: string;
@@ -86,7 +87,7 @@ export class WirelessNumberComponent implements OnInit {
 
       if (this.imeiNumber.length == 15) {
         this.preloader.start();
-        this.unlockService.iemiOrderFlow(this.imeiNumber)
+        this.unlockService.imeiMakeModelResponse(this.imeiNumber)
           .subscribe((data: any) => {
             console.log("validate iemi");
             console.log(data);
@@ -128,16 +129,30 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   unlockNext() {
-    // this.unlockService.orderFlow(this.wirelessNumber)
-    //   .subscribe((data: any) => {
-    //     console.log(data);
+    if (this.customerType) {
+    this.unlockService.orderFlow(this.wirelessNumber)
+      .subscribe((data: any) => {
+        console.log(data);
         
-    //     this.route.navigate['/unlockstep2'];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   });
-    this.route.navigate(['/unlockstep2', {wirelessNumber: this.wirelessNumber}]);
+        this.route.navigate(['/unlockstep2/', {wirelessNumber: this.wirelessNumber}]);
+      },
+      (error) => {
+        console.log(error);
+      });
+    } else {
+      this.unlockService.imeiOrderFlow(this.imeiNumber)
+      .subscribe((data: any) => {
+        console.log(data);
+        
+        this.route.navigate(['/nonattunlock']);
+      },
+      (error) => {
+        console.log(error);
+      });
+    }
+      
+
+    // this.route.navigate(['/unlockstep2', {wirelessNumber: this.wirelessNumber}]);
   }
 
   unlockPrevious() {

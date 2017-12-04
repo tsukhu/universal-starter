@@ -1,10 +1,28 @@
-<!-- <step-indicator class="d-b" [stepIndicator]="cms" [stepIndex]="1"></step-indicator> -->
+<!-- <step-indicator class="d-b" [cms]="cms" [stepIndex]="1"></step-indicator> -->
+<div class="step-indicator">
+    <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
+    <ul class="steps">
+        <li [ngClass]="{'step-on': true }" >
+            <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{customerType ? cms?.DUEnterYourWirelessNumberStep : cms?.DUEnterYourIMEIStep}}</div>
+            <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
+        </li>
+        <li [ngClass]="{'step-on': false }">
+            <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{customerType ? cms?.DUAccountInformationStep : cms?.DUAContactInformationStep}}</div>
+            <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
+        </li>
+        <li [ngClass]="{'step-on': false }">
+            <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
+            <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
+        </li>
+    </ul>
+</div>
+
 
 <p>{{cms?.introTextBeforeLink}}
     <a href="javascript:void(0);" (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxtIntroParagraph}}</a> {{cms?.introTextAfterLink}}</p>
 
 <!--error message for capcha-->
-<div class="alert" style="margin-bottom: 20px;">
+<div class="alert" style="margin-bottom: 20px;" *ngIf="errorMessage">
     <div class="alert-error">
         <i class="icon-flat-info" role="img" aria-label="Info"></i>
     </div>

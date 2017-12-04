@@ -18,6 +18,7 @@ import { AccountInformationComponent } from './customer-type-canvas/account-info
 import { ModalService } from './common/modal/modal.service';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/step-indicator.component';
+import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/st
     HomeComponent,
     AccountInformationComponent,
     AccountIEMIInformationComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ImeiContactInfoComponent
     //StepIndicatorComponent
   ],
   imports: [
@@ -46,9 +48,14 @@ import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/st
       { path: 'unlock-canvas', loadChildren: './unlock-canvas/unlock-canvas.module#UnlockCanvasModule' },
       { path: 'device-unlock', loadChildren: './customer-type-canvas/customer-type-canvas.module#CustomerTypeCanvasModule' },
       { path: 'unlock-status', loadChildren: './unlock-status/unlock-status.module#UnlockStatusModule' },
-      { path: 'unlockstep2', component: AccountInformationComponent },
+      { path: 'unlockstep2', component: AccountInformationComponent,
+        //  resolve: {
+        //     transaction: TransactionResolver
+        // }
+      },
       { path: 'unlockstep3', component: AccountIEMIInformationComponent },
       { path: 'unlockConfirm', component: ConfirmationComponent },
+      { path: 'nonattunlock', component: ImeiContactInfoComponent}
     ], { useHash: true })
   ],
   providers: [

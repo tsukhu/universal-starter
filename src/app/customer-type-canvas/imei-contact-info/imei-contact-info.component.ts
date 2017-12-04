@@ -5,29 +5,26 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { StepIndicatorComponent } from "../step-indicator/step-indicator.component";
 
 @Component({
-  selector: "account-information",
-  templateUrl: "account-information.component.html",
-  styleUrls: ["account-information.component.scss"]
+  selector: "imei-contact-info",
+  templateUrl: "./imei-contact-info.component.html",
+  styleUrls: ["./imei-contact-info.component.scss"]
 })
-export class AccountInformationComponent implements OnInit {
+export class ImeiContactInfoComponent implements OnInit {
   // @Input()
   public cms;
-  wirelessNumber;
   isInvalid: boolean = true;
 
   firstName = undefined;
   lastName = undefined;
-  passcode = undefined;
+  wirelessNumber = undefined;
   email = undefined;
   confirmEmail = undefined;
 
-  mulitaryPersonnel: boolean = true;
-
-  accFirstNameValidErr: boolean = false;
-  accLastNameValidErr: boolean = false;
+  wirelessNumberValidErr: boolean = false;
+  firstNameValidErr: boolean = false;
+  lastNameValidErr: boolean = false;
   emailValidErr: boolean = false;
   confirmEmailValidErr: boolean = false;
-  passcodeValidErr: boolean = false;
 
   constructor(
     public modalService: ModalService,
@@ -39,8 +36,6 @@ export class AccountInformationComponent implements OnInit {
     this.unlockService.UnlockDevice().subscribe((data: any) => {
       this.cms = data.unlockPortalLabelAndErrorObj[0];
     });
-
-    this.wirelessNumber = this.route.snapshot.params["wirelessNumber"];
   }
 
   ngOnInit() {}
@@ -59,7 +54,7 @@ export class AccountInformationComponent implements OnInit {
     //     console.log(error);
     //   });
 
-    this.router.navigate(["/unlockstep3"]);
+    this.router.navigate(["/unlockConfirm"]);
   }
 
   unlockPrevious() {
@@ -67,47 +62,43 @@ export class AccountInformationComponent implements OnInit {
     this.router.navigate(["/device-unlock"]);
   }
 
-  onMilitaryPersonnelChange(value: boolean) {
-    console.log(value);
-    this.mulitaryPersonnel = value;
-  }
-
   validateNext(event) {
-    console.log(this.confirmEmail);
-    if (this.firstName != undefined && this.firstName.length == 0) {
-      this.accFirstNameValidErr = true;
+    if(this.firstName != undefined && this.firstName.length == 0) {
+      this.firstNameValidErr = true;
     } else {
-      this.accFirstNameValidErr = false;
+      this.firstNameValidErr = false;
     }
 
-    if (this.lastName != undefined && this.lastName.length == 0) {
-      this.accLastNameValidErr = true;
+    if(this.lastName != undefined && this.lastName.length == 0) {
+      this.lastNameValidErr = true;
     } else {
-      this.accLastNameValidErr = false;
+      this.lastNameValidErr = false;
     }
 
-    if (this.email != undefined && this.email.length == 0) {
+    if(this.email != undefined && this.email.length == 0) {
       this.emailValidErr = true;
     } else {
       this.emailValidErr = false;
     }
 
-    if (this.confirmEmail != undefined && this.confirmEmail.length == 0) {
+    if(this.confirmEmail != undefined && this.confirmEmail.length == 0) {
       this.confirmEmailValidErr = true;
     } else {
       this.confirmEmailValidErr = false;
     }
 
-    if (this.passcode != undefined && this.passcode.length == 0) {
-      this.passcodeValidErr = true;
+    if(this.wirelessNumber != undefined && this.wirelessNumber.length == 0) {
+      this.wirelessNumberValidErr = true;
     } else {
-      this.passcodeValidErr = false;
+      this.wirelessNumberValidErr = false;
     }
 
     // console.log("hai" + this.passcode + "hello");
-    if (this.firstName.length != 0 && this.lastName.length != 0 &&
-      this.passcode.length != 0 && this.email.length != 0 &&
-      this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
+    if(this.firstName != undefined && this.firstName.length != 0 &&
+      this.firstName != undefined && this.lastName.length != 0 &&
+      this.lastName != undefined && this.wirelessNumber.length != 0 &&
+      this.email != undefined && this.email.length != 0 &&
+      this.confirmEmail != undefined && this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
       this.isInvalid = false;
     } else {
       this.isInvalid = true;

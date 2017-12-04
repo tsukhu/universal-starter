@@ -1,47 +1,64 @@
 <div class="container">
-       
-        <!-- Account Information - 2nd form start -->
-        <div class="row">
-            <div class="span5">
-                <form class="account-form">
-                    <fieldset>
-                        <div class="form-row">
-                            <label for="IMEI">{{cms?.imeiLabel}}</label>
-                            <div class="field-group">
-                                <input id="IMEI" name="street2" class="span12" minlength="15" maxlength="15" (keyup)="validateNext($event)"
-                                 placeholder="Ex: 12345678901234" [(ngModel)]="imeiNumber" type="text" aria-label="Apartment or suite number optional">
-                                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
-                            </div>
-                            <div *ngIf="nonAttImeiReqErr" aria-live="polite" class="error-msg-color" id="street_address2">
-                                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
-                            </div>
-                            <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
+    <div class="step-indicator">
+        <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
+        <ul class="steps">
+            <li [ngClass]="{'step-on': true }">
+                <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{cms?.DUEnterYourWirelessNumberStep}}</div>
+                <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
+            </li>
+            <li [ngClass]="{'step-on': true }">
+                <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{cms?.DUAccountInformationStep}}</div>
+                <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
+            </li>
+            <li [ngClass]="{'step-on': stepIndex == 3 }">
+                <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
+                <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
+            </li>
+        </ul>
+    </div>
+    <!-- Account Information - 2nd form start -->
+    <div class="row">
+        <div class="span5">
+            <form class="account-form">
+                <fieldset>
+                    <div class="form-row">
+                        <label for="IMEI">{{cms?.imeiLabel}}</label>
+                        <div class="field-group">
+                            <input id="IMEI" name="street2" class="span12" minlength="15" maxlength="15" (keyup)="validateNext($event)" placeholder="Ex: 12345678901234"
+                                [(ngModel)]="imeiNumber" type="text" aria-label="Apartment or suite number optional">
+                            <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                         </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    
-        <div class="row" style="margin-top: 40px;" *ngIf="showDeviceDetail">
-            <div class="span4">
-                <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
-                <p>{{deviceModel}}</p>
-            </div>
-            <div class="span4">
-                <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
-                <p>{{deviceMake}}</p>
-            </div>
-        </div>
-        <hr class="lite">
-    
-        <h3 class="heading-small-content-emphasis">{{cms?.whatnextTitle}}</h3>
-        <p>{{cms?.whatnextInstructionLine1}}</p>
-        <p [innerHTML]="cms?.whatnextInstructionLine2"></p>
-        <!-- Account Information - 2nd form end -->
-    
-        <hr class="lite">
-        <div class="cta-button-group nodots align-right">
-            <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>
-            <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{cms?.backButton}}</button>
+                        <div *ngIf="nonAttImeiReqErr" aria-live="polite" class="error-msg-color" id="street_address2">
+                            <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
+                        </div>
+                        <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
+
+
+    <div class="row" style="margin-top: 40px;" *ngIf="showDeviceDetail">
+        <div class="span4">
+            <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
+            <p>{{deviceModel}}</p>
+        </div>
+        <div class="span4">
+            <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
+            <p>{{deviceMake}}</p>
+        </div>
+    </div>
+    <hr class="lite">
+
+    <h3 class="heading-small-content-emphasis">{{cms?.whatnextTitle}}</h3>
+    <p>{{cms?.whatnextInstructionLine1}}</p>
+    <p [innerHTML]="cms?.whatnextInstructionLine2"></p>
+    <!-- Account Information - 2nd form end -->
+
+    <hr class="lite">
+    <div class="cta-button-group nodots align-right">
+        <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>
+        <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{cms?.backButton}}</button>
+    </div>
+</div>
