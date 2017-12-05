@@ -14,13 +14,11 @@ import { ConfirmationComponent } from "./confirmation/index";
 /*  */
 import { FormsModule } from "@angular/forms";
 import { LayoutModule } from "../common/layout.module";
-import { recaptcha } from "../common/recaptcha/recaptcha.component";
 
 @NgModule({
   declarations: [
     CustomerTypeCanvasComponent,
     WirelessNumberComponent,
-    recaptcha,
     ModalComponent,
     EligibleUnlockComponent
   ],

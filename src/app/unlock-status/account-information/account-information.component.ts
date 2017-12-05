@@ -3,6 +3,7 @@ import { ModalService } from '../../common/modal/index';
 import { Router } from "@angular/router";
 import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { ISubscription } from "rxjs/Subscription";
+import { UnlockService } from "../../common/services/unlock.service";
 
 @Component({
   selector: 'account-information',
@@ -19,7 +20,7 @@ export class AccountInformationComponent implements OnInit {
   nonAttReqNoErr: boolean = false;
   isInvalid: boolean = true;
   private subscription: ISubscription;
-  constructor( public modalService: ModalService, private unlockStatusService: UnlockStatusService, private route: Router) { 
+  constructor( public modalService: ModalService, private unlockStatusService: UnlockStatusService, private route: Router, private unlockService: UnlockService) { 
     this.subscription = this.unlockStatusService.UnlockDevice().subscribe(
       (data: any) => {
         this.cms = data.unlockPortalLabelAndErrorObj[0];
@@ -57,5 +58,16 @@ export class AccountInformationComponent implements OnInit {
 
   unlockNext() {
     this.route.navigate(['/unlock-status-confirm', {imeiNumber: this.imeiNumber}]);
-  }  
+  }
+
+  getToken(event) {
+    console.log(event.token);
+    this.unlockService.verifyCaptcha(event.token)
+      .subscribe((data: any) => {
+        console.log("data",data);
+      },
+      (error) => {      
+        console.log("error",error);
+      });
+  }
 }

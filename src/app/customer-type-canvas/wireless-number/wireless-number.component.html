@@ -76,8 +76,8 @@
 </div>
 
 <!--IMEI -->
-<div class="span5 span12-sm" *ngIf="!customerType">
-    <div class="form-row">
+<div *ngIf="!customerType">
+    <div class="form-row span5 span12-sm">
         <label for="textinputID_01">{{cms?.imeiLabel}}</label>
         <div class="field-group">
             <input id="textinputID_01" placeholder="(15 Digits)" class="span12" type="text" minlength="15" maxlength="15" (keyup)="validateNext($event)"

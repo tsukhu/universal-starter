@@ -8,12 +8,14 @@ import { AccountInformationComponent } from "./account-information/index";
 import { UnlockStatusComponent } from "./index";
 import { FormsModule } from "@angular/forms";
 import { UnlockStatusService } from "../common/services/unlock-status.service";
+import { LayoutModule } from "../common/layout.module";
 
 @NgModule({
   declarations: [UnlockStatusComponent, AccountInformationComponent],
   imports: [
     CommonModule,
     FormsModule,
+    LayoutModule,
     RouterModule.forChild([
       { path: '', component: UnlockStatusComponent, pathMatch: 'full' }
     ])
