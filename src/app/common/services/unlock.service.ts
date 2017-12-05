@@ -1,9 +1,8 @@
-
+import { RequestOptions } from '@angular/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { AppState } from "./app.service";
-
 
 @Injectable()
 export class UnlockService {
@@ -95,14 +94,14 @@ export class UnlockService {
   }
 
   verifyCaptcha(token) {
-    let requestData = {
-      secret: "6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI",
-      response: token
-    };
-    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData)//, {headers: header})
-      .map((response: Response) => {
-        return response;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+
+    let header: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded'});
+    
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('secret', '6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI');
+    urlSearchParams.append('response', token);
+    let body = urlSearchParams.toString();
+   
+    return this.http.post("https://www.google.com/recaptcha/api/siteverify", body, {headers:header});
   }
 }
