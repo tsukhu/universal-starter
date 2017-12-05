@@ -35,7 +35,7 @@ export class AccountInformationComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    console.log("nav1 data");
+    // console.log("nav1 data");
     this.unlockService.UnlockDevice().subscribe((data: any) => {
       this.cms = data.unlockPortalLabelAndErrorObj[0];
     });
@@ -68,12 +68,11 @@ export class AccountInformationComponent implements OnInit {
   }
 
   onMilitaryPersonnelChange(value: boolean) {
-    console.log(value);
+    // console.log(value);
     this.mulitaryPersonnel = value;
   }
 
   validateNext(event) {
-    console.log(this.confirmEmail);
     if (this.firstName != undefined && this.firstName.length == 0) {
       this.accFirstNameValidErr = true;
     } else {
@@ -105,7 +104,7 @@ export class AccountInformationComponent implements OnInit {
     }
 
     // console.log("hai" + this.passcode + "hello");
-    if (this.firstName.length != 0 && this.lastName.length != 0 &&
+    if (this.firstName != undefined && this.lastName != undefined && this.confirmEmail != undefined && this.email != undefined && this.passcode != undefined && this.firstName.length != 0 && this.lastName.length != 0 &&
       this.passcode.length != 0 && this.email.length != 0 &&
       this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
       this.isInvalid = false;

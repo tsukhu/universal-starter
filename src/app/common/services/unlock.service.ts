@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import 'rxjs/Rx';
 
 @Injectable()
 export class UnlockService {
@@ -14,10 +12,7 @@ export class UnlockService {
   constructor(private http: HttpClient) { }
 
   public UnlockDevice() {
-    return this.http.get('../assets/content/unlock.json')
-      .map(data => {
-        return data;
-      });
+    return this.http.get('../assets/content/unlock.json');
   }
 
 
@@ -27,19 +22,11 @@ export class UnlockService {
     // header.append('Access-Control-Allow-Origin', '*');
 
     return this.http.post(this.baseUrl + this.redirectOCEWorkFlowUrl, {})//, {headers: header})
-      .map((response: Response) => {
-        return response.json();
-      })
-      .catch((error: any) => Observable.throw('Server error'));
-
   }
 
   orderFlow(customerNumber) {
 
-    return this.http.get('../assets/content/orderflow-response.json')
-      .map(data => {
-        return data;
-      });
+    return this.http.get('../assets/content/orderflow-response.json');
     // let requestJson = {
     //   "orderFlowRequestDO": {
     //     "attCustomer": true,
@@ -62,10 +49,7 @@ export class UnlockService {
 
   imeiOrderFlow(imeiNumber) {
 
-    return this.http.get('../assets/content/imei-orderflow-response.json')
-      .map(data => {
-        return data;
-      });
+    return this.http.get('../assets/content/imei-orderflow-response.json');
     // let requestJson = {
     //   "orderFlowRequestDO": {
     //     "attCustomer": false,
@@ -93,23 +77,13 @@ export class UnlockService {
         }
     };
     return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson)//, {headers: header})
-      .map((response: Response) => {
-        return response.json();
-      })
-      .catch((error: any) => Observable.throw('Server error'));
   }
 
    confirmation() {
-     return this.http.get('../assets/content/confirmation.json')
-      .map(data => {
-        return data;
-      });
+     return this.http.get('../assets/content/confirmation.json');
   }
 
   imeiMakeModelResponse(imeiNumber) {
-     return this.http.get('../assets/content/imei-make-model-response.json')
-      .map(data => {
-        return data;
-      });
+     return this.http.get('../assets/content/imei-make-model-response.json');
   }
 }

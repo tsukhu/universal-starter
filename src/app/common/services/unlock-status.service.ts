@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import 'rxjs/Rx';
 
 @Injectable()
 export class UnlockStatusService {
@@ -14,10 +12,7 @@ export class UnlockStatusService {
   constructor(private http: HttpClient) { }
 
   public UnlockDevice() {
-    return this.http.get('../assets/content/unlock.json')
-      .map(data => {
-        return data;
-      });
+    return this.http.get('../assets/content/unlock.json');
   }
 
 
@@ -27,11 +22,6 @@ export class UnlockStatusService {
     // header.append('Access-Control-Allow-Origin', '*');
 
     return this.http.get(this.baseUrl + this.unlockOrderStatusUrl, {})//, {headers: header})
-      .map((response: Response) => {
-        return response;
-      })
-      .catch((error: any) => Observable.throw('Server error'));
-
   }
 
 }

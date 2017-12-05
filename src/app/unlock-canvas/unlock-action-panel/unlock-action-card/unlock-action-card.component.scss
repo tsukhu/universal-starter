@@ -1,7 +1,7 @@
 @import '../../../app.component.scss';
 
 .unlock-device {
-    padding: 0 50px;
+    padding: 30px 50px;
     margin-bottom: 30px;
 }
 
@@ -25,8 +25,8 @@
 
 @media (min-width:768px) {
     .unlock-device {
-        flex: 1;
-        padding: 0 70px;
+        padding: 30px 50px;
+        margin-bottom: 0;
     }
     .unlock-device-img,
     .unlock-status-img {
