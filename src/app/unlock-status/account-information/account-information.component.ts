@@ -61,7 +61,6 @@ export class AccountInformationComponent implements OnInit {
   }
 
   getToken(event) {
-    console.log(event.token);
     this.unlockService.verifyCaptcha(event.token)
       .subscribe((data: any) => {
         console.log("data",data);

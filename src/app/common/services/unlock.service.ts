@@ -22,17 +22,9 @@ export class UnlockService {
     } else {
       return this.http.get("../assets/content/unlock.json").map((data: any) => {
         this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0]);
-        console.log(data);
         return data.unlockPortalLabelAndErrorObj[0];
       });
     }
-  }
-
-  redirectOCEWorkFlow() {
-    // let header: HttpHeaders = new HttpHeaders();
-    // header.append('Content-Type', 'application/json');
-    // header.append('Access-Control-Allow-Origin', '*');
-    return this.http.post(this.baseUrl + this.redirectOCEWorkFlowUrl, {})//, {headers: header})
   }
 
   orderFlow(customerNumber) {

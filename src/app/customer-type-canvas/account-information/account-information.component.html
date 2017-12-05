@@ -40,10 +40,10 @@
 
                     <div class="row">
                         <div class="form-row span5">
-                            <label for="last_name">{{cms?.accountHolderFirstnameLabel}}</label>
+                            <label for="first_name">{{cms?.accountHolderFirstnameLabel}}</label>
                             <div class="field-group">
-                                <input class="form-control" id="last_name" class="span12" name="lastname" placeholder="Ex: Smith" tabindex="0" type="text"
-                                    data-validate="address1" maxlength="35" data-required="true" type="text" aria-label="Street address"
+                                <input class="form-control" id="first_name" class="span12" name="firstName" placeholder="Ex: Smith" tabindex="0" type="text"
+                                    maxlength="35" type="text" aria-label="Street address"
                                     aria-required="true" [(ngModel)]="firstName" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
@@ -55,12 +55,12 @@
                         <div class="form-row span5 offset1">
                             <label for="address1">{{cms?.accountHolderLastnameLabel}}</label>
                             <div class="field-group">
-                                <input id="address1" name="street" class="span12" data-validate="address1" maxlength="35" data-required="true" type="text"
+                                <input id="last_name" name="lastName" class="span12" maxlength="35" type="text"
                                     aria-label="Street address" aria-required="true" 
                                     placeholder="Ex: Mary" [(ngModel)]="lastName" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                             </div>
-                            <div *ngIf="accLastNameValidErr" aria-live="polite" class="error-msg-color" id="street_address">
+                            <div *ngIf="accLastNameValidErr" aria-live="polite" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.accountHolderLastnameRequiredError}}
                             </div>
                         </div>
@@ -70,8 +70,8 @@
                         <div class="form-row span5">
                             <label for="passcode">{{cms?.passcodeLabel}}</label>
                             <div class="field-group">
-                                <input class="form-control" id="passcode" class="span12" name="password" placeholder="●●●●" tabindex="0" type="password" data-validate="address1"
-                                    maxlength="35" data-required="true" 
+                                <input class="form-control" id="passcode" class="span12" name="passcode" placeholder="****" tabindex="0" type="password" 
+                                    maxlength="35" 
                                     aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
@@ -88,7 +88,7 @@
                             <label for="email">{{cms?.emailLabel}}</label>
                             <div class="field-group">
                                 <input class="form-control" id="email" class="span12" name="email" placeholder="Ex: name@email.com" tabindex="0" type="email"
-                                    data-validate="address1" maxlength="35" data-required="true"  aria-label="Street address"
+                                    maxlength="35"  aria-label="Street address"
                                     aria-required="true" [(ngModel)]="email" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
@@ -100,7 +100,7 @@
                         <div class="form-row span5 offset1">
                             <label for="email_again">{{cms?.confirmEmail}}</label>
                             <div class="field-group">
-                                <input id="email_again" name="confirmEmail" class="span12" data-validate="address1" maxlength="35" data-required="true" type="email"
+                                <input id="email_again" name="confirmEmail" class="span12" maxlength="35" type="email"
                                     aria-label="Street address" aria-required="true" 
                                     placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>

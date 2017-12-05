@@ -26,8 +26,6 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     @HostListener('keyup', ['$event'])
     public focusBack(event: any, eventCode?: number): void {
-        // console.log("Inside FocusBack" + event.keyCode);
-        // console.log("Element Passed:" + event.target.id);
         if (event.keyCode === 27) {
             this.element.style.display = 'none';
             document.documentElement.style.overflowY = 'scroll';

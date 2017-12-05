@@ -37,14 +37,6 @@ export class WirelessNumberComponent implements OnInit {
     private route: Router, private preloader: PreloaderService) { }
 
   ngOnInit() {
-    this.unlockService.redirectOCEWorkFlow()
-      .subscribe((data: any) => {
-        console.log(data);
-        // return data;
-      },
-      (error) => {
-        console.log(error);
-      });
   }
 
   modalClosed(e) {
@@ -52,7 +44,6 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   onCustomerTypeChange(value: boolean) {
-    console.log(value);
     this.customerType = value;
   }
 

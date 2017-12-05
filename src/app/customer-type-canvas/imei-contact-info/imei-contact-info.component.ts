@@ -33,7 +33,6 @@ export class ImeiContactInfoComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    console.log("nav1 data");
     this.subscription = this.unlockService.UnlockDevice().subscribe((data: any) => {
       this.cms = data;
     });
@@ -97,7 +96,6 @@ export class ImeiContactInfoComponent implements OnInit, OnDestroy {
       this.wirelessNumberValidErr = false;
     }
 
-    // console.log("hai" + this.passcode + "hello");
     if(this.firstName != undefined && this.firstName.length != 0 &&
       this.firstName != undefined && this.lastName.length != 0 &&
       this.lastName != undefined && this.wirelessNumber.length != 0 &&

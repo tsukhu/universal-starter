@@ -36,7 +36,6 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    console.log("nav1 data");
     this.subscription = this.unlockService
       .UnlockDevice()
       .subscribe((data: any) => {
@@ -115,8 +114,6 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
     } else {
       this.passcodeValidErr = false;
     }
-
-    // console.log("hai" + this.passcode + "hello");
 
     if (this.firstName != undefined && this.lastName != undefined && this.confirmEmail != undefined && this.email != undefined && this.passcode != undefined && this.firstName.length != 0 && this.lastName.length != 0 &&
       this.passcode.length != 0 && this.email.length != 0 &&

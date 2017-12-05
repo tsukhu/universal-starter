@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>NgUniversalDemo</title>
@@ -7,15 +8,38 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="assets/global.min.css" media="none" onload="if(media!='all')media='all'">  
-  <link rel="stylesheet" href="assets/preloader.css">
+  <link rel="stylesheet" href="assets/global.min.css" media="none" onload="if(media!='all')media='all'">
+  <style>
+    .att_preloader_overlay {
+      position: fixed;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .att_preloader_start {
+      display: flex;
+    }
+
+    .att_preloader_stop {
+      display: none;
+    }
+
+    .error-msg {
+      padding: 5px 0px 8px 18px !important;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="att_preloader_overlay fade in att_preloader_stop">
-        <i class="icon-spinner" role="img" aria-label="Please wait while we load."></i>
-      </div>
+  <div class="att_preloader_overlay fade in att_preloader_stop">
+    <i class="icon-spinner" role="img" aria-label="Please wait while we load."></i>
+  </div>
   <app-root></app-root>
- <!-- <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   <script>
     WebFont.load({
       custom: {
@@ -29,4 +53,5 @@
     });
   </script> -->
 </body>
+
 </html>
