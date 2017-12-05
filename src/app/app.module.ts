@@ -2,7 +2,7 @@ import { ConfirmationComponent } from './customer-type-canvas/confirmation/confi
 import { UnlockService } from './common/services/unlock.service';
 import { FormsModule } from '@angular/forms';
 import { CityComponent } from './city/city.component';
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { WorkerAppModule } from '@angular/platform-webworker';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -35,11 +35,10 @@ import { UnlockStatusService } from "./common/services/unlock-status.service";
     //StepIndicatorComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
+    WorkerAppModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    BrowserTransferStateModule,
     LayoutModule,
     RouterModule.forRoot([
       {

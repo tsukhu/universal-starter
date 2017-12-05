@@ -1,35 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
 
 export type InternalStateType = {
   [key: string]: any
 };
-
-const RESULT_KEY = makeStateKey<InternalStateType>('app-state');
 
 @Injectable()
 export class AppState {
 
   public _state: InternalStateType = {};
 
-  constructor(private readonly transferState: TransferState) { }
-
   /**
    * Already return a clone of the current state.
    */
   public get state() {
-    const found = this.transferState.hasKey(RESULT_KEY);
-    if (found) {
-      const res = this.transferState.get<InternalStateType>(RESULT_KEY, null);
-      this.transferState.remove(RESULT_KEY);
-      return this._state = this._clone(res);
-    } else {
       this._state = this._clone(this._state);
-      this.transferState.onSerialize(RESULT_KEY, () => this._state);
       return this._state;
-    }
   }
   /**
    * Never allow mutation
