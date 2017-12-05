@@ -1,9 +1,9 @@
 
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { AppState } from "./app.service";
-import "rxjs/Rx";
+
 
 @Injectable()
 export class UnlockService {
@@ -16,12 +16,13 @@ export class UnlockService {
 
   public UnlockDevice() {
 
-    let dataState = this.appState.get('unlockDevice');
+    let dataState: any = this.appState.get('unlockDevice');
     if (dataState !== '') {
       return Observable.of(dataState).last();
     } else {
       return this.http.get("../assets/content/unlock.json").map((data: any) => {
         this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0]);
+        console.log(data);
         return data.unlockPortalLabelAndErrorObj[0];
       });
     }
@@ -106,6 +107,10 @@ export class UnlockService {
       secret: "6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI",
       response: token
     };
-    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData);//, {headers: header})
+    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData)//, {headers: header})
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 }

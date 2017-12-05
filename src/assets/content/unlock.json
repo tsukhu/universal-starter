@@ -13,14 +13,14 @@
 			"deviceUnlockHelpDescription2":"if you need help.",
             "actionCard": [
             {
-            "img": "../../../assets/images/ico-unlock-blue-60x45.png",
+            "img": "assets/images/ico-unlock-blue-60x45.png",
             "unlockyourDevice": "Unlock your device",
             "unlockDeviceDescription": "Make sure you have the wireless number and IMEI handy. Don't know your IMEI? Dial <b>*#06#</b> on your mobile phone to find it. It may take up to 2 days for us to process your request.",
             "link": "../device-unlock"
          
             },
             {
-            "img": "../../../assets/images/ico-checkunlock-blue-60x45.png",
+            "img": "assets/images/ico-checkunlock-blue-60x45.png",
             "unlockyourDevice": "Check an unlock status",
             "unlockDeviceDescription": "Make sure you have your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email.",
             "link": "../unlock-status" 
