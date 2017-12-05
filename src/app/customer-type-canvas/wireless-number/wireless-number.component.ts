@@ -3,6 +3,7 @@ import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
 import { PreloaderService } from '../../common/services/preloader.service';
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'wireless-number',
@@ -11,8 +12,7 @@ import { PreloaderService } from '../../common/services/preloader.service';
 })
 export class WirelessNumberComponent implements OnInit {
 
-  @Input()
-  public cms;
+  @Input() public cms: any;
   stepIndex = 1;
   customerType: boolean = true;
   isInvalid: boolean = true;
@@ -38,13 +38,13 @@ export class WirelessNumberComponent implements OnInit {
 
   ngOnInit() {
     this.unlockService.redirectOCEWorkFlow()
-    .subscribe((data: any) => {
-      console.log(data);
-      // return data;
-    },
-    (error) => {
-      console.log(error);
-    });
+      .subscribe((data: any) => {
+        console.log(data);
+        // return data;
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
   modalClosed(e) {
@@ -160,4 +160,14 @@ export class WirelessNumberComponent implements OnInit {
     this.route.navigate(['/unlock-canvas']);
   }
 
+  getToken(event) {
+    console.log(event.token);
+    this.unlockService.verifyCaptcha(event.token)
+      .subscribe((data: any) => {
+        console.log("data",data);
+      },
+      (error) => {      
+        console.log("error",error);
+      });
+  }
 }

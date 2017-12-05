@@ -1,8 +1,7 @@
-import { Component, ElementRef } from '@angular/core';
-import { UnlockService } from '../services/unlock.service';
+import { Component, ElementRef , Input } from '@angular/core';
 import { ModalService } from '../modal/modal.service';
 import { Element } from '@angular/compiler';
-
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'eligible-unlock',
@@ -11,18 +10,13 @@ import { Element } from '@angular/compiler';
 })
 
 export class EligibleUnlockComponent {
-  modalContent: any;
+  @Input() public modalContent: Observable<any>;
+
   el;
-  constructor(private unlockService: UnlockService,
-   public modalService: ModalService,
+  constructor(public modalService: ModalService,
    public elementRef: ElementRef
   ) {
     this.el = elementRef.nativeElement;
-    this.unlockService.UnlockDevice().subscribe(
-      (data: any) => {
-        this.modalContent = data.unlockPortalLabelAndErrorObj[0];
-      }
-    )
   }
 
   public close(e) {

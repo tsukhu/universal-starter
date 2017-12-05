@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from "@angular/router";
 import { UnlockStatusService } from "../../common/services/unlock-status.service";
-
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'account-information',
@@ -18,9 +18,9 @@ export class AccountInformationComponent implements OnInit {
   nonAttImeiReqErr: boolean = false;
   nonAttReqNoErr: boolean = false;
   isInvalid: boolean = true;
-
+  private subscription: ISubscription;
   constructor( public modalService: ModalService, private unlockStatusService: UnlockStatusService, private route: Router) { 
-    this.unlockStatusService.UnlockDevice().subscribe(
+    this.subscription = this.unlockStatusService.UnlockDevice().subscribe(
       (data: any) => {
         this.cms = data.unlockPortalLabelAndErrorObj[0];
       }
@@ -34,6 +34,9 @@ export class AccountInformationComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  } 
   validateNext(event) {
     if (this.imeiNumber != undefined && this.imeiNumber.length == 0) {
       this.nonAttImeiReqErr = true;
