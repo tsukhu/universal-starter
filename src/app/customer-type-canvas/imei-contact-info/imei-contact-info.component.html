@@ -1,23 +1,4 @@
 <div class="container">
-    
-    <!-- <div class="step-indicator">
-    <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
-    <ul class="steps">
-          <li [ngClass]="{'step-on': true }">
-                <div class="step-text step-prev-tab" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{ cms?.DUEnterYourIMEIStep}}</div>
-                <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
-            </li>
-            <li [ngClass]="{'step-on': true }">
-                <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{cms?.DUAContactInformationStep}}</div>
-                <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
-            </li>
-        <li [ngClass]="{'step-on': false }">
-            <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
-            <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
-        </li>
-    </ul>
-</div> -->
-
 <step-indicator class="d-b" [cms]="cms" [stepIndex]="2" [customerType]="false"></step-indicator> 
     <div class="row">
         <div class="span12">
@@ -36,7 +17,6 @@
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.accountHolderFirstnameRequiredError}}
                             </div>
                         </div>
-
                         <div class="form-row span5 offset1">
                             <label for="address1">{{cms?.imeiContactInfoLastnameLabel}}</label>
                             <div class="field-group">
@@ -50,7 +30,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="form-row span5">
                             <label for="wirelessNumber">{{cms?.wirelessTelephoneNumberLabel}}</label>
@@ -65,7 +44,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="form-row span5">
                             <label for="email">{{cms?.emailLabel}}</label>
@@ -79,7 +57,6 @@
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailRequiredError}}
                             </div>
                         </div>
-
                         <div class="form-row span5 offset1">
                             <label for="email_again">{{cms?.confirmEmail}}</label>
                             <div class="field-group">
@@ -97,7 +74,6 @@
             </form>
         </div>
     </div>
-
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
         <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>

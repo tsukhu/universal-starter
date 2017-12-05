@@ -1,39 +1,15 @@
 <step-indicator class="d-b" [cms]="cms" [stepIndex]="1" [customerType]="customerType"></step-indicator>
-<!-- <div class="step-indicator">
-    <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
-    <ul class="steps">
-        <li [ngClass]="{'step-on': true }">
-            <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{customerType ? cms?.DUEnterYourWirelessNumberStep : cms?.DUEnterYourIMEIStep}}</div>
-            <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
-        </li>
-        <li [ngClass]="{'step-on': false }">
-            <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{customerType ? cms?.DUAccountInformationStep : cms?.DUAContactInformationStep}}</div>
-            <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
-        </li>
-        <li [ngClass]="{'step-on': false }">
-            <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
-            <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
-        </li>
-    </ul>
-</div> -->
-
-
 <p>{{cms?.introTextBeforeLink}}
     <a href="javascript:void(0);" (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxtIntroParagraph}}</a>    {{cms?.introTextAfterLink}}</p>
-
-<!--error message for capcha-->
 <div class="alert" style="margin-bottom: 20px;" *ngIf="errorMessage">
     <div class="alert-error">
         <i class="icon-flat-info" role="img" aria-label="Info"></i>
     </div>
     <div class="alert-content">
-        <!--<h3 class="alert-heading">Deprecated standard</h3>-->
         <p>{{cms?.ULP_1010}}</p>
     </div>
-    <!--<button type="button" class="close" data-dismiss="alert" aria-label="dismiss alert header"></button>-->
 </div>
 <hr class="hr-dotted dark">
-<!-- <form [formGroup]="wirelessNumber"> -->
 <form class="radio-form">
     <h4 id="radiolabel1" class="heading-small-content-emphasis">{{cms?.radioLabel}}</h4>
     <fieldset role="radiogroup" aria-labelledby="radiolabel1">
@@ -53,8 +29,6 @@
         </div>
     </fieldset>
 </form>
-
-<!--AT&T Wireless Customer -->
 <div class="span5 span12-sm" *ngIf="customerType">
     <div class="form-row">
         <label for="textinputID_01">{{cms?.wirelessNumberLabel}}</label>
@@ -68,14 +42,7 @@
         </div>
         <p class="required-text"><em>{{cms?.wirelessNumberTooltip}}</em></p>
     </div>
-
-    <!-- <div class="form-group" [ngClass]="{'has-error':!wirelessNumber.controls['wirelessNumber'].valid && wirelessNumber.controls['wirelessNumber'].touched}">
-        <label for="textinputID_01">{{cms?.wirelessNumberLabel}}</label>
-        <input class="form-control" class="span12" type="text"  name="wirelessNumber" placeholder="Ex: 1234567890" [formControl]="wirelessNumber.controls['wirelessNumber']">
-      </div> -->
 </div>
-
-<!--IMEI -->
 <div *ngIf="!customerType">
     <div class="form-row span5 span12-sm">
         <label for="textinputID_01">{{cms?.imeiLabel}}</label>
@@ -89,7 +56,6 @@
         </div>
         <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
     </div>
-
     <div class="row" style="margin-top: 40px;" *ngIf="showDeviceDetail">
         <div class="span4">
             <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
@@ -101,9 +67,6 @@
         </div>
     </div>
 </div>
-
-<!-- <div class="g-recaptcha" data-sitekey="6LekkTsUAAAAALYft1VnYNym3Z9pFQNNQe6V_7Yb"></div>
-<div class="rendercaptcha"></div> -->
 <re-captcha sitekey="6LekkTsUAAAAALYft1VnYNym3Z9pFQNNQe6V_7Yb" (tokenChange)="getToken($event);"></re-captcha>
 <div class="form-row">
     <label for="terms2" class="checkbox">
@@ -112,15 +75,11 @@
      <span>{{cms?.acknowledgementTxt}} <a href="javascript:void(0);"  (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxt}}</a></span>
   </label>
 </div>
-<!-- </form> -->
-
 <hr class="lite">
 <div class="cta-button-group nodots align-right">
     <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.nextButton}}</button>
     <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{cms?.backButton}}</button>
 </div>
-
-
 <modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)">
     <eligible-unlock [modalContent]="cms"></eligible-unlock>
 </modal>
