@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class EligibleUnlockComponent {
-  @Input() public modalContent: Observable<any>;
+  @Input() public modalContent: any; //Observable<any>;
 
   el;
   constructor(public modalService: ModalService,

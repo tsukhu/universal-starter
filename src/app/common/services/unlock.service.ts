@@ -106,10 +106,6 @@ export class UnlockService {
       secret: "6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI",
       response: token
     };
-    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData)//, {headers: header})
-      .map((response: Response) => {
-        return response;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData);//, {headers: header})
   }
 }
