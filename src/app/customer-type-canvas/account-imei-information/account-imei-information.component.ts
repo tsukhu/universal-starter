@@ -25,6 +25,7 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
 
   constructor(public modalService: ModalService, private unlockService: UnlockService,
     private route: Router, private preloader: PreloaderService) {
+
    this.subscription = this.unlockService.UnlockDevice().subscribe(
       (data: any) => {
         this.cms = data;
@@ -76,8 +77,6 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
       this.preloader.start();
       this.unlockService.imeiMakeModelResponse(this.imeiNumber)
         .subscribe((data: any) => {
-          console.log("validate iemi");
-          console.log(data);
           // return data;
           // this.route.navigate['/unlock-canvas'];
           this.preloader.stop();

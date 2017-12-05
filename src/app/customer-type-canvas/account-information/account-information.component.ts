@@ -43,6 +43,11 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         this.cms = data;
       });
+    // console.log("nav1 data");
+    //this.unlockService.UnlockDevice().subscribe((data: any) => {
+     // this.cms = data.unlockPortalLabelAndErrorObj[0];
+    //});
+
 
     this.wirelessNumber = this.route.snapshot.params["wirelessNumber"];
   }
@@ -77,12 +82,11 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
   }
 
   onMilitaryPersonnelChange(value: boolean) {
-    console.log(value);
+    // console.log(value);
     this.mulitaryPersonnel = value;
   }
 
   validateNext(event) {
-    console.log(this.confirmEmail);
     if (this.firstName != undefined && this.firstName.length == 0) {
       this.accFirstNameValidErr = true;
     } else {
@@ -114,14 +118,10 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
     }
 
     // console.log("hai" + this.passcode + "hello");
-    if (
-      this.firstName.length != 0 &&
-      this.lastName.length != 0 &&
-      this.passcode.length != 0 &&
-      this.email.length != 0 &&
-      this.confirmEmail.length != 0 &&
-      this.email == this.confirmEmail
-    ) {
+
+    if (this.firstName != undefined && this.lastName != undefined && this.confirmEmail != undefined && this.email != undefined && this.passcode != undefined && this.firstName.length != 0 && this.lastName.length != 0 &&
+      this.passcode.length != 0 && this.email.length != 0 &&
+      this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
       this.isInvalid = false;
     } else {
       this.isInvalid = true;

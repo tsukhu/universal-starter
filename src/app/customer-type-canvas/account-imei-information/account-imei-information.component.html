@@ -10,7 +10,7 @@
                 <div class="step-text" data-sm-text="Step 2 of 3:" data-large-text="2." aria-hidden="true">{{cms?.DUAccountInformationStep}}</div>
                 <span class="hidden-spoken">Step 2 of 3. {{cms?.DUAccountInformationStep}}. Remaining step</span>
             </li>
-            <li [ngClass]="{'step-on': stepIndex == 3 }">
+            <li [ngClass]="{'step-on': false }">
                 <div class="step-text" data-sm-text="Step 3 of 3:" data-large-text="3." aria-hidden="true">{{cms?.DUConfirmationStep}} </div>
                 <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
             </li>
