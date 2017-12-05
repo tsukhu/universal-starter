@@ -13,6 +13,8 @@ import { AppState } from './common/services/app.service';
 import { PreloaderService } from './common/services/preloader.service';
 import { AccountInformationComponent } from './customer-type-canvas/account-information/account-information.component';
 import { ModalService } from './common/modal/modal.service';
+import { UnlockCanvasComponent } from './unlock-canvas/unlock-canvas.component';
+import { UnlockCanvasModule } from './unlock-canvas/unlock-canvas.module';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { StepIndicatorComponent } from './customer-type-canvas/step-indicator/step-indicator.component';
 import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
@@ -26,6 +28,7 @@ import { UnlockStatusService } from "./common/services/unlock-status.service";
     AccountIEMIInformationComponent,
     ConfirmationComponent,
     ImeiContactInfoComponent,
+    UnlockCanvasComponent,
     UnlockStatusConfirmationComponent
     //StepIndicatorComponent
   ],
@@ -36,9 +39,10 @@ import { UnlockStatusService } from "./common/services/unlock-status.service";
     FormsModule,
     BrowserTransferStateModule,
     LayoutModule,
+    UnlockCanvasModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'unlock-canvas', pathMatch: 'full' },
-      { path: 'unlock-canvas', loadChildren: './unlock-canvas/unlock-canvas.module#UnlockCanvasModule' },
+      { path: 'unlock-canvas', component: UnlockCanvasComponent },
       { path: 'device-unlock', loadChildren: './customer-type-canvas/customer-type-canvas.module#CustomerTypeCanvasModule' },
       { path: 'unlock-status', loadChildren: './unlock-status/unlock-status.module#UnlockStatusModule' },
       { path: 'unlockstep2', component: AccountInformationComponent},
