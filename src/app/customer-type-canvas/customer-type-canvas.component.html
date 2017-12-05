@@ -1,6 +1,6 @@
 <div class="container">
     <!-- <step-indicator class="d-b" [stepIndicator]="unlockCanvas" [stepIndex]="1"></step-indicator> -->
-    <wireless-number class="d-b" [cms]="unlockCanvas"></wireless-number>
+    <wireless-number class="d-b" [cms]="unlockCanvas | async"></wireless-number>
     <!-- <account-information class="d-b" [cms]="unlockCanvas"></account-information>
     <confirmation class="d-b" [cms]="unlockCanvas"></confirmation> -->
 
@@ -19,4 +19,4 @@
     
 </div>
 
-<modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)"><eligible-unlock></eligible-unlock></modal>
+<modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)"><eligible-unlock [modalContent]="unlockCanvas | async" ></eligible-unlock></modal>
