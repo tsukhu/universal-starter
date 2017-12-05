@@ -9,15 +9,14 @@ import { ModalService } from '../common/modal/modal.service';
 import { EligibleUnlockComponent } from '../common/eligible-unlock/index';
 /*  */
 import { WirelessNumberComponent } from "./wireless-number/index";
-import { StepIndicatorComponent } from "./step-indicator/index";
 import { AccountInformationComponent } from "./account-information/index";
 import { ConfirmationComponent } from "./confirmation/index";
 /*  */
 import { FormsModule } from '@angular/forms';
+import { LayoutModule } from "../common/layout.module";
 
 @NgModule({
   declarations: [CustomerTypeCanvasComponent, 
-     StepIndicatorComponent,
      WirelessNumberComponent, 
     // AccountInformationComponent, 
     // ConfirmationComponent, 
@@ -25,6 +24,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    LayoutModule,
     RouterModule.forChild([
       { path: '', component: CustomerTypeCanvasComponent, pathMatch: 'full' },
     ])

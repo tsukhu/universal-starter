@@ -2,7 +2,6 @@ import { UnlockService } from "../../common/services/unlock.service";
 import { Component, OnInit, Input } from "@angular/core";
 import { ModalService } from "../../common/modal/index";
 import { ActivatedRoute, Router } from "@angular/router";
-import { StepIndicatorComponent } from "../step-indicator/step-indicator.component";
 
 @Component({
   selector: "account-information",

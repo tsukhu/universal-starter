@@ -13,9 +13,18 @@ export class ConfirmationComponent implements OnInit {
   public cms;
 
   requestNo: string =  undefined;
+  public cust;
+  customerType: boolean;
 
   constructor(public modalService: ModalService, private unlockService: UnlockService,
-    private route: Router) { }
+    private router: Router, private route: ActivatedRoute) {
+      this.cust = this.route.snapshot.params["customerType"];
+      if(this.cust == 'true') {
+        this.customerType = true;
+      } else {
+        this.customerType = false;
+      }
+     }
 
   ngOnInit() {
     this.unlockService.UnlockDevice().subscribe(

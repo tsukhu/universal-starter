@@ -7,8 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StepIndicatorComponent implements OnInit {
 
-  @Input() public stepIndicator;
+  @Input() public cms;
   @Input() public stepIndex:number;
+  @Input() public customerType: boolean = true;
 
   constructor() { }
 

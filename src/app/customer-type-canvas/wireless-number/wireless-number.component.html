@@ -1,8 +1,8 @@
-<!-- <step-indicator class="d-b" [cms]="cms" [stepIndex]="1"></step-indicator> -->
-<div class="step-indicator">
+ <step-indicator class="d-b" [cms]="cms" [stepIndex]="1" [customerType]="customerType"></step-indicator> 
+<!-- <div class="step-indicator">
     <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
     <ul class="steps">
-        <li [ngClass]="{'step-on': true }" >
+        <li [ngClass]="{'step-on': true }">
             <div class="step-text" data-sm-text="Step 1 of 3:" data-large-text="1." aria-hidden="true">{{customerType ? cms?.DUEnterYourWirelessNumberStep : cms?.DUEnterYourIMEIStep}}</div>
             <span class="hidden-spoken">Step 1 of 3. {{cms?.DUEnterYourWirelessNumberStep}}. Current step</span>
         </li>
@@ -15,11 +15,11 @@
             <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
         </li>
     </ul>
-</div>
+</div> -->
 
 
 <p>{{cms?.introTextBeforeLink}}
-    <a href="javascript:void(0);" (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxtIntroParagraph}}</a> {{cms?.introTextAfterLink}}</p>
+    <a href="javascript:void(0);" (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxtIntroParagraph}}</a>    {{cms?.introTextAfterLink}}</p>
 
 <!--error message for capcha-->
 <div class="alert" style="margin-bottom: 20px;" *ngIf="errorMessage">
@@ -33,78 +33,84 @@
     <!--<button type="button" class="close" data-dismiss="alert" aria-label="dismiss alert header"></button>-->
 </div>
 <hr class="hr-dotted dark">
-
-<form class="radio-form">
-    <h4 id="radiolabel1" class="heading-small-content-emphasis">{{cms?.radioLabel}}</h4>
-    <fieldset role="radiogroup" aria-labelledby="radiolabel1">
-       <div class="form-row">
-          <label for="opt1" class="radio" data-role="radio">
+<!-- <form [formGroup]="wirelessNumber"> -->
+    <form class="radio-form">
+        <h4 id="radiolabel1" class="heading-small-content-emphasis">{{cms?.radioLabel}}</h4>
+        <fieldset role="radiogroup" aria-labelledby="radiolabel1">
+            <div class="form-row">
+                <label for="opt1" class="radio" data-role="radio">
              <input type="radio" name="radioOptions" id="attcust" value="true" [checked]="customerType" (change)="onCustomerTypeChange(true)">
              <i class="skin"></i>
              <span>{{cms?.yesRadioLabel}}</span>
           </label>
-       </div>
-       <div class="form-row">
-          <label for="opt2" class="radio" data-role="radio">
+            </div>
+            <div class="form-row">
+                <label for="opt2" class="radio" data-role="radio">
             <input type="radio" name="radioOptions" id="wirecust" value="false" [checked]="!customerType" (change)="onCustomerTypeChange(false)">
              <i class="skin"></i>
              <span>{{cms?.noRadioLabel}}</span>
           </label>
-       </div>
-    </fieldset>
- </form>
+            </div>
+        </fieldset>
+    </form>
 
- <!--AT&T Wireless Customer -->
- <div class="span5 span12-sm" *ngIf="customerType">
- <div class="form-row">
-    <label for="textinputID_01">{{cms?.wirelessNumberLabel}}</label>
-    <div class="field-group">
-       <input id="textinputID_01" placeholder="Ex: 1234567890" class="span12" type="text"
-       name="wirelessNumber" minlength="10" maxlength="10" [(ngModel)]="wirelessNumber"
-       (keyup)="validateNext($event)">
-       <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
-    </div>
-    <div *ngIf="attWrlsNoReqErr" aria-live="polite" aria-atomic="true" class="error-msg-color" tabindex="-1" id="field_01">
-       <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.wirelessNumberRequiredError}}
-    </div>
-    <p class="required-text"><em>{{cms?.wirelessNumberTooltip}}</em></p>
- </div>
-</div>
+    <!--AT&T Wireless Customer -->
+    <div class="span5 span12-sm" *ngIf="customerType">
+         <div class="form-row">
+            <label for="textinputID_01">{{cms?.wirelessNumberLabel}}</label>
+            <div class="field-group">
+                <input id="textinputID_01" placeholder="Ex: 1234567890" class="span12" type="text" name="wirelessNumber" minlength="10" maxlength="10"
+                    [(ngModel)]="wirelessNumber" (keyup)="validateNext($event)">
+                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+            </div>
+            <div *ngIf="attWrlsNoReqErr" aria-live="polite" aria-atomic="true" class="error-msg-color" tabindex="-1" id="field_01">
+                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.wirelessNumberRequiredError}}
+            </div>
+            <p class="required-text"><em>{{cms?.wirelessNumberTooltip}}</em></p>
+        </div> 
 
-<!--IMEI -->
-<div class="span5 span12-sm" *ngIf="!customerType">
+        <!-- <div class="form-group" [ngClass]="{'has-error':!wirelessNumber.controls['wirelessNumber'].valid && wirelessNumber.controls['wirelessNumber'].touched}">
+        <label for="textinputID_01">{{cms?.wirelessNumberLabel}}</label>
+        <input class="form-control" class="span12" type="text"  name="wirelessNumber" placeholder="Ex: 1234567890" [formControl]="wirelessNumber.controls['wirelessNumber']">
+      </div> -->
+    </div>
+
+    <!--IMEI -->
+    <div class="span5 span12-sm" *ngIf="!customerType">
+        <div class="form-row">
+            <label for="textinputID_01">{{cms?.imeiLabel}}</label>
+            <div class="field-group">
+                <input id="textinputID_01" placeholder="(15 Digits)" class="span12" type="text" minlength="15" maxlength="15" (keyup)="validateNext($event)"
+                    [(ngModel)]="imeiNumber">
+                <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
+            </div>
+            <div *ngIf="nonAttImeiReqErr" aria-live="polite" aria-atomic="true" class="error-msg-color" tabindex="-1" id="field_01">
+                <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
+            </div>
+            <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
+        </div>
+
+        <div class="row" style="margin-top: 40px;" *ngIf="showDeviceDetail">
+            <div class="span4">
+                <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
+                <p>{{deviceModel}}</p>
+            </div>
+            <div class="span4">
+                <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
+                <p>{{deviceMake}}</p>
+            </div>
+        </div>
+    </div>
+
     <div class="form-row">
-        <label for="textinputID_01">{{cms?.imeiLabel}}</label>
-        <div class="field-group">
-            <input id="textinputID_01" placeholder="(15 Digits)" class="span12" type="text"
-            minlength="15" maxlength="15" (keyup)="validateNext($event)" [(ngModel)]="imeiNumber">
-            <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
-        </div>
-        <div *ngIf="nonAttImeiReqErr" aria-live="polite" aria-atomic="true" class="error-msg-color" tabindex="-1" id="field_01">
-            <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.imeiRequiredError}}
-        </div>
-        <p class="required-text"><em [innerHTML]="cms?.ImeiCaptionHelpText"></em></p>
-    </div>
-
-    <div class="row" style="margin-top: 40px;" *ngIf="showDeviceDetail">
-        <div class="span4">
-            <h5 class="heading-small-emphasis">{{cms?.modelLabel}}</h5>
-            <p>{{deviceModel}}</p>
-        </div>
-        <div class="span4">
-            <h5 class="heading-small-emphasis">{{cms?.makeLabel}}</h5>
-            <p>{{deviceMake}}</p>
-        </div>
-    </div>
-</div>
- 
-<div class="form-row">
-  <label for="terms2" class="checkbox">
+        <label for="terms2" class="checkbox">
      <input id="terms2" type="checkbox" value="" (change)="termsChange()">
      <i class="skin"></i>
      <span>{{cms?.acknowledgementTxt}} <a href="javascript:void(0);"  (click)="modalService.open('eligble-unlock-modal')">{{cms?.modalLinkTxt}}</a></span>
   </label>
-</div>
+    </div>
+<!-- </form> -->
+
 <hr class="lite">
 <div class="cta-button-group nodots align-right">
     <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.nextButton}}</button>
@@ -112,4 +118,6 @@
 </div>
 
 
-<modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)"><eligible-unlock></eligible-unlock></modal>
+<modal id="eligble-unlock-modal" class="modal-fullscreen light-theme" (closed)="modalClosed($event)">
+    <eligible-unlock></eligible-unlock>
+</modal>

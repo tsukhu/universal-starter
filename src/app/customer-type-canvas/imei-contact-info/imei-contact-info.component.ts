@@ -2,7 +2,6 @@ import { UnlockService } from "../../common/services/unlock.service";
 import { Component, OnInit, Input } from "@angular/core";
 import { ModalService } from "../../common/modal/index";
 import { ActivatedRoute, Router } from "@angular/router";
-import { StepIndicatorComponent } from "../step-indicator/step-indicator.component";
 
 @Component({
   selector: "imei-contact-info",
@@ -54,7 +53,7 @@ export class ImeiContactInfoComponent implements OnInit {
     //     console.log(error);
     //   });
 
-    this.router.navigate(["/unlockConfirm"]);
+    this.router.navigate(["/unlockConfirm/", {customerType: false}]);
   }
 
   unlockPrevious() {

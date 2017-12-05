@@ -1,5 +1,5 @@
 <div class="container">
-     <div class="step-indicator">
+<!--      <div class="step-indicator">
         <h1 class="step-heading">{{cms?.unlockPortalPageHeaderTitle}}</h1>
         <ul class="steps">
             <li [ngClass]="{'step-on': true }">
@@ -15,7 +15,8 @@
                 <span class="hidden-spoken">Step 3 of 3. {{cms?.DUConfirmationStep}}. Remaining step</span>
             </li>
         </ul>
-    </div>
+    </div> -->
+    <step-indicator class="d-b" [cms]="cms" [stepIndex]="3" [customerType]="customerType"></step-indicator> 
     <div class="span12">
         <div class="step-sub-heading step-confirmation">
             <div class="row-nowrap align-items-center">

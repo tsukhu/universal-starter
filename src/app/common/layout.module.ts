@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer';
 import { HeaderComponent } from './header';
+import { StepIndicatorComponent } from "./step-indicator/index";
 
 @NgModule({
     imports: [
@@ -13,11 +14,13 @@ import { HeaderComponent } from './header';
     ],
     declarations: [
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        StepIndicatorComponent
     ],
     exports: [
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        StepIndicatorComponent
     ]
 })
 export class LayoutModule {

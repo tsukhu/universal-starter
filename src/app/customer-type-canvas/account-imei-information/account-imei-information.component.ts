@@ -43,7 +43,7 @@ export class AccountIEMIInformationComponent implements OnInit {
     //     console.log(error);
     //   });
 
-    this.route.navigate(['/unlockConfirm']);
+    this.route.navigate(['/unlockConfirm/', {customerType: true}]);
   }
 
   unlockPrevious() {
