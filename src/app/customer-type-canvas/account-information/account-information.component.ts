@@ -1,16 +1,18 @@
 import { UnlockService } from "../../common/services/unlock.service";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { ModalService } from "../../common/modal/index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StepIndicatorComponent } from "../step-indicator/step-indicator.component";
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: "account-information",
   templateUrl: "account-information.component.html",
   styleUrls: ["account-information.component.scss"]
 })
-export class AccountInformationComponent implements OnInit {
+export class AccountInformationComponent implements OnInit, OnDestroy {
   // @Input()
+  private subscription: ISubscription;
   public cms;
   wirelessNumber;
   isInvalid: boolean = true;
@@ -36,15 +38,22 @@ export class AccountInformationComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     console.log("nav1 data");
-    this.unlockService.UnlockDevice().subscribe((data: any) => {
-      this.cms = data.unlockPortalLabelAndErrorObj[0];
-    });
+    this.subscription = this.unlockService
+      .UnlockDevice()
+      .subscribe((data: any) => {
+        this.cms = data;
+      });
 
     this.wirelessNumber = this.route.snapshot.params["wirelessNumber"];
   }
 
   ngOnInit() {}
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   modalClosed(e) {}
 
   unlockNext() {
@@ -105,9 +114,14 @@ export class AccountInformationComponent implements OnInit {
     }
 
     // console.log("hai" + this.passcode + "hello");
-    if (this.firstName.length != 0 && this.lastName.length != 0 &&
-      this.passcode.length != 0 && this.email.length != 0 &&
-      this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
+    if (
+      this.firstName.length != 0 &&
+      this.lastName.length != 0 &&
+      this.passcode.length != 0 &&
+      this.email.length != 0 &&
+      this.confirmEmail.length != 0 &&
+      this.email == this.confirmEmail
+    ) {
       this.isInvalid = false;
     } else {
       this.isInvalid = true;

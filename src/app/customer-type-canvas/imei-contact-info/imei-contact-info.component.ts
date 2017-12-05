@@ -1,19 +1,21 @@
 import { UnlockService } from "../../common/services/unlock.service";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { ModalService } from "../../common/modal/index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StepIndicatorComponent } from "../step-indicator/step-indicator.component";
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: "imei-contact-info",
   templateUrl: "./imei-contact-info.component.html",
   styleUrls: ["./imei-contact-info.component.scss"]
 })
-export class ImeiContactInfoComponent implements OnInit {
+export class ImeiContactInfoComponent implements OnInit, OnDestroy {
   // @Input()
   public cms;
   isInvalid: boolean = true;
-
+  private subscription: ISubscription;
+  
   firstName = undefined;
   lastName = undefined;
   wirelessNumber = undefined;
@@ -33,11 +35,14 @@ export class ImeiContactInfoComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     console.log("nav1 data");
-    this.unlockService.UnlockDevice().subscribe((data: any) => {
-      this.cms = data.unlockPortalLabelAndErrorObj[0];
+    this.subscription = this.unlockService.UnlockDevice().subscribe((data: any) => {
+      this.cms = data;
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   ngOnInit() {}
 
   modalClosed(e) {}

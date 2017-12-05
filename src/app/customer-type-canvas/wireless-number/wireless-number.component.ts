@@ -3,6 +3,7 @@ import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
 import { PreloaderService } from '../../common/services/preloader.service';
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'wireless-number',
@@ -11,8 +12,7 @@ import { PreloaderService } from '../../common/services/preloader.service';
 })
 export class WirelessNumberComponent implements OnInit {
 
-  @Input()
-  public cms;
+  @Input() public cms: any;
   stepIndex = 1;
   customerType: boolean = true;
   isInvalid: boolean = true;

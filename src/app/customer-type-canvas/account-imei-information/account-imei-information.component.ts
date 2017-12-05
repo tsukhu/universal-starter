@@ -1,16 +1,19 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'account-imei-information',
   templateUrl: 'account-imei-information.component.html',
   styleUrls: ['account-imei-information.component.scss']
 })
-export class AccountIEMIInformationComponent implements OnInit {
+export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
 
+  private subscription: ISubscription;
+  
   // @Input()
   public cms;
   imeiNumber = undefined;
@@ -22,12 +25,15 @@ export class AccountIEMIInformationComponent implements OnInit {
 
   constructor(public modalService: ModalService, private unlockService: UnlockService,
     private route: Router, private preloader: PreloaderService) {
-    console.log("nav1 data");
-    this.unlockService.UnlockDevice().subscribe(
+   this.subscription = this.unlockService.UnlockDevice().subscribe(
       (data: any) => {
-        this.cms = data.unlockPortalLabelAndErrorObj[0];
+        this.cms = data;
       }
     )
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   ngOnInit() {

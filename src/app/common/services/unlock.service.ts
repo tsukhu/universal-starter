@@ -1,42 +1,46 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import 'rxjs/Rx';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { AppState } from "./app.service";
+import "rxjs/Rx";
 
 @Injectable()
 export class UnlockService {
-
   baseUrl: string = "https://www.att.com/";
   redirectOCEWorkFlowUrl: string = "apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow";
   customerOrderFlow: string = "apis/deviceunlock/OCEUnlockOrder/orderFlow";
   validateEmailUrl: string = "apis/deviceunlock/UnlockUtility/Verify/ValidateEmail";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public appState: AppState) {}
 
   public UnlockDevice() {
-    return this.http.get('../assets/content/unlock.json')
-      .map(data => {
-        return data;
+    let dataState = this.appState.get('unlockDevice');
+    if (dataState !== '') {
+      return Observable.of(dataState).last();
+    } else {
+      return this.http.get("../assets/content/unlock.json").map((data: any) => {
+        this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0]);
+        return data.unlockPortalLabelAndErrorObj[0];
       });
+    }
   }
-
 
   redirectOCEWorkFlow() {
     // let header: HttpHeaders = new HttpHeaders();
-    // header.append('Content-Type', 'application/json'); 
+    // header.append('Content-Type', 'application/json');
     // header.append('Access-Control-Allow-Origin', '*');
 
-    return this.http.post(this.baseUrl + this.redirectOCEWorkFlowUrl, {})//, {headers: header})
+    return this.http
+      .post(this.baseUrl + this.redirectOCEWorkFlowUrl, {}) //, {headers: header})
       .map((response: Response) => {
         return response.json();
       })
-      .catch((error: any) => Observable.throw('Server error'));
-
+      .catch((error: any) => Observable.throw("Server error"));
   }
 
   orderFlow(customerNumber) {
-
-    return this.http.get('../assets/content/orderflow-response.json')
+    return this.http
+      .get("../assets/content/orderflow-response.json")
       .map(data => {
         return data;
       });
@@ -61,8 +65,8 @@ export class UnlockService {
   }
 
   imeiOrderFlow(imeiNumber) {
-
-    return this.http.get('../assets/content/imei-orderflow-response.json')
+    return this.http
+      .get("../assets/content/imei-orderflow-response.json")
       .map(data => {
         return data;
       });
@@ -88,26 +92,27 @@ export class UnlockService {
 
   validateEmail(domain) {
     let requestJson = {
-        "unlockValidateEmailRequest": {
-          "domain": domain
-        }
+      unlockValidateEmailRequest: {
+        domain: domain
+      }
     };
-    return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson)//, {headers: header})
+    return this.http
+      .post(this.baseUrl + this.validateEmailUrl, requestJson) //, {headers: header})
       .map((response: Response) => {
         return response.json();
       })
-      .catch((error: any) => Observable.throw('Server error'));
+      .catch((error: any) => Observable.throw("Server error"));
   }
 
-   confirmation() {
-     return this.http.get('../assets/content/confirmation.json')
-      .map(data => {
-        return data;
-      });
+  confirmation() {
+    return this.http.get("../assets/content/confirmation.json").map(data => {
+      return data;
+    });
   }
 
   imeiMakeModelResponse(imeiNumber) {
-     return this.http.get('../assets/content/imei-make-model-response.json')
+    return this.http
+      .get("../assets/content/imei-make-model-response.json")
       .map(data => {
         return data;
       });
