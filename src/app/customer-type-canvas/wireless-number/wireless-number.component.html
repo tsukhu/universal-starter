@@ -97,7 +97,9 @@
         </div>
     </div>
 </div>
- 
+<!-- <div class="g-recaptcha" data-sitekey="6LekkTsUAAAAALYft1VnYNym3Z9pFQNNQe6V_7Yb"></div>
+<div class="rendercaptcha"></div> -->
+<re-captcha sitekey="6LekkTsUAAAAALYft1VnYNym3Z9pFQNNQe6V_7Yb" (tokenChange)="getToken($event);"></re-captcha>
 <div class="form-row">
   <label for="terms2" class="checkbox">
      <input id="terms2" type="checkbox" value="" (change)="termsChange()">

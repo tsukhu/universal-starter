@@ -38,13 +38,13 @@ export class WirelessNumberComponent implements OnInit {
 
   ngOnInit() {
     this.unlockService.redirectOCEWorkFlow()
-    .subscribe((data: any) => {
-      console.log(data);
-      // return data;
-    },
-    (error) => {
-      console.log(error);
-    });
+      .subscribe((data: any) => {
+        console.log(data);
+        // return data;
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
   modalClosed(e) {
@@ -160,4 +160,14 @@ export class WirelessNumberComponent implements OnInit {
     this.route.navigate(['/unlock-canvas']);
   }
 
+  getToken(event) {
+    console.log(event.token);
+    this.unlockService.verifyCaptcha(event.token)
+      .subscribe((data: any) => {
+        console.log("data",data);
+      },
+      (error) => {      
+        console.log("error",error);
+      });
+  }
 }

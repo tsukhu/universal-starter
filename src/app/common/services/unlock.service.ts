@@ -100,4 +100,16 @@ export class UnlockService {
      return this.http.get('../assets/content/imei-make-model-response.json');
 
   }
+
+  verifyCaptcha(token) {
+    let requestData = {
+      secret: "6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI",
+      response: token
+    };
+    return this.http.post("https://www.google.com/recaptcha/api/siteverify", requestData)//, {headers: header})
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: any) => Observable.throw(error || 'Server error'));
+  }
 }
