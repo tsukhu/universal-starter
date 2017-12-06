@@ -56,6 +56,7 @@
                             <div *ngIf="emailValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{cms?.emailRequiredError}}
                             </div>
+                            <p class="required-text"><em>{{cms?.emailHelpText}}</em></p>
                         </div>
                         <div class="form-row span5 offset1">
                             <label for="email_again">{{cms?.confirmEmail}}</label>
@@ -74,6 +75,10 @@
             </form>
         </div>
     </div>
+    <hr class="lite">
+    <h3 class="heading-small-content-emphasis">{{cms?.whatnextTitle}}</h3>
+    <p>{{cms?.whatnextInstructionLine1}}</p>
+    <p [innerHTML]="cms?.whatnextInstructionLine2"></p>
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
         <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>

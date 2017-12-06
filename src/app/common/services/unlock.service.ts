@@ -14,14 +14,14 @@ export class UnlockService {
   constructor(private http: HttpClient, public appState: AppState) {}
 
   public UnlockDevice() {
-
     let dataState: any = this.appState.get('unlockDevice');
     if (dataState !== '') {
       return Observable.of(dataState).last();
     } else {
       return this.http.get("../assets/content/unlock.json").map((data: any) => {
-        this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0]);
-        return data.unlockPortalLabelAndErrorObj[0];
+        let curLang = localStorage.unlockapplang||'en';
+        this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0][curLang]);
+        return data.unlockPortalLabelAndErrorObj[0][curLang];
       });
     }
   }

@@ -7,4 +7,8 @@ import { Component } from "@angular/core";
     templateUrl: './footer.component.html',
 })
 export class FooterComponent {
+    changeLanguage() {
+        localStorage.unlockapplang = localStorage.unlockapplang=='es'?'en':'es';
+        location.reload(true);
+    }
 }

@@ -22,6 +22,11 @@
 .ub_header {
     font-family: font-regular,Omnes-ATT-W02,Arial;
 }
+.btn-search {
+    float: right; background-image: url('../../../assets/images/att-sprite.png')!important; 
+    background-position: -107px -73px;  background-repeat: no-repeat;   margin-right: 7px;
+    border: none;  height: 30px;  width: 34px; margin-top: -35px;
+}
 
 @media (min-width:768px) {
     /* Tab and Desktop */
