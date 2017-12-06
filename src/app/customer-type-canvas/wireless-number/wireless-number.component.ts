@@ -50,7 +50,7 @@ export class WirelessNumberComponent implements OnInit {
   validateNext(event) {
 
     if (this.customerType) {
-      if (this.wirelessNumber.length == 0) {
+      if (this.wirelessNumber != undefined && this.wirelessNumber.length == 0) {
         this.attWrlsNoReqErr = true;
       } else {
         this.attWrlsNoReqErr = false;
@@ -63,7 +63,7 @@ export class WirelessNumberComponent implements OnInit {
         this.isInvalid = true;
       }
     } else {
-      if (this.imeiNumber.length == 0) {
+      if (this.imeiNumber != undefined && this.imeiNumber.length == 0) {
         this.nonAttImeiReqErr = true;
       } else {
         this.nonAttImeiReqErr = false;
@@ -76,7 +76,7 @@ export class WirelessNumberComponent implements OnInit {
         this.isInvalid = true;
       }
 
-      if (this.imeiNumber.length == 15) {
+      if (this.imeiNumber != undefined && this.imeiNumber.length == 15) {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber)
           .subscribe((data: any) => {

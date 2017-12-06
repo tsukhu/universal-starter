@@ -10,10 +10,10 @@ import { ISubscription } from "rxjs/Subscription";
   templateUrl: 'account-imei-information.component.html',
   styleUrls: ['account-imei-information.component.scss']
 })
-export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
+export class AccountIEMIInformationComponent implements OnInit, OnDestroy {
 
   private subscription: ISubscription;
-  
+
   // @Input()
   public cms;
   imeiNumber = undefined;
@@ -26,7 +26,7 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
   constructor(public modalService: ModalService, private unlockService: UnlockService,
     private route: Router, private preloader: PreloaderService) {
 
-   this.subscription = this.unlockService.UnlockDevice().subscribe(
+    this.subscription = this.unlockService.UnlockDevice().subscribe(
       (data: any) => {
         this.cms = data;
       }
@@ -51,7 +51,7 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
     //     console.log(error);
     //   });
 
-    this.route.navigate(['/unlockConfirm/', {customerType: true}]);
+    this.route.navigate(['/unlockConfirm/', { customerType: true }]);
   }
 
   unlockPrevious() {
@@ -60,35 +60,36 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
 
 
   validateNext(event) {
-    if (this.imeiNumber.length == 0) {
-      this.nonAttImeiReqErr = true;
-    } else {
-      this.nonAttImeiReqErr = false;
-    }
+    if (this.imeiNumber != undefined) {
+      
+      if (this.imeiNumber.length == 0) {
+        this.nonAttImeiReqErr = true;
+      } else {
+        this.nonAttImeiReqErr = false;
+      }
 
-    if (this.imeiNumber.length < 15) {
-      this.isInvalid = true;
-    }
+      if (this.imeiNumber.length < 15) {
+        this.isInvalid = true;
+      }
 
-    if (this.imeiNumber.length == 15) {
-      this.isInvalid = false;
-      this.preloader.start();
-      this.unlockService.imeiMakeModelResponse(this.imeiNumber)
-        .subscribe((data: any) => {
-          // return data;
-          // this.route.navigate['/unlock-canvas'];
-          this.preloader.stop();
-          this.showDeviceDetail = true;
-          this.deviceMake = data.orderFlowResponseDO.make;
-          this.deviceModel = data.orderFlowResponseDO.model;
-        },
-        (error) => {
-          console.log(error);
-          this.preloader.stop();
-        });
+      if (this.imeiNumber.length == 15) {
+        this.isInvalid = false;
+        this.preloader.start();
+        this.unlockService.imeiMakeModelResponse(this.imeiNumber)
+          .subscribe((data: any) => {
+            // return data;
+            // this.route.navigate['/unlock-canvas'];
+            this.preloader.stop();
+            this.showDeviceDetail = true;
+            this.deviceMake = data.orderFlowResponseDO.make;
+            this.deviceModel = data.orderFlowResponseDO.model;
+          },
+          (error) => {
+            console.log(error);
+            this.preloader.stop();
+          });
+      }
     }
-
-    
   }
 
 }
