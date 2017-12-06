@@ -16,7 +16,7 @@ export class UnlockService {
 
   public UnlockDevice() {
     let dataState: any = this.appState.get('unlockDevice');
-    if (dataState !== '') {
+    if (dataState.viewInLanguage) {
       return Observable.of(dataState).last();
     } else {
       return this.http.get("../assets/content/unlock.json").map((data: any) => {

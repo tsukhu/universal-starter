@@ -97,8 +97,8 @@ export class ImeiContactInfoComponent implements OnInit, OnDestroy {
     }
 
     if(this.firstName != undefined && this.firstName.length != 0 &&
-      this.firstName != undefined && this.lastName.length != 0 &&
-      this.lastName != undefined && this.wirelessNumber.length != 0 &&
+      this.lastName != undefined && this.lastName.length != 0 &&
+      this.wirelessNumber != undefined && this.wirelessNumber.length != 0 &&
       this.email != undefined && this.email.length != 0 &&
       this.confirmEmail != undefined && this.confirmEmail.length != 0 && (this.email == this.confirmEmail)) {
       this.isInvalid = false;

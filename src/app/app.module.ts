@@ -18,7 +18,6 @@ import { UnlockCanvasModule } from './unlock-canvas/unlock-canvas.module';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
 import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status-confirmation/unlock-status-confirmation.component";
-import { UnlockStatusService } from "./common/services/unlock-status.service";
 
 @NgModule({
   declarations: [
@@ -51,8 +50,7 @@ import { UnlockStatusService } from "./common/services/unlock-status.service";
     ], { useHash: true })
   ],
   providers: [
-    PreloaderService, ModalService, UnlockService, UnlockStatusService, 
-    AppState],
+    PreloaderService, ModalService, UnlockService, AppState],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -111,7 +111,8 @@
                 "backButton": "Back",
                 "ULP_1010": "Looks like this email address is associated with fraud. Please enter a new email address.",
                 "nextButton": "Next",
-                "wirelessTelephoneNumberLabel": "Wireless telephone number"
+                "wirelessTelephoneNumberLabel": "Wireless telephone number",
+                "viewInLanguage" : "Ver en espanol"
             },
             "es":
             {
@@ -221,7 +222,8 @@
                 "submitButton": "Enviar",
                 "backButton": "Espalda",
                 "ULP_1010": "Parece que esta dirección de correo electrónico está asociada con un fraude. Ingresa una nueva dirección de correo electrónico.",
-                "nextButton": "Siguiente"
+                "nextButton": "Siguiente",
+                "viewInLanguage" : "View in English"
             }
         }
     ]

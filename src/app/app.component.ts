@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     this.appState.set('Current Route','home page');
-    this.appState.set('unlockDevice', '');
+    this.appState.set('unlockDevice', {});
   }
 }
