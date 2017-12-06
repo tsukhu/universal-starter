@@ -87,3 +87,24 @@ constructor(element: ElementRef, renderer: Renderer2) {
 
 # License
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE)
+
+
+## Protractor End to End Testing Execution
+
+#Installation:
+* `npm install -g protractor`
+This will install two command line tools, protractor and webdriver-manager. Try running protractor --version to make sure it's working.
+
+**Note**: The webdriver-manager is a helper tool to easily get an instance of a Selenium Server running. Use it to download
+ the necessary binaries with the below command:
+
+* `webdriver-manager update`
+
+# Hit `ng serve` from the application. When the code is complied successfully, follow the command
+`protractor`
+
+[or]
+
+`protractor protractor.conf.js`
+
+*Note**: This will open up chrome browser and it is controlled automatically to produce the results based on spec file.

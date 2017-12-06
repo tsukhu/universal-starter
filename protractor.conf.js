@@ -3,6 +3,8 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter'); 
+
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
@@ -23,6 +25,9 @@ exports.config = {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+	jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
+            savePath: './test/reports/',
+			fileName: 'Reports'
+        }));
   }
 };
