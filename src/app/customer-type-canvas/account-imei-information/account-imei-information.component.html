@@ -33,7 +33,7 @@
     <p [innerHTML]="cms?.whatnextInstructionLine2"></p>
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
-        <button [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>
+        <button [disabled]="isInvalid" class="btn btn-primary-functional" id="unlockSubmit" type="button" (click)="unlockNext()">{{cms?.submitButton}}</button>
         <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{cms?.backButton}}</button>
     </div>
 </div>

@@ -2,10 +2,10 @@
     position: relative;
 }
 
-.btn-search {
-    top: -1.3rem;
-    left: -1.5rem;
-}
+// .btn-search {
+//     top: -1.3rem;
+//     left: -1.5rem;
+// }
 
 .icon-right:before {
     content: unset;
@@ -23,24 +23,33 @@
     font-family: font-regular,Omnes-ATT-W02,Arial;
 }
 .btn-search {
-    float: right; background-image: url('../../../assets/images/att-sprite.png')!important; 
+    float: right; 
     background-position: -107px -73px;  background-repeat: no-repeat;   margin-right: 7px;
-    border: none;  height: 30px;  width: 34px; margin-top: -35px;
+    border: none;  height: 30px;  width: 34px;min-width: 34px !important; margin-top: 0px;
+    background-size: auto;
 }
 
-@media (min-width:768px) {
+// @media (min-width:1024px) {
+//     /* Tab and Desktop */
+//     .btn-search {
+//         right: 2.5rem;
+//     }
+// }
+
+@media (min-width:768px) and (max-width:1078px) {
     /* Tab and Desktop */
     .btn-search {
-        top: 1.2rem;
-        left: 1rem;
+        top: 1rem;
+        right: 2.15rem;
+        display: none;
     }
 }
 
-@media (min-width:1024px) {
+@media (max-width:767px) {
     /* Tab and Desktop */
     .btn-search {
-        top: 0.8rem;
-        left: auto;
+        top: -1.85rem;
+        right: 1.15rem;
     }
 }
 
