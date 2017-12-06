@@ -10,6 +10,7 @@ export class UnlockService {
   redirectOCEWorkFlowUrl: string = "apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow";
   customerOrderFlow: string = "apis/deviceunlock/OCEUnlockOrder/orderFlow";
   validateEmailUrl: string = "apis/deviceunlock/UnlockUtility/Verify/ValidateEmail";
+  unlockOrderStatusUrl: string = "../assets/content/unlock-status.json";  
 
   constructor(private http: HttpClient, public appState: AppState) {}
 
@@ -92,6 +93,14 @@ export class UnlockService {
      return this.http.get('../assets/content/imei-make-model-response.json');
 
   }
+
+  unlockOrderStatus() {
+    // let header: HttpHeaders = new HttpHeaders();
+    // header.append('Content-Type', 'application/json'); 
+    // header.append('Access-Control-Allow-Origin', '*');
+
+    return this.http.get(this.unlockOrderStatusUrl, {})//, {headers: header})
+  }  
 
   verifyCaptcha(token) {
 

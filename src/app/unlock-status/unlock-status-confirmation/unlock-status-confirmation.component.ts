@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { ModalService } from "../../common/modal/index";
-import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { ActivatedRoute } from "@angular/router";
 import { ISubscription } from "rxjs/Subscription";
+import { UnlockService } from "../../common/services/unlock.service";
 
 @Component({
   selector: "unlock-status-confirmation",
@@ -19,19 +19,19 @@ export class UnlockStatusConfirmationComponent implements OnInit, OnDestroy {
 
   constructor(
     public modalService: ModalService,
-    private unlockStatusService: UnlockStatusService,
+    private unlockService: UnlockService,
     private route: ActivatedRoute
   ) {
     this.imeiNumber = this.route.snapshot.params["imeiNumber"];
   }
 
   ngOnInit() {
-    this.subscriptionUnlock = this.unlockStatusService
+    this.subscriptionUnlock = this.unlockService
       .UnlockDevice()
       .subscribe((data: any) => {
-        this.cms = data.unlockPortalLabelAndErrorObj[0];
+        this.cms = data;
       });
-    this.subscriptionOrder = this.unlockStatusService
+    this.subscriptionOrder = this.unlockService
       .unlockOrderStatus()
       .subscribe((data: any) => {
         this.orderStatus = data.oceUnlockOrderStatusDO;

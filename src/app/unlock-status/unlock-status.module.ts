@@ -7,8 +7,8 @@ import { EligibleUnlockComponent } from '../common/eligible-unlock/index';
 import { AccountInformationComponent } from "./account-information/index";
 import { UnlockStatusComponent } from "./index";
 import { FormsModule } from "@angular/forms";
-import { UnlockStatusService } from "../common/services/unlock-status.service";
 import { LayoutModule } from "../common/layout.module";
+import { UnlockService } from "../common/services/unlock.service";
 
 @NgModule({
   declarations: [UnlockStatusComponent, AccountInformationComponent],
@@ -22,7 +22,7 @@ import { LayoutModule } from "../common/layout.module";
   ],
   providers: [
     ModalService,
-    UnlockStatusService
+    UnlockService
   ]
 })
 export class UnlockStatusModule {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input,OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from "@angular/router";
-import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { ISubscription } from "rxjs/Subscription";
 import { UnlockService } from "../../common/services/unlock.service";
 
@@ -20,10 +19,10 @@ export class AccountInformationComponent implements OnInit {
   nonAttReqNoErr: boolean = false;
   isInvalid: boolean = true;
   private subscription: ISubscription;
-  constructor( public modalService: ModalService, private unlockStatusService: UnlockStatusService, private route: Router, private unlockService: UnlockService) { 
-    this.subscription = this.unlockStatusService.UnlockDevice().subscribe(
+  constructor( public modalService: ModalService, private route: Router, private unlockService: UnlockService) { 
+   this.subscription = this.unlockService.UnlockDevice().subscribe(
       (data: any) => {
-        this.cms = data.unlockPortalLabelAndErrorObj[0];
+        this.cms = data;
       }
     )
   }
@@ -69,4 +68,8 @@ export class AccountInformationComponent implements OnInit {
         console.log("error",error);
       });
   }
+  unlockPrevious() {
+    this.route.navigate(['/unlock-canvas']);
+  }
+  
 }

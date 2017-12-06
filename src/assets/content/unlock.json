@@ -100,7 +100,7 @@
                 "checkstatusIntroTxt": "Enter your IMEI and the unlock confirmation number we emailed you. Check your spam folder if you think you missed our email.",                                    
                 "currentStatusLabel": "Current Status",
                 "orderPending" : "Pending",
-                "pendingEmailConfirm": "<p>Your unlock request is on hold until we receive your confirmation.</p><p>To complete your request, follow the confirmation link in the email we sent you.</p><p><b>Note:</b> If you can't find the email, check your spam folder or <a href='#'>submit a new request</a>.</p>",            
+                "pendingEmailConfirm": "<p>Your unlock request is on hold until we receive your confirmation.</p><p>To complete your request, follow the confirmation link in the email we sent you.</p><p><b>Note:</b> If you can't find the email, check your spam folder or <a href='#'>submit a new request</a>.</p>", 
                 "imeiNumberLabel": "IMEI Number",
                 "requestDateTimeLabel": "Request Date/Time",
                 "requestNumberStatusLabel": "Request Number",

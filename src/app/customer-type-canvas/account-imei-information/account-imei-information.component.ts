@@ -56,8 +56,6 @@ export class AccountIEMIInformationComponent implements OnInit,OnDestroy {
 
   unlockPrevious() {
     this.route.navigate(['/unlockstep2']);
-
-    this.route.navigate(['/unlockstep2']);
   }
 
 
