@@ -10,17 +10,16 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['customer-type-canvas.component.scss']
 })
 export class CustomerTypeCanvasComponent implements OnInit {
-  unlockCanvas: Observable<any>;
+  public unlockCanvas: Observable<any>;
 
-  constructor(private unlockService: UnlockService, public modalService: ModalService) {
-  }
+  constructor(
+    private unlockService: UnlockService,
+    public modalService: ModalService
+  ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.unlockCanvas = this.unlockService.UnlockDevice();
-       
   }
 
-  public modalClosed(e) {
-  }
-
+  public modalClosed(e) {}
 }

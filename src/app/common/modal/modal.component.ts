@@ -32,17 +32,17 @@ export class ModalComponent implements OnInit, OnDestroy {
         }
 
         if (event.keyCode === 9 && event.target.id === 'lastElemFocus') {
-            let modalWrapper = this.element.children;
+            const modalWrapper = this.element.children;
             if (modalWrapper.length > 0) {
-                let modalContainer = modalWrapper[0].children;
-                let closeButton = modalContainer[0].children[0].children[0];
+                const modalContainer = modalWrapper[0].children;
+                const closeButton = modalContainer[0].children[0].children[0];
                 closeButton.focus();
             }
         }
     }
 
     public ngOnInit(): void {
-        let modal = this;
+        const modal = this;
 
         // ensure id attribute exists
         if (!this.id) {
@@ -66,10 +66,10 @@ export class ModalComponent implements OnInit, OnDestroy {
     // open modal
     public open(): void {
         this.element.style.display = 'block';
-        let modalWrapper = this.element.children;
+        const modalWrapper = this.element.children;
         if (modalWrapper.length > 0) {
-            let modalContainer = modalWrapper[0].children;
-            let closeButton = modalContainer[0].children[0].children[0];
+            const modalContainer = modalWrapper[0].children;
+            const closeButton = modalContainer[0].children[0].children[0];
             closeButton.focus();
             if (modalContainer.length > 0) {
                 modalWrapper[0].classList.add('active');
@@ -83,9 +83,9 @@ export class ModalComponent implements OnInit, OnDestroy {
     // close modal
     public close(): void {
         this.element.style.display = 'none';
-        let modalWrapper = this.element.children;
+        const modalWrapper = this.element.children;
         if (modalWrapper.length > 0) {
-            let modalContainer = modalWrapper[0].children;
+            const modalContainer = modalWrapper[0].children;
             if (modalContainer.length > 0) {
                 modalWrapper[0].classList.remove('active');
                 modalContainer[0].classList.remove('in');

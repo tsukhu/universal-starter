@@ -12,7 +12,11 @@ export class UnlockStatusComponent implements OnInit {
 
   constructor(public modalService: ModalService) {}
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    /** TODO */
+  }
 
-  public modalClosed(e) {}
+  public modalClosed(e) {
+    /** TODO */
+  }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 
+// tslint:disable-next-line:interface-over-type-literal
 export type InternalStateType = {
   [key: string]: any
 };

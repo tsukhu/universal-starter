@@ -11,66 +11,74 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['wireless-number.component.scss']
 })
 export class WirelessNumberComponent implements OnInit {
-
   @Input() public cms: any;
-  stepIndex = 1;
-  customerType: boolean = true;
-  isInvalid: boolean = true;
-  wirelessNumber: string = undefined;
-  termsChecked: boolean = false;
+  public stepIndex = 1;
+  public customerType: boolean = true;
+  public isInvalid: boolean = true;
+  public wirelessNumber: string = undefined;
+  public termsChecked: boolean = false;
   // wireLessErrorMsg: boolean = false;
-  imeiNumber: string = undefined;
+  public imeiNumber: string = undefined;
 
-  attWrlsNoReqErr: boolean = false;
-  attWrlsLengthWErr: boolean = false;
-  attWrlsValidErr: boolean = false;
-  attWrlsValidServerErr: boolean = false;
+  public attWrlsNoReqErr: boolean = false;
+  public attWrlsLengthWErr: boolean = false;
+  public attWrlsValidErr: boolean = false;
+  public attWrlsValidServerErr: boolean = false;
 
   public nonAttImeiReqErr: boolean = false;
-  errorMessage: boolean  = false;
+  public errorMessage: boolean = false;
 
-  deviceMake: string;
-  deviceModel: string;
-  showDeviceDetail: boolean = false;
+  public deviceMake: string;
+  public deviceModel: string;
+  public showDeviceDetail: boolean = false;
 
-  constructor( public modalService: ModalService, private unlockService: UnlockService,
-    private route: Router, private preloader: PreloaderService) { }
+  constructor(
+    public modalService: ModalService,
+    private unlockService: UnlockService,
+    private route: Router,
+    private preloader: PreloaderService
+  ) {}
 
-  public ngOnInit() {
-  }
+  public ngOnInit() {}
 
-  public modalClosed(e) {
-
-  }
+  public modalClosed(e) {}
 
   public onCustomerTypeChange(value: boolean) {
     this.customerType = value;
   }
 
   public validateNext(event) {
-
     if (this.customerType) {
-      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {
+      if (
+        this.wirelessNumber !== undefined &&
+        this.wirelessNumber.length === 0
+      ) {
         this.attWrlsNoReqErr = true;
       } else {
         this.attWrlsNoReqErr = false;
       }
 
-      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 10
-        && this.termsChecked) {
+      if (
+        this.wirelessNumber !== undefined &&
+        this.wirelessNumber.length === 10 &&
+        this.termsChecked
+      ) {
         this.isInvalid = false;
       } else {
         this.isInvalid = true;
       }
     } else {
-      if (this.imeiNumber != undefined && this.imeiNumber.length == 0) {
+      if (this.imeiNumber !== undefined && this.imeiNumber.length === 0) {
         this.nonAttImeiReqErr = true;
       } else {
         this.nonAttImeiReqErr = false;
       }
 
-      if (this.imeiNumber != undefined && this.imeiNumber.length == 15
-        && this.termsChecked) {
+      if (
+        this.imeiNumber !== undefined &&
+        this.imeiNumber.length === 15 &&
+        this.termsChecked
+      ) {
         this.isInvalid = false;
       } else {
         this.isInvalid = true;
@@ -78,8 +86,8 @@ export class WirelessNumberComponent implements OnInit {
 
       if (this.imeiNumber !== undefined && this.imeiNumber.length === 15) {
         this.preloader.start();
-        this.unlockService.imeiMakeModelResponse(this.imeiNumber)
-          .subscribe((data: any) => {
+        this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
+          (data: any) => {
             console.log('validate iemi');
             console.log(data);
             // return data;
@@ -92,73 +100,83 @@ export class WirelessNumberComponent implements OnInit {
           (error) => {
             console.log(error);
             this.preloader.stop();
-          });
+          }
+        );
       }
     }
-
   }
 
-  termsChange() {
+  public termsChange() {
     this.termsChecked = !this.termsChecked;
 
     if (this.customerType) {
-      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 10
-        && this.termsChecked) {
+      if (
+        this.wirelessNumber !== undefined &&
+        this.wirelessNumber.length === 10 &&
+        this.termsChecked
+      ) {
         this.isInvalid = false;
       } else {
         this.isInvalid = true;
       }
     } else {
-      if (this.imeiNumber !== undefined && this.imeiNumber.length === 15
-        && this.termsChecked) {
+      if (
+        this.imeiNumber !== undefined &&
+        this.imeiNumber.length === 15 &&
+        this.termsChecked
+      ) {
         this.isInvalid = false;
       } else {
         this.isInvalid = true;
       }
     }
-
   }
 
-  unlockNext() {
+  public unlockNext() {
     if (this.customerType) {
-    this.unlockService.orderFlow(this.wirelessNumber)
-      .subscribe((data: any) => {
-        console.log(data);
-        
-        this.route.navigate(['/unlockstep2/', {wirelessNumber: this.wirelessNumber}]);
-      },
-      (error) => {
-        console.log(error);
-      });
+      this.unlockService.orderFlow(this.wirelessNumber).subscribe(
+        (data: any) => {
+          console.log(data);
+
+          this.route.navigate([
+            '/unlockstep2/',
+            { wirelessNumber: this.wirelessNumber }
+          ]);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else {
-      this.unlockService.imeiOrderFlow(this.imeiNumber)
-      .subscribe((data: any) => {
-        console.log(data);
-        
-        this.route.navigate(['/nonattunlock']);
-      },
-      (error) => {
-        console.log(error);
-      });
+      this.unlockService.imeiOrderFlow(this.imeiNumber).subscribe(
+        (data: any) => {
+          console.log(data);
+
+          this.route.navigate(['/nonattunlock']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-      
 
     // this.route.navigate(['/unlockstep2', {wirelessNumber: this.wirelessNumber}]);
   }
 
-  unlockPrevious() {
+  public unlockPrevious() {
     // alert("navigate");
     this.route.navigate(['/unlock-canvas']);
   }
 
   public getToken(event) {
     console.log(event.token);
-    this.unlockService.verifyCaptcha(event.token)
-      .subscribe((data: any) => {
-        console.log('data',data);
+    this.unlockService.verifyCaptcha(event.token).subscribe(
+      (data: any) => {
+        console.log('data', data);
       },
       (error) => {
         console.log('error', error);
-      });
+      }
+    );
   }
 }
