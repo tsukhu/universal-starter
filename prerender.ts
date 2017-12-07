@@ -16,6 +16,7 @@ import { renderModuleFactory } from '@angular/platform-server';
 import { ROUTES } from './static.paths';
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
+// tslint:disable-next-line:no-var-requires
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
 
 const BROWSER_FOLDER = join(process.cwd(), 'browser');
@@ -26,8 +27,8 @@ const index = readFileSync(join('browser', 'index.html'), 'utf8');
 let previousRender = Promise.resolve();
 
 // Iterate each route path
-ROUTES.forEach(route => {
-  var fullPath = join(BROWSER_FOLDER, route);
+ROUTES.forEach((route) => {
+  const fullPath = join(BROWSER_FOLDER, route);
 
   // Make sure the directory structure is there
   if(!existsSync(fullPath)){
@@ -35,11 +36,11 @@ ROUTES.forEach(route => {
   }
 
   // Writes rendered HTML to index.html, replacing the file if it already exists.
-  previousRender = previousRender.then(_ => renderModuleFactory(AppServerModuleNgFactory, {
+  previousRender = previousRender.then((_) => renderModuleFactory(AppServerModuleNgFactory, {
     document: index,
     url: route,
     extraProviders: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  })).then(html => writeFileSync(join(fullPath, 'index.html'), html));
+  })).then((html) => writeFileSync(join(fullPath, 'index.html'), html));
 });
