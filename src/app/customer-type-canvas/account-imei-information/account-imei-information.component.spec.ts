@@ -1,12 +1,13 @@
+import { FormsModule } from '@angular/forms';
 import { ComponentFixture, async, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { AccountInformationComponent } from "./account-information.component";
-import { UnlockService } from "../../common/services/unlock.service";
-import { ModalService } from "../../common/modal/modal.service";
-//import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { Router } from "@angular/router";
+import { AccountIEMIInformationComponent } from './account-imei-information.component';
+import { UnlockService } from '../../common/services/unlock.service';
+import { ModalService } from '../../common/modal/modal.service';
+import { PreloaderService } from '../../common/services/preloader.service';
 
 class MockUnlockService {
   http: any;
@@ -18,7 +19,7 @@ class MockUnlockService {
           "Welcome to device unlock, your step-by-step guide to unlocking AT&T phones, tablets, and mobile hotspots. If you're moving a device to AT&T, be sure to contact your own carrier to unlock it first.",
         landingPageSecondParagraph: "Taking a trip?",
         landingPageThirdParagraph:
-          "Did you know that it isn�t always necessary to unlock a device if you�re planning a trip? ",
+          "Did you know that it isn’t always necessary to unlock a device if you’re planning a trip? ",
         landingPageFourthParagraph:
           "Learn how you can use the talk, text & data you already have in over 100 countries with ",
         InternationaldayPassText: "International Day Pass",
@@ -47,7 +48,7 @@ class MockUnlockService {
         DUEnterYourIMEIStep: "Enter your IMEI",
         DUAccountInformationStep: "Account information",
         DUConfirmationStep: "Confirmation",
-        introTextBeforeLink: "Be sure you�re",
+        introTextBeforeLink: "Be sure you’re",
         modalLinkTxtIntroParagraph: "eligible to unlock",
         introTextAfterLink: "your smartphone, tablet, or mobile hotspot.",
         radioLabel: "Are you an AT&T wireless customer?",
@@ -138,8 +139,44 @@ class MockUnlockService {
       }
     ]
   };
+
+  public orderFlowResponse = {
+    "orderFlowResponseDO": {
+      "accountType": "IRU",
+      "ssnValidation": false,
+      "accountSubType": "R",
+      "skipFlag": false,
+      "passcodeValidation": true
+    }
+  }
+
+  public imeiMakeModelResponseJson = {
+    "orderFlowResponseDO": {
+        "make": "Apple",
+        "model": "iPhone 4 Model A1332",
+        "ssnValidation": false,
+        "skipFlag": false,
+        "imeiRefId": "QTbk77StgdchZho8PbaiyA%3D%3D",
+        "makeRefId": "kix6IM3l1QwTfpXJnoUa7w%3D%3D",
+        "modelRefId": "qMy0Z07%2FnxRqutRVv%2B%2FUAB5b5TXeP9%2BC9dFj3GIAbTU%3D",
+        "passcodeValidation": false
+    }
+  }
+
   public UnlockDevice() {
     return Observable.of(this.data);
+  }
+
+  public redirectOCEWorkFlow() {
+    return Observable.of(this.data);
+  }
+
+  public orderFlow(gdfg) {
+    return Observable.of(this.orderFlowResponse);
+  }
+
+  public imeiMakeModelResponse(imeiNumber) {
+    return Observable.of(this.imeiMakeModelResponseJson);
   }
 }
 
@@ -149,70 +186,59 @@ class MockRouter {
   }
 }
 
-describe("AccountInformationComponent", () => {
-  let component: AccountInformationComponent;
-  let fixture: ComponentFixture<AccountInformationComponent>;
+describe("AccountIEMIInformationComponent", () => {
+  let component: AccountIEMIInformationComponent;
+  let fixture: ComponentFixture<AccountIEMIInformationComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [AccountInformationComponent],
+        declarations: [AccountIEMIInformationComponent],
         schemas: [NO_ERRORS_SCHEMA],
+        imports: [FormsModule],
         providers: [
           //  UnlockService,
-          { provide: UnlockService, useClass: MockUnlockService },          
+          { provide: UnlockService, useClass: MockUnlockService },
           { provide: Router, useClass: MockRouter },
           ModalService,
-          HttpClient
+          HttpClient,
+          PreloaderService
         ]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccountInformationComponent);
+    fixture = TestBed.createComponent(AccountIEMIInformationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it("component should be created", () => {
+  it("Account Imei information component should be created", () => {
     expect(fixture).toBeDefined();
     expect(component).toBeDefined();
   });
 
-  it("should check validateNext method if imeiNumber is defined", () => {
-    component.imeiNumber = "123456789123456";
+  it("should check validateNext methof if imeinumber is null", () => {
+    component.imeiNumber = '';
     component.validateNext(event);
-  });
+  });  
 
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.imeiNumber = "";
+  it("should check validateNext methof if imeinumber is not null", () => {
+    component.imeiNumber = '12345687';
     component.validateNext(event);
-  });
+  });  
 
-  it("should check validateNext method if requestNumber is defined", () => {
-    component.requestNumber = "1234567890";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.requestNumber = "";
+  it("should check validateNext method if imeinumber of length 15", () => {
+    component.imeiNumber = '1234568789123456';
     component.validateNext(event);
   });
 
   it("should check unlockNext", () => {
     component.unlockNext();
-  });  
-
-  /* 
-  it("should check getToken", () => {
-    component.getToken('123456');
-  }); */
-
-});
-
-/* describe("Unlock Status", () => {
-  it("component should be created", () => {
-    expect(true).toEqual(true);    
   });
-}); */
+
+  it("should check unlockPrevious", () => {
+    component.unlockPrevious();
+  });
+});
