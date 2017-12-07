@@ -6,13 +6,9 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['unlock-action-card.component.scss']
 })
 export class UnlockActionCardComponent implements OnInit {
+  @Input() public actionCard;
 
-  @Input()
-  public actionCard;
-  
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }

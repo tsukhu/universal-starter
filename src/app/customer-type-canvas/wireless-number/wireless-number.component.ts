@@ -3,7 +3,7 @@ import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
 import { PreloaderService } from '../../common/services/preloader.service';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'wireless-number',
@@ -26,7 +26,7 @@ export class WirelessNumberComponent implements OnInit {
   attWrlsValidErr: boolean = false;
   attWrlsValidServerErr: boolean = false;
 
-  nonAttImeiReqErr: boolean = false;
+  public nonAttImeiReqErr: boolean = false;
   errorMessage: boolean  = false;
 
   deviceMake: string;
@@ -36,27 +36,27 @@ export class WirelessNumberComponent implements OnInit {
   constructor( public modalService: ModalService, private unlockService: UnlockService,
     private route: Router, private preloader: PreloaderService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
-  modalClosed(e) {
+  public modalClosed(e) {
 
   }
 
-  onCustomerTypeChange(value: boolean) {
+  public onCustomerTypeChange(value: boolean) {
     this.customerType = value;
   }
 
-  validateNext(event) {
+  public validateNext(event) {
 
     if (this.customerType) {
-      if (this.wirelessNumber != undefined && this.wirelessNumber.length == 0) {
+      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {
         this.attWrlsNoReqErr = true;
       } else {
         this.attWrlsNoReqErr = false;
       }
 
-      if (this.wirelessNumber != undefined && this.wirelessNumber.length == 10
+      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 10
         && this.termsChecked) {
         this.isInvalid = false;
       } else {
@@ -76,11 +76,11 @@ export class WirelessNumberComponent implements OnInit {
         this.isInvalid = true;
       }
 
-      if (this.imeiNumber != undefined && this.imeiNumber.length == 15) {
+      if (this.imeiNumber !== undefined && this.imeiNumber.length === 15) {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber)
           .subscribe((data: any) => {
-            console.log("validate iemi");
+            console.log('validate iemi');
             console.log(data);
             // return data;
             // this.route.navigate['/unlock-canvas'];
@@ -102,14 +102,14 @@ export class WirelessNumberComponent implements OnInit {
     this.termsChecked = !this.termsChecked;
 
     if (this.customerType) {
-      if (this.wirelessNumber != undefined && this.wirelessNumber.length == 10
+      if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 10
         && this.termsChecked) {
         this.isInvalid = false;
       } else {
         this.isInvalid = true;
       }
     } else {
-      if (this.imeiNumber != undefined && this.imeiNumber.length == 15
+      if (this.imeiNumber !== undefined && this.imeiNumber.length === 15
         && this.termsChecked) {
         this.isInvalid = false;
       } else {
@@ -151,14 +151,14 @@ export class WirelessNumberComponent implements OnInit {
     this.route.navigate(['/unlock-canvas']);
   }
 
-  getToken(event) {
+  public getToken(event) {
     console.log(event.token);
     this.unlockService.verifyCaptcha(event.token)
       .subscribe((data: any) => {
-        console.log("data",data);
+        console.log('data',data);
       },
-      (error) => {      
-        console.log("error",error);
+      (error) => {
+        console.log('error', error);
       });
   }
 }

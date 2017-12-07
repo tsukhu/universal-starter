@@ -6,16 +6,11 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['unlock-panel.component.scss']
 })
 export class UnlockPanelComponent implements OnInit {
+  @Input() public devicePortal;
 
-  @Input()
-  public devicePortal;
+  @Input() public deviceHelp;
 
-  @Input()
-  public deviceHelp;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

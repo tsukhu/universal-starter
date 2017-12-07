@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { ModalService } from "../../common/modal/index";
-import { ActivatedRoute } from "@angular/router";
-import { ISubscription } from "rxjs/Subscription";
-import { UnlockService } from "../../common/services/unlock.service";
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { ModalService } from '../../common/modal/index';
+import { ActivatedRoute } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
+import { UnlockService } from '../../common/services/unlock.service';
 
 @Component({
-  selector: "unlock-status-confirmation",
-  templateUrl: "unlock-status-confirmation.component.html",
-  styleUrls: ["unlock-status-confirmation.component.scss"]
+  selector: 'unlock-status-confirmation',
+  templateUrl: 'unlock-status-confirmation.component.html',
+  styleUrls: ['unlock-status-confirmation.component.scss']
 })
 export class UnlockStatusConfirmationComponent implements OnInit, OnDestroy {
   @Input() public cms;
@@ -22,10 +22,10 @@ export class UnlockStatusConfirmationComponent implements OnInit, OnDestroy {
     private unlockService: UnlockService,
     private route: ActivatedRoute
   ) {
-    this.imeiNumber = this.route.snapshot.params["imeiNumber"];
+    this.imeiNumber = this.route.snapshot.params['imeiNumber'];
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.subscriptionUnlock = this.unlockService
       .UnlockDevice()
       .subscribe((data: any) => {
@@ -38,7 +38,7 @@ export class UnlockStatusConfirmationComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     if (this.subscriptionUnlock) {
       this.subscriptionUnlock.unsubscribe();
     }
