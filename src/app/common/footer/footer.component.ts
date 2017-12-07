@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { UnlockService } from '../services/unlock.service';
+import { AppState } from '../services/app.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,14 +9,9 @@ import { UnlockService } from '../services/unlock.service';
 })
 export class FooterComponent {
   public cms: any;
-  private subscription: ISubscription;
 
-  constructor(private unlockService: UnlockService) {
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+  constructor(private appState: AppState) {
+    this.cms = this.appState.get('unlockDevice');
   }
 
   public changeLanguage() {

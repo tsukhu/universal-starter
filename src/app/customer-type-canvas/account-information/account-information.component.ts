@@ -2,14 +2,14 @@ import { UnlockService } from '../../common/services/unlock.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { AppState } from '../../common/services/app.service';
 
 @Component({
   selector: 'account-information',
   templateUrl: 'account-information.component.html',
   styleUrls: ['account-information.component.scss']
 })
-export class AccountInformationComponent implements OnDestroy {
+export class AccountInformationComponent  {
   // @Input()
 
   public cms;
@@ -29,18 +29,15 @@ export class AccountInformationComponent implements OnDestroy {
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
   public passcodeValidErr: boolean = false;
-  private subscription: ISubscription;
+
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
+    private appState: AppState,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+    this.cms = this.appState.get('unlockDevice');
     // console.log("nav1 data");
     // this.unlockService.UnlockDevice().subscribe((data: any) => {
     // this.cms = data.unlockPortalLabelAndErrorObj[0];
@@ -49,11 +46,6 @@ export class AccountInformationComponent implements OnDestroy {
     this.wirelessNumber = this.route.snapshot.params['wirelessNumber'];
   }
 
-  public ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
   public modalClosed(e) {}
 
   public unlockNext() {

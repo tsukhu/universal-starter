@@ -3,6 +3,7 @@ import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { UnlockService } from '../../common/services/unlock.service';
+import { AppState } from '../../common/services/app.service';
 
 @Component({
   selector: 'account-information',
@@ -17,18 +18,15 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
   public nonAttImeiReqErr: boolean = false;
   public nonAttReqNoErr: boolean = false;
   public isInvalid: boolean = true;
-  private subscriptionUnLockDevice: ISubscription;
   private subscriptionCaptcha: ISubscription;
   constructor(
     public modalService: ModalService,
     private route: Router,
+    private appState: AppState,
     private unlockService: UnlockService
   ) {
-    this.subscriptionUnLockDevice = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+
+    this.cms = this.appState.get('unlockDevice');
   }
 
   public ngOnInit() {
@@ -40,9 +38,6 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    if (this.subscriptionUnLockDevice !== undefined) {
-      this.subscriptionUnLockDevice.unsubscribe();
-    }
     if (this.subscriptionCaptcha !== undefined) {
       this.subscriptionCaptcha.unsubscribe();
     }

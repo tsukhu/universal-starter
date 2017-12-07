@@ -3,6 +3,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
+import { AppState } from '../../common/services/app.service';
 import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
@@ -23,14 +24,11 @@ export class AccountIEMIInformationComponent implements OnDestroy {
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
+    private appState: AppState,
     private route: Router,
     private preloader: PreloaderService
   ) {
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+    this.cms = this.appState.get('unlockDevice');
   }
 
   public ngOnDestroy() {
