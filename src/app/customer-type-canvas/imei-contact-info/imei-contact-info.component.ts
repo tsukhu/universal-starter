@@ -2,14 +2,14 @@ import { UnlockService } from '../../common/services/unlock.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { AppState } from '../../common/services/app.service';
 
 @Component({
   selector: 'imei-contact-info',
   templateUrl: './imei-contact-info.component.html',
   styleUrls: ['./imei-contact-info.component.scss']
 })
-export class ImeiContactInfoComponent implements OnInit, OnDestroy {
+export class ImeiContactInfoComponent implements OnInit {
   // @Input()
   public cms;
   public isInvalid: boolean = true;
@@ -26,23 +26,15 @@ export class ImeiContactInfoComponent implements OnInit, OnDestroy {
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
 
-  private subscription: ISubscription;
   constructor(
     public modalService: ModalService,
-    private unlockService: UnlockService,
+    private appState: AppState,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+    this.cms = this.appState.get('unlockDevice');
   }
 
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
   public ngOnInit() {}
 
   public modalClosed(e) {}

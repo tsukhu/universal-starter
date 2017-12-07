@@ -4,36 +4,27 @@ import { ModalService } from '../modal/modal.service';
 import { Element } from '@angular/compiler';
 import { Observable } from 'rxjs/Observable';
 import { UnlockData, ActionCart } from '../models/unlock.model';
-import { ISubscription } from 'rxjs/Subscription';
+import { AppState } from '../services/app.service';
 
 @Component({
   selector: 'eligible-unlock',
   styleUrls: ['./eligible-unlock.component.scss'],
   templateUrl: './eligible-unlock.component.html'
 })
-export class EligibleUnlockComponent implements OnDestroy {
+export class EligibleUnlockComponent {
   @Input() public modalContent: UnlockData;
 
   public el;
-  private subscription: ISubscription;
   constructor(
     private unlockService: UnlockService,
+    private appState: AppState,
     public modalService: ModalService,
     public elementRef: ElementRef
   ) {
     this.el = elementRef.nativeElement;
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.modalContent = data;
-      });
+    this.modalContent = this.appState.get('unlockDevice');
   }
 
-  public ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
   public close(e) {
     this.modalService.closeModalByChildElement(this.el);
   }

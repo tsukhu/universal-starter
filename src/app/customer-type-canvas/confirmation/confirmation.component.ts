@@ -2,23 +2,22 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { UnlockService } from '../../common/services/unlock.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { AppState } from '../../common/services/app.service';
 
 @Component({
   selector: 'confirmation',
   templateUrl: 'confirmation.component.html',
   styleUrls: ['confirmation.component.scss']
 })
-export class ConfirmationComponent implements OnInit, OnDestroy {
+export class ConfirmationComponent implements OnInit {
   public cms;
   public requestNo: string = undefined;
   public cust;
   public customerType: boolean;
 
-  private subscription: ISubscription;
-
   constructor(
     public modalService: ModalService,
+    private appState: AppState,
     private unlockService: UnlockService,
     private router: Router,
     private route: ActivatedRoute
@@ -31,15 +30,8 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
   public ngOnInit() {
-    this.subscription = this.unlockService
-      .UnlockDevice()
-      .subscribe((data: any) => {
-        this.cms = data;
-      });
+    this.cms = this.appState.get('unlockDevice');
 
     this.unlockService.confirmation().subscribe((data: any) => {
       // this.requestNo = "ABC";
