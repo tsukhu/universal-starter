@@ -9,27 +9,27 @@ import { ISubscription } from 'rxjs/Subscription';
   templateUrl: 'account-information.component.html',
   styleUrls: ['account-information.component.scss']
 })
-export class AccountInformationComponent implements OnInit, OnDestroy {
+export class AccountInformationComponent implements OnDestroy {
   // @Input()
-  private subscription: ISubscription;
+
   public cms;
-  wirelessNumber;
-  isInvalid: boolean = true;
+  public wirelessNumber;
+  public isInvalid: boolean = true;
 
-  firstName = undefined;
-  lastName = undefined;
-  passcode = undefined;
-  email = undefined;
-  confirmEmail = undefined;
+  public firstName = undefined;
+  public lastName = undefined;
+  public passcode = undefined;
+  public email = undefined;
+  public confirmEmail = undefined;
 
-  mulitaryPersonnel: boolean = true;
+  public mulitaryPersonnel: boolean = true;
 
-  accFirstNameValidErr: boolean = false;
-  accLastNameValidErr: boolean = false;
-  emailValidErr: boolean = false;
-  confirmEmailValidErr: boolean = false;
-  passcodeValidErr: boolean = false;
-
+  public accFirstNameValidErr: boolean = false;
+  public accLastNameValidErr: boolean = false;
+  public emailValidErr: boolean = false;
+  public confirmEmailValidErr: boolean = false;
+  public passcodeValidErr: boolean = false;
+  private subscription: ISubscription;
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
@@ -42,14 +42,12 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
         this.cms = data;
       });
     // console.log("nav1 data");
-    //this.unlockService.UnlockDevice().subscribe((data: any) => {
-     // this.cms = data.unlockPortalLabelAndErrorObj[0];
-    //});
+    // this.unlockService.UnlockDevice().subscribe((data: any) => {
+    // this.cms = data.unlockPortalLabelAndErrorObj[0];
+    // });
 
     this.wirelessNumber = this.route.snapshot.params['wirelessNumber'];
   }
-
-  public ngOnInit() {}
 
   public ngOnDestroy() {
     if (this.subscription) {
@@ -59,7 +57,8 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
   public modalClosed(e) {}
 
   public unlockNext() {
-    // var domain = this.email.slice((this.email.indexOf('@')) + 1, this.email.emailAddress.lastIndexOf('.'));
+    // var domain = this.email.slice((this.email.indexOf('@')) + 1,
+    // this.email.emailAddress.lastIndexOf('.'));
     // this.unlockService.validateEmail(domain)
     //   .subscribe((data: any) => {
     //     console.log(data);
@@ -114,7 +113,9 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
       this.passcodeValidErr = false;
     }
 
-    if (this.firstName !== undefined && this.lastName !== undefined && this.confirmEmail !== undefined && this.email !== undefined && this.passcode !== undefined && this.firstName.length !== 0 && this.lastName.length !== 0 &&
+    if (this.firstName !== undefined && this.lastName !== undefined
+      && this.confirmEmail !== undefined && this.email !== undefined
+      && this.passcode !== undefined && this.firstName.length !== 0 && this.lastName.length !== 0 &&
       this.passcode.length !== 0 && this.email.length !== 0 &&
       this.confirmEmail.length !== 0 && (this.email === this.confirmEmail)) {
       this.isInvalid = false;

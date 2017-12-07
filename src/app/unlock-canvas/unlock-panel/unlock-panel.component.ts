@@ -5,12 +5,9 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: 'unlock-panel.component.html',
   styleUrls: ['unlock-panel.component.scss']
 })
-export class UnlockPanelComponent implements OnInit {
+export class UnlockPanelComponent {
   @Input() public devicePortal;
 
   @Input() public deviceHelp;
 
-  constructor() {}
-
-  ngOnInit() {}
 }

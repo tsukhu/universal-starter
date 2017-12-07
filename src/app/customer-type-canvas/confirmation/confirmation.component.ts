@@ -9,27 +9,32 @@ import { ISubscription } from 'rxjs/Subscription';
   templateUrl: 'confirmation.component.html',
   styleUrls: ['confirmation.component.scss']
 })
-export class ConfirmationComponent implements OnInit,OnDestroy {
+export class ConfirmationComponent implements OnInit, OnDestroy {
   public cms;
-  private subscription: ISubscription;
-  requestNo: string =  undefined;
+  public requestNo: string = undefined;
   public cust;
-  customerType: boolean;
+  public customerType: boolean;
 
-  constructor(public modalService: ModalService, private unlockService: UnlockService,
-    private router: Router, private route: ActivatedRoute) {
-      this.cust = this.route.snapshot.params['customerType'];
-      if(this.cust == 'true') {
-        this.customerType = true;
-      } else {
-        this.customerType = false;
-      }
-     }
+  private subscription: ISubscription;
 
-  ngOnDestroy() {
+  constructor(
+    public modalService: ModalService,
+    private unlockService: UnlockService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.cust = this.route.snapshot.params['customerType'];
+    if (this.cust === 'true') {
+      this.customerType = true;
+    } else {
+      this.customerType = false;
+    }
+  }
+
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  ngOnInit() {
+  public ngOnInit() {
     this.subscription = this.unlockService
       .UnlockDevice()
       .subscribe((data: any) => {

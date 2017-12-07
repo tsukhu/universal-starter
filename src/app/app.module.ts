@@ -1,7 +1,10 @@
 import { ConfirmationComponent } from './customer-type-canvas/confirmation/confirmation.component';
 import { UnlockService } from './common/services/unlock.service';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule
+} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -17,7 +20,7 @@ import { UnlockCanvasComponent } from './unlock-canvas/unlock-canvas.component';
 import { UnlockCanvasModule } from './unlock-canvas/unlock-canvas.module';
 import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
 import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
-import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status-confirmation/unlock-status-confirmation.component";
+import { UnlockStatusConfirmationComponent } from './unlock-status/unlock-status-confirmation/unlock-status-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,7 @@ import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status
     ConfirmationComponent,
     ImeiContactInfoComponent,
     UnlockCanvasComponent,
-    UnlockStatusConfirmationComponent,
+    UnlockStatusConfirmationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
@@ -37,20 +40,33 @@ import { UnlockStatusConfirmationComponent } from "./unlock-status/unlock-status
     BrowserTransferStateModule,
     LayoutModule,
     UnlockCanvasModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'unlock-canvas', pathMatch: 'full' },
-      { path: 'unlock-canvas', component: UnlockCanvasComponent },
-      { path: 'device-unlock', loadChildren: './customer-type-canvas/customer-type-canvas.module#CustomerTypeCanvasModule' },
-      { path: 'unlock-status', loadChildren: './unlock-status/unlock-status.module#UnlockStatusModule' },
-      { path: 'unlockstep2', component: AccountInformationComponent},
-      { path: 'unlockstep3', component: AccountIEMIInformationComponent },
-      { path: 'unlockConfirm', component: ConfirmationComponent },
-      { path: 'nonattunlock', component: ImeiContactInfoComponent},
-      { path: 'unlock-status-confirm', component: UnlockStatusConfirmationComponent },
-    ], { useHash: true })
+    RouterModule.forRoot(
+      [
+        { path: '', redirectTo: 'unlock-canvas', pathMatch: 'full' },
+        { path: 'unlock-canvas', component: UnlockCanvasComponent },
+        {
+          path: 'device-unlock',
+          loadChildren:
+            './customer-type-canvas/customer-type-canvas.module#CustomerTypeCanvasModule'
+        },
+        {
+          path: 'unlock-status',
+          loadChildren:
+            './unlock-status/unlock-status.module#UnlockStatusModule'
+        },
+        { path: 'unlockstep2', component: AccountInformationComponent },
+        { path: 'unlockstep3', component: AccountIEMIInformationComponent },
+        { path: 'unlockConfirm', component: ConfirmationComponent },
+        { path: 'nonattunlock', component: ImeiContactInfoComponent },
+        {
+          path: 'unlock-status-confirm',
+          component: UnlockStatusConfirmationComponent
+        }
+      ],
+      { useHash: true }
+    )
   ],
-  providers: [
-    PreloaderService, ModalService, UnlockService, AppState],
+  providers: [PreloaderService, ModalService, UnlockService, AppState],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -8,18 +8,18 @@ import { Router, NavigationStart } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @Input() loading: boolean = false;
+  @Input() public loading: boolean = false;
 
-  public constructor( public appState: AppState, private router:Router) {
+  public constructor(public appState: AppState, private router: Router) {
     router.events
-    .filter(event => event instanceof NavigationStart)
-    .subscribe((event:NavigationStart) => {
-      window.scrollTo(0,0);
-    });
+      .filter((event) => event instanceof NavigationStart)
+      .subscribe((event: NavigationStart) => {
+        window.scrollTo(0, 0);
+      });
   }
 
   public ngOnInit() {
-    this.appState.set('Current Route','home page');
+    this.appState.set('Current Route', 'home page');
     this.appState.set('unlockDevice', {});
   }
 }

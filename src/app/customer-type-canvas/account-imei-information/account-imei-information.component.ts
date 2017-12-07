@@ -3,44 +3,41 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'account-imei-information',
   templateUrl: 'account-imei-information.component.html',
   styleUrls: ['account-imei-information.component.scss']
 })
-export class AccountIEMIInformationComponent implements OnInit, OnDestroy {
-
-  private subscription: ISubscription;
-
+export class AccountIEMIInformationComponent implements OnDestroy {
   // @Input()
   public cms;
-  imeiNumber = undefined;
-  showDeviceDetail: boolean = false;
-  isInvalid: boolean = true;
-  nonAttImeiReqErr: boolean = false;
-  deviceMake = undefined;
-  deviceModel = undefined;
-
-  constructor(public modalService: ModalService, private unlockService: UnlockService,
-    private route: Router, private preloader: PreloaderService) {
-
-    this.subscription = this.unlockService.UnlockDevice().subscribe(
-      (data: any) => {
+  public imeiNumber = undefined;
+  public showDeviceDetail: boolean = false;
+  public isInvalid: boolean = true;
+  public nonAttImeiReqErr: boolean = false;
+  public deviceMake = undefined;
+  public deviceModel = undefined;
+  private subscription: ISubscription;
+  constructor(
+    public modalService: ModalService,
+    private unlockService: UnlockService,
+    private route: Router,
+    private preloader: PreloaderService
+  ) {
+    this.subscription = this.unlockService
+      .UnlockDevice()
+      .subscribe((data: any) => {
         this.cms = data;
-      }
-    )
+      });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  ngOnInit() {
-  }
-
-  unlockNext() {
+  public unlockNext() {
     // this.unlockService.orderFlow(this.wirelessNumber)
     //   .subscribe((data: any) => {
     //     console.log(data);
@@ -54,15 +51,13 @@ export class AccountIEMIInformationComponent implements OnInit, OnDestroy {
     this.route.navigate(['/unlockConfirm/', { customerType: true }]);
   }
 
-  unlockPrevious() {
+  public unlockPrevious() {
     this.route.navigate(['/unlockstep2']);
   }
 
-
-  validateNext(event) {
-    if (this.imeiNumber != undefined) {
-      
-      if (this.imeiNumber.length == 0) {
+  public validateNext(event) {
+    if (this.imeiNumber !== undefined) {
+      if (this.imeiNumber.length === 0) {
         this.nonAttImeiReqErr = true;
       } else {
         this.nonAttImeiReqErr = false;
@@ -72,11 +67,11 @@ export class AccountIEMIInformationComponent implements OnInit, OnDestroy {
         this.isInvalid = true;
       }
 
-      if (this.imeiNumber.length == 15) {
+      if (this.imeiNumber.length === 15) {
         this.isInvalid = false;
         this.preloader.start();
-        this.unlockService.imeiMakeModelResponse(this.imeiNumber)
-          .subscribe((data: any) => {
+        this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
+          (data: any) => {
             // return data;
             // this.route.navigate['/unlock-canvas'];
             this.preloader.stop();
@@ -87,9 +82,9 @@ export class AccountIEMIInformationComponent implements OnInit, OnDestroy {
           (error) => {
             console.log(error);
             this.preloader.stop();
-          });
+          }
+        );
       }
     }
   }
-
 }

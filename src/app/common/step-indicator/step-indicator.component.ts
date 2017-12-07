@@ -5,15 +5,8 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: 'step-indicator.component.html',
   styleUrls: ['step-indicator.component.scss']
 })
-export class StepIndicatorComponent implements OnInit {
-
+export class StepIndicatorComponent {
   @Input() public cms;
-  @Input() public stepIndex:number;
+  @Input() public stepIndex: number;
   @Input() public customerType: boolean = true;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

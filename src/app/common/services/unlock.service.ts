@@ -30,7 +30,7 @@ export class UnlockService {
     }
   }
 
-  orderFlow(customerNumber) {
+  public orderFlow(customerNumber) {
     return this.http.get('../assets/content/orderflow-response.json');
 
     // let requestJson = {
@@ -53,7 +53,7 @@ export class UnlockService {
     //   .catch((error: any) => Observable.throw('Server error'));
   }
 
-  imeiOrderFlow(imeiNumber) {
+  public imeiOrderFlow(imeiNumber) {
     return this.http.get('../assets/content/imei-orderflow-response.json');
 
     // let requestJson = {
@@ -76,14 +76,15 @@ export class UnlockService {
     //   .catch((error: any) => Observable.throw('Server error'));
   }
 
-  validateEmail(domain) {
-    let requestJson = {
+  public validateEmail(domain) {
+    const requestJson = {
       unlockValidateEmailRequest: {
         domain
       }
     };
 
-    return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson); // , {headers: header})
+    return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson);
+     // , {headers: header})
   }
 
   public confirmation() {
@@ -99,21 +100,21 @@ export class UnlockService {
     // header.append('Content-Type', 'application/json');
     // header.append('Access-Control-Allow-Origin', '*');
 
-    return this.http.get(this.unlockOrderStatusUrl, {}); //, {headers: header})
+    return this.http.get(this.unlockOrderStatusUrl, {}); // , {headers: header})
   }
 
   public verifyCaptcha(token) {
-    let header: HttpHeaders = new HttpHeaders({
+    const header: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    let urlSearchParams = new URLSearchParams();
+    const urlSearchParams = new URLSearchParams();
     urlSearchParams.append(
       'secret',
       '6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI'
     );
     urlSearchParams.append('response', token);
-    let body = urlSearchParams.toString();
+    const body = urlSearchParams.toString();
 
     return this.http.post(
       'https://www.google.com/recaptcha/api/siteverify',

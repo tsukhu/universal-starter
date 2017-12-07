@@ -1,10 +1,8 @@
-import { Component} from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-header',
-    styleUrls: ['./header.component.scss'],
-    templateUrl: './header.component.html',
+  selector: 'app-header',
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html'
 })
-export class HeaderComponent {
-    cities = ['Paris', 'London', 'San Francisco'];
-}
+export class HeaderComponent {}

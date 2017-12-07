@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { UnlockService } from "../common/services/unlock.service";
+import { UnlockService } from '../common/services/unlock.service';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -9,13 +9,11 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['unlock-canvas.component.scss']
 })
 export class UnlockCanvasComponent implements OnInit {
-  unlockCanvas: Observable<any>;
+  public unlockCanvas: Observable<any>;
 
-  constructor(private unlockService: UnlockService) { 
+  constructor(private unlockService: UnlockService) {}
+
+  public ngOnInit() {
+    this.unlockCanvas = this.unlockService.UnlockDevice();
   }
-
-  ngOnInit() {
-      this.unlockCanvas = this.unlockService.UnlockDevice();       
-  }
-
 }
