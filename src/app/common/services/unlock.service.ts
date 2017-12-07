@@ -1,34 +1,36 @@
 import { RequestOptions } from '@angular/http';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { AppState } from "./app.service";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { AppState } from './app.service';
 
 @Injectable()
 export class UnlockService {
-  baseUrl: string = "https://www.att.com/";
-  redirectOCEWorkFlowUrl: string = "apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow";
-  customerOrderFlow: string = "apis/deviceunlock/OCEUnlockOrder/orderFlow";
-  validateEmailUrl: string = "apis/deviceunlock/UnlockUtility/Verify/ValidateEmail";
-  unlockOrderStatusUrl: string = "../assets/content/unlock-status.json";  
+  public baseUrl: string = 'https://www.att.com/';
+  public redirectOCEWorkFlowUrl: string = 'apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow';
+  public customerOrderFlow: string = 'apis/deviceunlock/OCEUnlockOrder/orderFlow';
+  public validateEmailUrl: string = 'apis/deviceunlock/UnlockUtility/Verify/ValidateEmail';
+  public unlockOrderStatusUrl: string = '../assets/content/unlock-status.json';
 
   constructor(private http: HttpClient, public appState: AppState) {}
 
   public UnlockDevice() {
-    let dataState: any = this.appState.get('unlockDevice');
+    const dataState: any = this.appState.get('unlockDevice');
     if (dataState.viewInLanguage) {
       return Observable.of(dataState).last();
     } else {
-      return this.http.get("../assets/content/unlock.json").map((data: any) => {
-        let curLang = localStorage.unlockapplang||'en';
-        this.appState.set('unlockDevice', data.unlockPortalLabelAndErrorObj[0][curLang]);
+      return this.http.get('../assets/content/unlock.json').map((data: any) => {
+        const curLang = localStorage.unlockapplang || 'en';
+        this.appState.set(
+          'unlockDevice',
+          data.unlockPortalLabelAndErrorObj[0][curLang]
+        );
         return data.unlockPortalLabelAndErrorObj[0][curLang];
       });
     }
   }
 
   orderFlow(customerNumber) {
-
     return this.http.get('../assets/content/orderflow-response.json');
 
     // let requestJson = {
@@ -52,7 +54,6 @@ export class UnlockService {
   }
 
   imeiOrderFlow(imeiNumber) {
-
     return this.http.get('../assets/content/imei-orderflow-response.json');
 
     // let requestJson = {
@@ -78,39 +79,46 @@ export class UnlockService {
   validateEmail(domain) {
     let requestJson = {
       unlockValidateEmailRequest: {
-        domain: domain
+        domain
       }
     };
 
-    return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson)//, {headers: header})
+    return this.http.post(this.baseUrl + this.validateEmailUrl, requestJson); // , {headers: header})
   }
 
-   confirmation() {
-     return this.http.get('../assets/content/confirmation.json');
+  public confirmation() {
+    return this.http.get('../assets/content/confirmation.json');
   }
 
-  imeiMakeModelResponse(imeiNumber) {
-     return this.http.get('../assets/content/imei-make-model-response.json');
-
+  public imeiMakeModelResponse(imeiNumber) {
+    return this.http.get('../assets/content/imei-make-model-response.json');
   }
 
-  unlockOrderStatus() {
+  public unlockOrderStatus() {
     // let header: HttpHeaders = new HttpHeaders();
-    // header.append('Content-Type', 'application/json'); 
+    // header.append('Content-Type', 'application/json');
     // header.append('Access-Control-Allow-Origin', '*');
 
-    return this.http.get(this.unlockOrderStatusUrl, {})//, {headers: header})
-  }  
+    return this.http.get(this.unlockOrderStatusUrl, {}); //, {headers: header})
+  }
 
-  verifyCaptcha(token) {
+  public verifyCaptcha(token) {
+    let header: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
 
-    let header: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded'});
-    
     let urlSearchParams = new URLSearchParams();
-    urlSearchParams.append('secret', '6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI');
+    urlSearchParams.append(
+      'secret',
+      '6LekkTsUAAAAAH9lNKlOePHpepDrgaepEX-TurtI'
+    );
     urlSearchParams.append('response', token);
     let body = urlSearchParams.toString();
-   
-    return this.http.post("https://www.google.com/recaptcha/api/siteverify", body, {headers:header});
+
+    return this.http.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      body,
+      { headers: header }
+    );
   }
 }

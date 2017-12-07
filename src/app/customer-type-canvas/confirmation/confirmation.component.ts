@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { ModalService } from "../../common/modal/index";
-import { UnlockService } from "../../common/services/unlock.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ISubscription } from "rxjs/Subscription";
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { ModalService } from '../../common/modal/index';
+import { UnlockService } from '../../common/services/unlock.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: "confirmation",
-  templateUrl: "confirmation.component.html",
-  styleUrls: ["confirmation.component.scss"]
+  selector: 'confirmation',
+  templateUrl: 'confirmation.component.html',
+  styleUrls: ['confirmation.component.scss']
 })
 export class ConfirmationComponent implements OnInit,OnDestroy {
   public cms;
@@ -18,7 +18,7 @@ export class ConfirmationComponent implements OnInit,OnDestroy {
 
   constructor(public modalService: ModalService, private unlockService: UnlockService,
     private router: Router, private route: ActivatedRoute) {
-      this.cust = this.route.snapshot.params["customerType"];
+      this.cust = this.route.snapshot.params['customerType'];
       if(this.cust == 'true') {
         this.customerType = true;
       } else {

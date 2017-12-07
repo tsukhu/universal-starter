@@ -8,16 +8,11 @@ import { ModalService } from '../common/modal/modal.service';
   styleUrls: ['unlock-status.component.scss']
 })
 export class UnlockStatusComponent implements OnInit {
-  unlockCanvas: any;
+  public unlockCanvas: any;
 
-  constructor(public modalService: ModalService) {
-  }
+  constructor(public modalService: ModalService) {}
 
-  ngOnInit() {
-       
-  }
+  public ngOnInit() {}
 
-  public modalClosed(e) {
-  }
-
+  public modalClosed(e) {}
 }
