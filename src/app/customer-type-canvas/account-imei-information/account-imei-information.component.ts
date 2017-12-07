@@ -4,14 +4,14 @@ import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
 import { AppState } from '../../common/services/app.service';
-import { ISubscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'account-imei-information',
   templateUrl: 'account-imei-information.component.html',
   styleUrls: ['account-imei-information.component.scss']
 })
-export class AccountIEMIInformationComponent implements OnDestroy {
+export class AccountIEMIInformationComponent{
   // @Input()
   public cms;
   public imeiNumber = undefined;
@@ -20,7 +20,7 @@ export class AccountIEMIInformationComponent implements OnDestroy {
   public nonAttImeiReqErr: boolean = false;
   public deviceMake = undefined;
   public deviceModel = undefined;
-  private subscription: ISubscription;
+  
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
@@ -29,10 +29,6 @@ export class AccountIEMIInformationComponent implements OnDestroy {
     private preloader: PreloaderService
   ) {
     this.cms = this.appState.get('unlockDevice');
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   public unlockNext() {
