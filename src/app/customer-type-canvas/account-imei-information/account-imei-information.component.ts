@@ -3,10 +3,12 @@ import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@a
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
+
 import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'account-imei-information',
@@ -14,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['account-imei-information.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class AccountIEMIInformationComponent  {
   // @Input()
   public cms: Observable<UnlockData>;
@@ -23,10 +26,12 @@ export class AccountIEMIInformationComponent  {
   public nonAttImeiReqErr: boolean = false;
   public deviceMake = undefined;
   public deviceModel = undefined;
+
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
     private route: Router,
+
     private preloader: PreloaderService,
     private store: Store<AppStore>) {
     this.cms = store.select('cms');
