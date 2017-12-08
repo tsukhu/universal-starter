@@ -6,7 +6,7 @@ import {
   BrowserTransferStateModule
 } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -93,7 +93,7 @@ export function instrumentOptions() {
             './unlock-status/unlock-status-confirmation/unlock-status-confirmation.module#UnlockStatusConfirmationModule'
         }
       ],
-      { useHash: true }
+      { useHash: true , preloadingStrategy: PreloadAllModules }
     ),
     StoreModule.forRoot({ cms: cmsReducer })
     /*,
