@@ -1,11 +1,18 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+      Component,
+      Input,
+      OnInit,
+      Output,
+      EventEmitter,
+      ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 're-captcha',
   template:
-    '<div class="g-recaptcha" [attr.data-sitekey]="sitekey" data-callback="verified"></div>'
+    '<div class="g-recaptcha" [attr.data-sitekey]="sitekey" data-callback="verified"></div>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class recaptcha implements OnInit {
+export class ReCaptchaComponent implements OnInit {
   public sitekey: string = '6LekkTsUAAAAALYft1VnYNym3Z9pFQNNQe6V_7Yb';
   @Output() public tokenChange = new EventEmitter();
 
@@ -15,7 +22,7 @@ export class recaptcha implements OnInit {
   }
 
   public render() {
-    let script = document.createElement('script');
+    const script = document.createElement('script');
     script.src = 'https://www.google.com/recaptcha/api.js';
     script.async = true;
     script.defer = true;

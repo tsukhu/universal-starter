@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'step-indicator',
   templateUrl: 'step-indicator.component.html',
-  styleUrls: ['step-indicator.component.scss']
+  styleUrls: ['step-indicator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepIndicatorComponent {
   @Input() public cms;

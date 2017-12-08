@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'account-information',
   templateUrl: 'account-information.component.html',
-  styleUrls: ['account-information.component.scss']
+  styleUrls: ['account-information.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountInformationComponent implements OnDestroy {
   public cms: Observable<UnlockData>;

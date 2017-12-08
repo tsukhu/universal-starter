@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { UnlockService } from '../common/services/unlock.service';
 import { ModalService } from '../common/modal/modal.service';
@@ -10,7 +10,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'customer-type-canvas',
   templateUrl: 'customer-type-canvas.component.html',
-  styleUrls: ['customer-type-canvas.component.scss']
+  styleUrls: ['customer-type-canvas.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomerTypeCanvasComponent {
   public unlockCanvas: Observable<UnlockData>;

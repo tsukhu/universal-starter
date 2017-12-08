@@ -1,5 +1,5 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'account-imei-information',
   templateUrl: 'account-imei-information.component.html',
-  styleUrls: ['account-imei-information.component.scss']
+  styleUrls: ['account-imei-information.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountIEMIInformationComponent  {
   // @Input()

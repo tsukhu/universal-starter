@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { AppStore } from '../models/appstore.model';
 import { UnlockData, ActionCart } from '../models/unlock.model';
@@ -8,7 +8,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-footer',
   styleUrls: ['./footer.component.scss'],
-  templateUrl: './footer.component.html'
+  templateUrl: './footer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
   public cms: Observable<UnlockData>;

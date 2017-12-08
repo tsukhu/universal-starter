@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'unlock-status-confirmation',
   templateUrl: 'unlock-status-confirmation.component.html',
-  styleUrls: ['unlock-status-confirmation.component.scss']
+  styleUrls: ['unlock-status-confirmation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnlockStatusConfirmationComponent implements OnInit, OnDestroy {
   public cms: Observable<UnlockData>;

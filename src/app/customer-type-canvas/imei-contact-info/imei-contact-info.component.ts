@@ -1,5 +1,5 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppStore } from '../../common/models/appstore.model';
@@ -10,7 +10,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'imei-contact-info',
   templateUrl: './imei-contact-info.component.html',
-  styleUrls: ['./imei-contact-info.component.scss']
+  styleUrls: ['./imei-contact-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImeiContactInfoComponent {
   // @Input()

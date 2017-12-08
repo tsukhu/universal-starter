@@ -28,39 +28,25 @@ import { StartupService } from './common/services/startupService';
 
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { localStorageSync } from 'ngrx-store-localstorage';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { cmsReducer, cmsInitialState } from './common/reducers/cms.reducer';
 
 // tslint:disable-next-line:ban-types
 export function startupServiceFactory(
   startupService: StartupService
-// tslint:disable-next-line:ban-types
+  // tslint:disable-next-line:ban-types
 ): Function {
   return () => startupService.load();
 }
-
+/*
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' }),
     maxAge: 25
   };
 }
-
-const reducers = {
-  cms: cmsReducer
-};
-
-const appReducer = compose(
-  localStorageSync({ keys: ['cms'], rehydrate: true }),
-  combineReducers
-)(reducers);
-
-export function rootReducer(state: any, action: any) {
-  return appReducer(state, action);
-}
-
+*/
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,9 +89,10 @@ export function rootReducer(state: any, action: any) {
       ],
       { useHash: true }
     ),
-    StoreModule.forRoot({ cms: cmsReducer }),
+    StoreModule.forRoot({ cms: cmsReducer })
+    /*,
     StoreDevtoolsModule.instrument(instrumentOptions),
-    StoreLogMonitorModule,
+    StoreLogMonitorModule*/
   ],
   providers: [
     HttpClientModule,

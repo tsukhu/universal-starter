@@ -1,11 +1,21 @@
-import { Component, ElementRef, Input, Output, OnInit, OnDestroy, EventEmitter, HostListener } from '@angular/core';
+import { 
+        Component,
+        ElementRef,
+        Input,
+        Output,
+        OnInit,
+        OnDestroy,
+        EventEmitter,
+        HostListener,
+        ChangeDetectionStrategy } from '@angular/core';
 
 import { ModalService } from './modal.service';
 
 @Component({
     selector: 'modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    styleUrls: ['./modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ModalComponent implements OnInit, OnDestroy {
