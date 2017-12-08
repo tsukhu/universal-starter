@@ -1,4 +1,3 @@
-import { ConfirmationComponent } from './customer-type-canvas/confirmation/confirmation.component';
 import { UnlockService } from './common/services/unlock.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -14,16 +13,9 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './common/layout.module';
 import { PreloaderService } from './common/services/preloader.service';
 // tslint:disable-next-line:max-line-length
-import { AccountInformationComponent } from './customer-type-canvas/account-information/account-information.component';
 import { ModalService } from './common/modal/modal.service';
 import { UnlockCanvasComponent } from './unlock-canvas/unlock-canvas.component';
 import { UnlockCanvasModule } from './unlock-canvas/unlock-canvas.module';
-// tslint:disable-next-line:max-line-length
-import { AccountIEMIInformationComponent } from './customer-type-canvas/account-imei-information/account-imei-information.component';
-// tslint:disable-next-line:max-line-length
-import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-info/imei-contact-info.component';
-// tslint:disable-next-line:max-line-length
-import { UnlockStatusConfirmationComponent } from './unlock-status/unlock-status-confirmation/unlock-status-confirmation.component';
 import { StartupService } from './common/services/startupService';
 
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
@@ -48,15 +40,7 @@ export function instrumentOptions() {
 }
 */
 @NgModule({
-  declarations: [
-    AppComponent,
-    AccountInformationComponent,
-    AccountIEMIInformationComponent,
-    ConfirmationComponent,
-    ImeiContactInfoComponent,
-    UnlockCanvasComponent,
-    UnlockStatusConfirmationComponent
-  ],
+  declarations: [AppComponent, UnlockCanvasComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
     HttpClientModule,
@@ -78,13 +62,35 @@ export function instrumentOptions() {
           loadChildren:
             './unlock-status/unlock-status.module#UnlockStatusModule'
         },
-        { path: 'unlockstep2', component: AccountInformationComponent },
-        { path: 'unlockstep3', component: AccountIEMIInformationComponent },
-        { path: 'unlockConfirm', component: ConfirmationComponent },
-        { path: 'nonattunlock', component: ImeiContactInfoComponent },
+        {
+          path: 'unlockstep2',
+          loadChildren:
+            // tslint:disable-next-line:max-line-length
+            './customer-type-canvas/account-information/account-information.module#AccountInformationModule'
+        },
+        {
+          path: 'unlockstep3',
+          loadChildren:
+            // tslint:disable-next-line:max-line-length
+            './customer-type-canvas/account-imei-information/account-imei-information.module#AccountIEMIInformationModule'
+        },
+        {
+          path: 'unlockConfirm',
+          loadChildren:
+            // tslint:disable-next-line:max-line-length
+            './customer-type-canvas/confirmation/confirmation.module#ConfirmationComponentModule'
+        },
+        {
+          path: 'nonattunlock',
+          loadChildren:
+            // tslint:disable-next-line:max-line-length
+            './customer-type-canvas/imei-contact-info/imei-contact-info.module#ImeiContactInfoModule'
+        },
         {
           path: 'unlock-status-confirm',
-          component: UnlockStatusConfirmationComponent
+          loadChildren:
+            // tslint:disable-next-line:max-line-length
+            './unlock-status/unlock-status-confirmation/unlock-status-confirmation.module#UnlockStatusConfirmationModule'
         }
       ],
       { useHash: true }
