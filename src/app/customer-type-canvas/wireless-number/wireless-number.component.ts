@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
 import { PreloaderService } from '../../common/services/preloader.service';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { AppStore } from '../../common/models/appstore.model';
 
 @Component({
   selector: 'wireless-number',
@@ -28,13 +30,14 @@ export class WirelessNumberComponent implements OnInit {
 
   public nonAttImeiReqErr: boolean = false;
   public errorMessage: boolean = false;
-
+  public deviceDetail: any;
   public deviceMake: string;
   public deviceModel: string;
   public showDeviceDetail: boolean = false;
 
   constructor(
     public modalService: ModalService,
+    public store: Store<AppStore>,
     private unlockService: UnlockService,
     private route: Router,
     private preloader: PreloaderService
@@ -42,7 +45,7 @@ export class WirelessNumberComponent implements OnInit {
 
   public ngOnInit() {}
 
-  public modalClosed(e) {}
+  public modalClosed(e) { }
 
   public onCustomerTypeChange(value: boolean) {
     this.customerType = value;
@@ -89,12 +92,17 @@ export class WirelessNumberComponent implements OnInit {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
           (data: any) => {
-            console.log('validate iemi');
-            console.log(data);
+            // console.log('validate iemi');
+            // console.log(data);
             // return data;
             // this.route.navigate['/unlock-canvas'];
             this.preloader.stop();
             this.showDeviceDetail = true;
+            this.deviceDetail = data;
+            this.store.dispatch({
+              type: 'ADD_DEVICE_DETAIL',
+              payload: data.orderFlowResponseDO
+            });
             this.deviceMake = data.orderFlowResponseDO.make;
             this.deviceModel = data.orderFlowResponseDO.model;
           },
@@ -137,7 +145,7 @@ export class WirelessNumberComponent implements OnInit {
     if (this.customerType) {
       this.unlockService.orderFlow(this.wirelessNumber).subscribe(
         (data: any) => {
-          console.log(data);
+          // console.log(data);
 
           this.route.navigate([
             '/unlockstep2/',
@@ -149,10 +157,8 @@ export class WirelessNumberComponent implements OnInit {
         }
       );
     } else {
-      this.unlockService.imeiOrderFlow(this.imeiNumber).subscribe(
+      this.unlockService.imeiOrderFlow(this.imeiNumber, this.deviceDetail).subscribe(
         (data: any) => {
-          console.log(data);
-
           this.route.navigate(['/nonattunlock']);
         },
         (error) => {
@@ -170,7 +176,7 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   public getToken(event) {
-    console.log(event.token);
+    // console.log(event.token);
     this.unlockService.verifyCaptcha(event.token).subscribe(
       (data: any) => {
         console.log('data', data);

@@ -42,13 +42,27 @@ export class AccountInformationComponent {
     private store: Store<AppStore>
   ) {
     this.cms = store.select('cms');
-    
     this.wirelessNumber = this.route.snapshot.params['wirelessNumber'];
   }
 
   public unlockNext() {
+    const userData = {
+      firstname: this.firstName,
+      lastname: this.lastName,
+      passcode: this.passcode,
+      email: this.email,
+      wirelessnumber: this.wirelessNumber
+    };
 
-    this.router.navigate(['/unlockstep3']);
+    this.unlockService.userValidateOrderFlow(userData).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.router.navigate(['/unlockstep3']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public unlockPrevious() {

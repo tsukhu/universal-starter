@@ -3,12 +3,10 @@ import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@a
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
-
 import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-
 
 @Component({
   selector: 'account-imei-information',
@@ -38,17 +36,15 @@ export class AccountIEMIInformationComponent  {
   }
 
   public unlockNext() {
-    // this.unlockService.orderFlow(this.wirelessNumber)
-    //   .subscribe((data: any) => {
-    //     console.log(data);
-
-    //     this.route.navigate['/unlockstep2'];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   });
-
-    this.route.navigate(['/unlockConfirm/', { customerType: true }]);
+    this.unlockService.imeiVerificationFlow(this.imeiNumber, "4155199484").subscribe(
+      (data: any) => {
+        console.log(data);
+        this.route.navigate(['/unlockConfirm/', { customerType: true }]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public unlockPrevious() {

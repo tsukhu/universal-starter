@@ -93,3 +93,21 @@ export interface ActionCart {
   unlockDeviceDescription?: string;
   link?: string;
 }
+
+export interface DeviceDetail {
+  attCustomer?: boolean;
+  currentFlow?: string;
+  ctn?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  imei?: string;
+  imeiRefId?: string;
+  make?: string;
+  model?: string;
+  makeRefId?: string;
+  modelRefId?: string;
+  lastFourSSN?: string;
+  passCode?: string;
+  military?: string;
+}

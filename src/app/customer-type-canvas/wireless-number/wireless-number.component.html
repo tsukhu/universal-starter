@@ -47,7 +47,7 @@
     <div class="form-row span5 span12-sm">
         <label for="textinputID_01">{{cms?.imeiLabel}}</label>
         <div class="field-group">
-            <input id="textinputID_01" placeholder="(15 Digits)" class="span12" type="text" minlength="15" maxlength="15" (keyup)="validateNext($event)"
+            <input id="textinputID_01" placeholder="(15 Digits)" class="span12"  pattern="" minlength="15" maxlength="15" (keyup)="validateNext($event)"
                 [(ngModel)]="imeiNumber">
             <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
         </div>

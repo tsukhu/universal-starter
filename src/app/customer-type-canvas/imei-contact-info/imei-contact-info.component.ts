@@ -17,7 +17,7 @@ export class ImeiContactInfoComponent {
   // @Input()
   public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
-
+  public deviceDetail: any;
   public firstName = undefined;
   public lastName = undefined;
   public wirelessNumber = undefined;
@@ -32,6 +32,7 @@ export class ImeiContactInfoComponent {
 
   constructor(
     public modalService: ModalService,
+    private unlockService: UnlockService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppStore>) {
@@ -39,7 +40,15 @@ export class ImeiContactInfoComponent {
     }
 
   public unlockNext() {
-    this.router.navigate(['/unlockConfirm/', { customerType: false }]);
+    this.unlockService.imeiOrderFlowSubmit(this.firstName, this.lastName, this.email).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.router.navigate(['/unlockConfirm/', { customerType: false }]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public unlockPrevious() {
