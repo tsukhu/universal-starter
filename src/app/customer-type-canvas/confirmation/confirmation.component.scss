@@ -11,3 +11,7 @@
     content: "\e903";
     font-family: 'icoControls' !important;
 }
+
+[class*="icon-"].icon-small {
+    top: -18px !important;
+}

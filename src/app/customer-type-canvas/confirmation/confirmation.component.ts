@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { UnlockService } from '../../common/services/unlock.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -25,7 +25,8 @@ export class ConfirmationComponent implements OnInit {
     private unlockService: UnlockService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppStore>
+    private store: Store<AppStore>,
+    private ref:ChangeDetectorRef
   ) {
     this.cms = store.select('cms');
     this.cust = this.route.snapshot.params['customerType'];
@@ -39,8 +40,8 @@ export class ConfirmationComponent implements OnInit {
   public ngOnInit() {
 
     this.unlockService.confirmation().subscribe((data: any) => {
-      // this.requestNo = "ABC";
       this.requestNo = data.orderFlowResponseDO.requestNo;
+      this.ref.detectChanges();
     });
   }
 }
