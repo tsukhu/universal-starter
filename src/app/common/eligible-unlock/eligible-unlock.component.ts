@@ -3,8 +3,10 @@ import { UnlockService } from '../services/unlock.service';
 import { ModalService } from '../modal/modal.service';
 import { Element } from '@angular/compiler';
 import { Observable } from 'rxjs/Observable';
+import { AppStore } from '../models/appstore.model';
 import { UnlockData, ActionCart } from '../models/unlock.model';
-import { AppState } from '../services/app.service';
+
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'eligible-unlock',
@@ -12,17 +14,16 @@ import { AppState } from '../services/app.service';
   templateUrl: './eligible-unlock.component.html'
 })
 export class EligibleUnlockComponent {
-  @Input() public modalContent: UnlockData;
+  public modalContent: Observable<UnlockData>;
 
   public el;
   constructor(
-    private unlockService: UnlockService,
-    private appState: AppState,
+    private store: Store<AppStore>,
     public modalService: ModalService,
     public elementRef: ElementRef
   ) {
     this.el = elementRef.nativeElement;
-    this.modalContent = this.appState.get('unlockDevice');
+    this.modalContent = store.select('cms');
   }
 
   public close(e) {

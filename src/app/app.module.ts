@@ -6,13 +6,12 @@ import {
   BrowserModule,
   BrowserTransferStateModule
 } from '@angular/platform-browser';
-import { NgModule , APP_INITIALIZER  } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './common/layout.module';
-import { AppState } from './common/services/app.service';
 import { PreloaderService } from './common/services/preloader.service';
 // tslint:disable-next-line:max-line-length
 import { AccountInformationComponent } from './customer-type-canvas/account-information/account-information.component';
@@ -27,9 +26,39 @@ import { ImeiContactInfoComponent } from './customer-type-canvas/imei-contact-in
 import { UnlockStatusConfirmationComponent } from './unlock-status/unlock-status-confirmation/unlock-status-confirmation.component';
 import { StartupService } from './common/services/startupService';
 
+import { Store, StoreModule, combineReducers } from '@ngrx/store';
+import { compose } from '@ngrx/core/compose';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { cmsReducer, cmsInitialState } from './common/reducers/cms.reducer';
+
 // tslint:disable-next-line:ban-types
-export function startupServiceFactory(startupService: StartupService): Function {
+export function startupServiceFactory(
+  startupService: StartupService
+// tslint:disable-next-line:ban-types
+): Function {
   return () => startupService.load();
+}
+
+export function instrumentOptions() {
+  return {
+    monitor: useLogMonitor({ visible: false, position: 'right' }),
+    maxAge: 25
+  };
+}
+
+const reducers = {
+  cms: cmsReducer
+};
+
+const appReducer = compose(
+  localStorageSync({ keys: ['cms'], rehydrate: true }),
+  combineReducers
+)(reducers);
+
+export function rootReducer(state: any, action: any) {
+  return appReducer(state, action);
 }
 
 @NgModule({
@@ -73,13 +102,15 @@ export function startupServiceFactory(startupService: StartupService): Function 
         }
       ],
       { useHash: true }
-    )
+    ),
+    StoreModule.forRoot({ cms: cmsReducer }),
+    StoreDevtoolsModule.instrument(instrumentOptions),
+    StoreLogMonitorModule,
   ],
   providers: [
     HttpClientModule,
     PreloaderService,
     ModalService,
-    AppState,
     StartupService,
     {
       // Provider for APP_INITIALIZER
@@ -87,7 +118,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
       useFactory: startupServiceFactory,
       deps: [StartupService],
       multi: true
-  }],
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

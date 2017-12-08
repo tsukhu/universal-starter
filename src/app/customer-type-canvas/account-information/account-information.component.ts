@@ -2,17 +2,20 @@ import { UnlockService } from '../../common/services/unlock.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppState } from '../../common/services/app.service';
+import { AppStore } from '../../common/models/appstore.model';
+import { UnlockData, ActionCart } from '../../common/models/unlock.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'account-information',
   templateUrl: 'account-information.component.html',
   styleUrls: ['account-information.component.scss']
 })
-export class AccountInformationComponent  {
+export class AccountInformationComponent {
   // @Input()
 
-  public cms;
+  public cms: Observable<UnlockData>;
   public wirelessNumber;
   public isInvalid: boolean = true;
 
@@ -33,44 +36,25 @@ export class AccountInformationComponent  {
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
-    private appState: AppState,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<AppStore>
   ) {
-    this.cms = this.appState.get('unlockDevice');
-    // console.log("nav1 data");
-    // this.unlockService.UnlockDevice().subscribe((data: any) => {
-    // this.cms = data.unlockPortalLabelAndErrorObj[0];
-    // });
-
+    this.cms = store.select('cms');
+    
     this.wirelessNumber = this.route.snapshot.params['wirelessNumber'];
   }
 
-  public modalClosed(e) {}
-
   public unlockNext() {
-    // var domain = this.email.slice((this.email.indexOf('@')) + 1,
-    // this.email.emailAddress.lastIndexOf('.'));
-    // this.unlockService.validateEmail(domain)
-    //   .subscribe((data: any) => {
-    //     console.log(data);
-
-    //     this.router.navigate(['/unlockstep3']);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   });
 
     this.router.navigate(['/unlockstep3']);
   }
 
   public unlockPrevious() {
-    // alert("navigate");
     this.router.navigate(['/device-unlock']);
   }
 
   public onMilitaryPersonnelChange(value: boolean) {
-    // console.log(value);
     this.mulitaryPersonnel = value;
   }
 
@@ -105,11 +89,19 @@ export class AccountInformationComponent  {
       this.passcodeValidErr = false;
     }
 
-    if (this.firstName !== undefined && this.lastName !== undefined
-      && this.confirmEmail !== undefined && this.email !== undefined
-      && this.passcode !== undefined && this.firstName.length !== 0 && this.lastName.length !== 0 &&
-      this.passcode.length !== 0 && this.email.length !== 0 &&
-      this.confirmEmail.length !== 0 && (this.email === this.confirmEmail)) {
+    if (
+      this.firstName !== undefined &&
+      this.lastName !== undefined &&
+      this.confirmEmail !== undefined &&
+      this.email !== undefined &&
+      this.passcode !== undefined &&
+      this.firstName.length !== 0 &&
+      this.lastName.length !== 0 &&
+      this.passcode.length !== 0 &&
+      this.email.length !== 0 &&
+      this.confirmEmail.length !== 0 &&
+      this.email === this.confirmEmail
+    ) {
       this.isInvalid = false;
     } else {
       this.isInvalid = true;

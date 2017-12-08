@@ -1,19 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppState } from './common/services/app.service';
 import { Router, NavigationStart } from '@angular/router';
 import { UnlockService } from './common/services/unlock.service';
 import 'rxjs/add/operator/filter';
+import { Store } from '@ngrx/store';
+import { AppStore } from './common/models/appstore.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   @Input() public loading: boolean = false;
 
   public constructor(
-    public appState: AppState,
+    public store: Store<AppStore>,
     private router: Router,
     private unlockService: UnlockService
   ) {
@@ -24,7 +25,4 @@ export class AppComponent implements OnInit {
       });
   }
 
-  public ngOnInit() {
-    this.appState.set('Current Route', 'home page');
-  }
 }

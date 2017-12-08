@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { AppState } from '../services/app.service';
+import { AppStore } from '../models/appstore.model';
+import { UnlockData, ActionCart } from '../models/unlock.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-footer',
@@ -8,10 +11,10 @@ import { AppState } from '../services/app.service';
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
-  public cms: any;
+  public cms: Observable<UnlockData>;
 
-  constructor(private appState: AppState) {
-    this.cms = this.appState.get('unlockDevice');
+  constructor(private store: Store<AppStore>) {
+    this.cms = store.select('cms');
   }
 
   public changeLanguage() {

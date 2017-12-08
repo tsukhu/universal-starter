@@ -1,6 +1,5 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppState } from '../common/services/app.service';
 import { CommonModule } from '@angular/common';
 import { CustomerTypeCanvasComponent } from './index';
 import { UnlockService } from '../common/services/unlock.service';

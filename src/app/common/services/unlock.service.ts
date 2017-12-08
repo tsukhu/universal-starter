@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { AppState } from './app.service';
 
 @Injectable()
 export class UnlockService {
@@ -11,18 +10,7 @@ export class UnlockService {
   public validateEmailUrl: string = 'apis/deviceunlock/UnlockUtility/Verify/ValidateEmail';
   public unlockOrderStatusUrl: string = '../assets/content/unlock-status.json';
 
-  constructor(private http: HttpClient, public appState: AppState) {}
-/*
-  public UnlockDevice(): Promise<any> {
-      return this.http.get('../assets/content/unlock.json').map((data: any) => {
-        const curLang = localStorage.unlockapplang || 'en';
-        this.appState.set(
-          'unlockDevice',
-          data.unlockPortalLabelAndErrorObj[0][curLang]
-        );
-      }).toPromise();
-  }
-  */
+  constructor(private http: HttpClient) {}
 
   public orderFlow(customerNumber) {
     return this.http.get('../assets/content/orderflow-response.json');
