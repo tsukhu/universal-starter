@@ -1,6 +1,5 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppState } from '../common/services/app.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent, ModalService } from '../common/modal/index';
 import { EligibleUnlockComponent } from '../common/eligible-unlock/index';

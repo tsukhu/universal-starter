@@ -1,27 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { UnlockService } from '../common/services/unlock.service';
 import { ModalService } from '../common/modal/modal.service';
+import { AppStore } from '../common/models/appstore.model';
+import { UnlockData, ActionCart } from '../common/models/unlock.model';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../common/services/app.service';
 
 @Component({
   selector: 'customer-type-canvas',
   templateUrl: 'customer-type-canvas.component.html',
-  styleUrls: ['customer-type-canvas.component.scss']
+  styleUrls: ['customer-type-canvas.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CustomerTypeCanvasComponent implements OnInit {
-  public unlockCanvas: any;
+export class CustomerTypeCanvasComponent {
+  public unlockCanvas: Observable<UnlockData>;
 
   constructor(
     private unlockService: UnlockService,
-    private appState: AppState,
-    public modalService: ModalService
-  ) {}
-
-  public ngOnInit() {
-    this.unlockCanvas = this.appState.get('unlockDevice');
+    public modalService: ModalService,
+    private store: Store<AppStore>
+  ) {
+    this.unlockCanvas = store.select('cms');
   }
 
-  public modalClosed(e) {}
+  public modalClosed(e) {
+    console.log('Event Called');
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
@@ -8,7 +8,8 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'wireless-number',
   templateUrl: 'wireless-number.component.html',
-  styleUrls: ['wireless-number.component.scss']
+  styleUrls: ['wireless-number.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WirelessNumberComponent implements OnInit {
   @Input() public cms: any;

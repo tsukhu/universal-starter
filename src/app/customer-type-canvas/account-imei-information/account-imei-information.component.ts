@@ -1,34 +1,40 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
-import { AppState } from '../../common/services/app.service';
+
+import { AppStore } from '../../common/models/appstore.model';
+import { UnlockData, ActionCart } from '../../common/models/unlock.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
   selector: 'account-imei-information',
   templateUrl: 'account-imei-information.component.html',
-  styleUrls: ['account-imei-information.component.scss']
+  styleUrls: ['account-imei-information.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountIEMIInformationComponent{
+
+export class AccountIEMIInformationComponent  {
   // @Input()
-  public cms;
+  public cms: Observable<UnlockData>;
   public imeiNumber = undefined;
   public showDeviceDetail: boolean = false;
   public isInvalid: boolean = true;
   public nonAttImeiReqErr: boolean = false;
   public deviceMake = undefined;
   public deviceModel = undefined;
-  
+
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
-    private appState: AppState,
     private route: Router,
-    private preloader: PreloaderService
-  ) {
-    this.cms = this.appState.get('unlockDevice');
+
+    private preloader: PreloaderService,
+    private store: Store<AppStore>) {
+    this.cms = store.select('cms');
   }
 
   public unlockNext() {

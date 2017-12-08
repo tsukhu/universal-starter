@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer';
 import { HeaderComponent } from './header';
 import { StepIndicatorComponent } from './step-indicator/index';
-import { recaptcha } from './recaptcha/recaptcha.component';
+import { ReCaptchaComponent } from './recaptcha/recaptcha.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
@@ -13,8 +13,8 @@ import { recaptcha } from './recaptcha/recaptcha.component';
     HeaderComponent,
     FooterComponent,
     StepIndicatorComponent,
-    recaptcha
+    ReCaptchaComponent
   ],
-  exports: [HeaderComponent, FooterComponent, StepIndicatorComponent, recaptcha]
+  exports: [HeaderComponent, FooterComponent, StepIndicatorComponent, ReCaptchaComponent]
 })
 export class LayoutModule {}

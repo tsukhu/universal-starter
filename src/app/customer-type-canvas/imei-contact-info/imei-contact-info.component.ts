@@ -1,17 +1,21 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppState } from '../../common/services/app.service';
+import { AppStore } from '../../common/models/appstore.model';
+import { UnlockData, ActionCart } from '../../common/models/unlock.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'imei-contact-info',
   templateUrl: './imei-contact-info.component.html',
-  styleUrls: ['./imei-contact-info.component.scss']
+  styleUrls: ['./imei-contact-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImeiContactInfoComponent implements OnInit {
+export class ImeiContactInfoComponent {
   // @Input()
-  public cms;
+  public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
 
   public firstName = undefined;
@@ -28,30 +32,13 @@ export class ImeiContactInfoComponent implements OnInit {
 
   constructor(
     public modalService: ModalService,
-    private appState: AppState,
     private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.cms = this.appState.get('unlockDevice');
-  }
-
-  public ngOnInit() {}
-
-  public modalClosed(e) {}
+    private route: ActivatedRoute,
+    private store: Store<AppStore>) {
+      this.cms = store.select('cms');
+    }
 
   public unlockNext() {
-    // var domain = this.email.slice((this.email.indexOf('@')) + 1, 
-    // this.email.emailAddress.lastIndexOf('.'));
-    // this.unlockService.validateEmail(domain)
-    //   .subscribe((data: any) => {
-    //     console.log(data);
-
-    //     this.router.navigate(['/unlockstep3']);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   });
-
     this.router.navigate(['/unlockConfirm/', { customerType: false }]);
   }
 

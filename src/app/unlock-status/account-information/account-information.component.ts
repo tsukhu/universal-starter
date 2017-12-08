@@ -1,17 +1,21 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { UnlockService } from '../../common/services/unlock.service';
-import { AppState } from '../../common/services/app.service';
+import { AppStore } from '../../common/models/appstore.model';
+import { UnlockData, ActionCart } from '../../common/models/unlock.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'account-information',
   templateUrl: 'account-information.component.html',
-  styleUrls: ['account-information.component.scss']
+  styleUrls: ['account-information.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountInformationComponent implements OnInit, OnDestroy {
-  public cms: any;
+export class AccountInformationComponent implements OnDestroy {
+  public cms: Observable<UnlockData>;
 
   public imeiNumber: string = undefined;
   public requestNumber: string = undefined;
@@ -22,19 +26,10 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
   constructor(
     public modalService: ModalService,
     private route: Router,
-    private appState: AppState,
-    private unlockService: UnlockService
+    private unlockService: UnlockService,
+    private store: Store<AppStore>
   ) {
-
-    this.cms = this.appState.get('unlockDevice');
-  }
-
-  public ngOnInit() {
-    /** TODO */
-  }
-
-  public modalClosed(e) {
-    /** TODO */
+    this.cms = store.select('cms');
   }
 
   public ngOnDestroy() {
@@ -78,7 +73,7 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
         (data: any) => {
           console.log('data', data);
         },
-        (error) => {
+        error => {
           console.log('error', error);
         }
       );

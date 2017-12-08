@@ -1,16 +1,16 @@
 <div class="modal-devices" role="dialog" aria-label="Eligible Unlock" tabindex="-1">
     <div class="modal-main">
-        <span class="heading-page focusme" tabindex="0">{{modalContent?.modalheaderText}}</span>
+        <span class="heading-page focusme" tabindex="0">{{(modalContent | async)?.modalheaderText}}</span>
         <div class="modal-content">
             <div class="modal-content-col">
-                <p tabindex="0" class="focusme" aria-describedby="onTv"><b>{{modalContent?.modalBodyHeader}}</b></p>
+                <p tabindex="0" class="focusme" aria-describedby="onTv"><b>{{(modalContent | async)?.modalBodyHeader}}</b></p>
                 <div class="float-children-left autoSize device-space" id="onTv">
-                    <p>{{modalContent?.section1title}}</p>
+                    <p>{{(modalContent | async)?.section1title}}</p>
                     <ul class="bullet">
-                            <li *ngFor="let modal_content of modalContent?.section1listpart2"><span [innerHTML]="modal_content"></span></li>
+                            <li *ngFor="let modal_content of (modalContent | async)?.section1listpart2"><span [innerHTML]="modal_content"></span></li>
                     </ul>
-                    <p><b>{{modalContent?.ImpNoteTitle}}</b></p>
-                    <p>{{modalContent?.ImpNoteDescp}}</p>
+                    <p><b>{{(modalContent | async)?.ImpNoteTitle}}</b></p>
+                    <p>{{(modalContent | async)?.ImpNoteDescp}}</p>
                 </div>
             </div>
         </div>
