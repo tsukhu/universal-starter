@@ -8,8 +8,13 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preload" href="/assets/fonts/Omnes_ATTW02Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Omnes_ATTW02Italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Omnes_ATTW02.woff2" as="font" type="font/woff2" crossorigin>
+
   <style type="text/css">
     /* <!-- START INLINE CRITICAL CSS --> */
+
     * {
       box-sizing: border-box;
     }
@@ -1296,8 +1301,8 @@
         width: 33.3%;
       }
     }
-
     /* <!-- END INLINE CRITICAL CSS --> */
+
     .att_preloader_overlay {
       position: fixed;
       height: 100vh;
@@ -1327,10 +1332,11 @@
 </head>
 
 <body>
-  <div class="att_preloader_overlay fade in att_preloader_stop">
-    <i class="icon-spinner" role="img" aria-label="Please wait while we load."></i>
-  </div>
-  <app-root></app-root>
+  <app-root>
+    <div class="att_preloader_overlay fade in att_preloader_stop">
+      <i class="icon-spinner" role="img" aria-label="Please wait while we load."></i>
+    </div>
+  </app-root>
   <link rel="stylesheet" href="assets/global.min.css" media="Dummy" onload="if(media!='all')media='all'">
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   <script>
