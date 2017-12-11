@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { CustomerTypeCanvasComponent } from './customer-type-canvas.component';
 import { UnlockService } from '../common/services/unlock.service';
 import { ModalService } from '../common/modal/modal.service';
+import { unlockJson } from '../../assets/mockJson.json';
+import { Store } from '@ngrx/store';
 
 class MockUnlockService {
   http: any;
@@ -141,7 +143,14 @@ class MockUnlockService {
   }
 }
 
-class MockModalService {}
+class MockStore {
+  public data = {
+    cms: unlockJson
+  };
+  select(name){
+    return Observable.of(this.data[name]);
+  }
+}
 
 describe("CustomerTypeCanvasComponent", () => {
   let component: CustomerTypeCanvasComponent;
@@ -155,6 +164,7 @@ describe("CustomerTypeCanvasComponent", () => {
         providers: [
                     //  UnlockService,
                     { provide: UnlockService, useClass: MockUnlockService },
+                    { provide: Store, useClass: MockStore},
                      ModalService, HttpClient ]
       }).compileComponents();
     })

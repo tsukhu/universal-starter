@@ -2,11 +2,14 @@ import { ComponentFixture, async, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/of';
 import { AccountInformationComponent } from "./account-information.component";
 import { UnlockService } from "../../common/services/unlock.service";
 import { ModalService } from "../../common/modal/modal.service";
 //import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { Router } from "@angular/router";
+import { Store, StoreModule } from '@ngrx/store';
+import { unlockJson } from "../../../assets/mockJson.json";
 
 class MockUnlockService {
   http: any;
@@ -149,6 +152,15 @@ class MockRouter {
   }
 }
 
+class MockStore {
+ public data = {
+   cms: unlockJson
+ };
+ select(name){
+   return Observable.of(this.data[name]);
+ }
+}
+
 describe("AccountInformationComponent", () => {
   let component: AccountInformationComponent;
   let fixture: ComponentFixture<AccountInformationComponent>;
@@ -162,8 +174,10 @@ describe("AccountInformationComponent", () => {
           //  UnlockService,
           { provide: UnlockService, useClass: MockUnlockService },          
           { provide: Router, useClass: MockRouter },
-          ModalService,
-          HttpClient
+          { provide: Store, useClass: MockStore},
+          //StoreModule.forRoot({}),
+          ModalService
+          //HttpClient
         ]
       }).compileComponents();
     })

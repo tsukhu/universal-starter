@@ -5,6 +5,8 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UnlockCanvasComponent } from './unlock-canvas.component';
+import { unlockJson } from '../../assets/mockJson.json';
+import { Store } from '@ngrx/store';
 
 class MockUnlockService {
   http: any;
@@ -141,6 +143,15 @@ class MockUnlockService {
   }
 }
 
+class MockStore {
+  public data = {
+    cms: unlockJson
+  };
+  select(name){
+    return Observable.of(this.data[name]);
+  }
+}
+
 class MockModalService {}
 
 describe("Unlock Canvas", () => {
@@ -155,6 +166,7 @@ describe("Unlock Canvas", () => {
         providers: [
                     //  UnlockService,
                     { provide: UnlockService, useClass: MockUnlockService },
+                    { provide: Store, useClass: MockStore},
                      ModalService, HttpClient ]
       }).compileComponents();
     })
