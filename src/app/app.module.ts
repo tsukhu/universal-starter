@@ -8,7 +8,6 @@ import {
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -45,9 +44,6 @@ export function instrumentOptions() {
   declarations: [AppComponent, UnlockCanvasComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-demo-transfer-state-app' }),
-    environment.production
-    ? ServiceWorkerModule.register('/ngsw-worker.js')
-    : [],
     HttpClientModule,
     FormsModule,
     BrowserTransferStateModule,
