@@ -5,7 +5,7 @@ import { ModalComponent, ModalService } from '../common/modal/index';
 import { EligibleUnlockComponent } from '../common/eligible-unlock/index';
 import { AccountInformationComponent } from './account-information/index';
 import { UnlockStatusComponent } from './index';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { LayoutModule } from '../common/layout.module';
 import { UnlockService } from '../common/services/unlock.service';
 
@@ -15,6 +15,7 @@ import { UnlockService } from '../common/services/unlock.service';
     CommonModule,
     FormsModule,
     LayoutModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: UnlockStatusComponent, pathMatch: 'full' }
     ])

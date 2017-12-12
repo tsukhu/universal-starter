@@ -180,26 +180,6 @@ describe("AccountInformationComponent", () => {
     expect(component).toBeDefined();
   });
 
-  it("should check validateNext method if imeiNumber is defined", () => {
-    component.imeiNumber = "123456789123456";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.imeiNumber = "";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if requestNumber is defined", () => {
-    component.requestNumber = "1234567890";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.requestNumber = "";
-    component.validateNext(event);
-  });
-
   it("should check unlockNext", () => {
     component.unlockNext();
   });  
