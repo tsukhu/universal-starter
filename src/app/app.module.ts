@@ -8,6 +8,7 @@ import {
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './common/layout.module';

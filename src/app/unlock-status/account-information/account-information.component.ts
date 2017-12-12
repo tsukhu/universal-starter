@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
@@ -17,19 +18,33 @@ import { Observable } from 'rxjs/Observable';
 export class AccountInformationComponent implements OnDestroy {
   public cms: Observable<UnlockData>;
 
-  public imeiNumber: string = undefined;
-  public requestNumber: string = undefined;
   public nonAttImeiReqErr: boolean = false;
+  public nonAttImeiIsNotValid: boolean = false;
+  public elementFocused;
   public nonAttReqNoErr: boolean = false;
   public isInvalid: boolean = true;
   private subscriptionCaptcha: ISubscription;
+  accountInfoForm: FormGroup;
   constructor(
     public modalService: ModalService,
     private route: Router,
     private unlockService: UnlockService,
-    private store: Store<AppStore>
+    private store: Store<AppStore>,
+    private fb: FormBuilder
   ) {
     this.cms = store.select('cms');
+    this.accountInfoForm = fb.group({
+      imeiNumber : ['', Validators.compose([Validators.required, Validators.minLength(15)])],
+      requestNumber : ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      validate : ''
+    });
+  }
+
+  get imeiNumber() {
+     return this.accountInfoForm.get('imeiNumber');
+  }
+  get requestNumber() {
+     return this.accountInfoForm.get('requestNumber');
   }
 
   public ngOnDestroy() {
@@ -37,32 +52,11 @@ export class AccountInformationComponent implements OnDestroy {
       this.subscriptionCaptcha.unsubscribe();
     }
   }
-  public validateNext(event) {
-    if (this.imeiNumber !== undefined && this.imeiNumber.length === 0) {
-      this.nonAttImeiReqErr = true;
-    } else {
-      this.nonAttImeiReqErr = false;
-    }
-    if (this.requestNumber !== undefined && this.requestNumber.length === 0) {
-      this.nonAttReqNoErr = true;
-    } else {
-      this.nonAttReqNoErr = false;
-    }
-    if (
-      this.requestNumber !== undefined &&
-      this.requestNumber.length === 10 &&
-      (this.imeiNumber !== undefined && this.imeiNumber.length === 15)
-    ) {
-      this.isInvalid = false;
-    } else {
-      this.isInvalid = true;
-    }
-  }
 
   public unlockNext() {
     this.route.navigate([
       '/unlock-status-confirm',
-      { imeiNumber: this.imeiNumber }
+      { imeiNumber: this.accountInfoForm.value.imeiNumber }
     ]);
   }
 

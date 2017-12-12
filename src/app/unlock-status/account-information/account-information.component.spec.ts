@@ -1,12 +1,16 @@
 import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/of';
 import { AccountInformationComponent } from "./account-information.component";
 import { UnlockService } from "../../common/services/unlock.service";
 import { ModalService } from "../../common/modal/modal.service";
 //import { UnlockStatusService } from "../../common/services/unlock-status.service";
 import { Router } from "@angular/router";
+import { Store, StoreModule } from '@ngrx/store';
+import { unlockJson } from "../../../assets/mockJson.json";
 
 class MockUnlockService {
   http: any;
@@ -149,6 +153,15 @@ class MockRouter {
   }
 }
 
+class MockStore {
+ public data = {
+   cms: unlockJson
+ };
+ select(name){
+   return Observable.of(this.data[name]);
+ }
+}
+
 describe("AccountInformationComponent", () => {
   let component: AccountInformationComponent;
   let fixture: ComponentFixture<AccountInformationComponent>;
@@ -156,14 +169,17 @@ describe("AccountInformationComponent", () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule, FormsModule],
         declarations: [AccountInformationComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           //  UnlockService,
           { provide: UnlockService, useClass: MockUnlockService },          
           { provide: Router, useClass: MockRouter },
-          ModalService,
-          HttpClient
+          { provide: Store, useClass: MockStore},
+          //StoreModule.forRoot({}),
+          ModalService
+          //HttpClient
         ]
       }).compileComponents();
     })
@@ -178,26 +194,6 @@ describe("AccountInformationComponent", () => {
   it("component should be created", () => {
     expect(fixture).toBeDefined();
     expect(component).toBeDefined();
-  });
-
-  it("should check validateNext method if imeiNumber is defined", () => {
-    component.imeiNumber = "123456789123456";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.imeiNumber = "";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if requestNumber is defined", () => {
-    component.requestNumber = "1234567890";
-    component.validateNext(event);
-  });
-
-  it("should check validateNext method if imeiNumber is undefined", () => {
-    component.requestNumber = "";
-    component.validateNext(event);
   });
 
   it("should check unlockNext", () => {

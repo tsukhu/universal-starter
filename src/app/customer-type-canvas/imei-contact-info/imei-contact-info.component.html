@@ -81,7 +81,7 @@
     <p [innerHTML]="(cms | async)?.whatnextInstructionLine2"></p>
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
-        <button id="nonattSubmit" [disabled]="isInvalid" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{(cms | async)?.submitButton}}</button>
+        <button [disabled]="isInvalid" id="nonattSubmit" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{(cms | async)?.submitButton}}</button>
         <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{(cms | async)?.backButton}}</button>
     </div>
 </div>
