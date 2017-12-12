@@ -8,6 +8,8 @@ import { AccountIEMIInformationComponent } from './account-imei-information.comp
 import { UnlockService } from '../../common/services/unlock.service';
 import { ModalService } from '../../common/modal/modal.service';
 import { PreloaderService } from '../../common/services/preloader.service';
+import { unlockJson } from '../../../assets/mockJson.json';
+import { Store } from '@ngrx/store';
 
 class MockUnlockService {
   http: any;
@@ -186,6 +188,15 @@ class MockRouter {
   }
 }
 
+class MockStore {
+  public data = {
+    cms: unlockJson
+  };
+  select(name){
+    return Observable.of(this.data[name]);
+  }
+ }
+
 describe("AccountIEMIInformationComponent", () => {
   let component: AccountIEMIInformationComponent;
   let fixture: ComponentFixture<AccountIEMIInformationComponent>;
@@ -200,8 +211,8 @@ describe("AccountIEMIInformationComponent", () => {
           //  UnlockService,
           { provide: UnlockService, useClass: MockUnlockService },
           { provide: Router, useClass: MockRouter },
+          { provide: Store, useClass: MockStore},
           ModalService,
-          HttpClient,
           PreloaderService
         ]
       }).compileComponents();
