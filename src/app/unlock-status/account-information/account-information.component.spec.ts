@@ -1,4 +1,5 @@
 import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
@@ -168,6 +169,7 @@ describe("AccountInformationComponent", () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule, FormsModule],
         declarations: [AccountInformationComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
