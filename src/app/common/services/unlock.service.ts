@@ -6,16 +6,17 @@ import { AppStore } from '../models/appstore.model';
 
 @Injectable()
 export class UnlockService {
-  public baseUrl: string = 'https://www.att.com/';
+  public baseUrl: string = 'http://zld03310.vci.att.com:8080/';
   public redirectOCEWorkFlowUrl: string = 'apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow';
   public customerOrderFlow: string = 'apis/deviceunlock/OCEUnlockOrder/orderFlow';
   public validateEmailUrl: string = 'apis/deviceunlock/UnlockUtility/Verify/ValidateEmail';
   public unlockOrderStatusUrl: string = '../assets/content/unlock-status.json';
   public csrfToken: string = null;
   public deviceDetail = undefined;
+  public servletUrl = 'apis/deviceunlock/csrfguard/JavaScriptServlet';
 
   constructor(private http: HttpClient, public store: Store<AppStore>) {
-    this.http.get('https://www.att.com/apis/deviceunlock/csrfguard/JavaScriptServlet',
+    this.http.get(this.baseUrl + this.servletUrl,
     { responseType: 'text' }).subscribe((t) => {
       const pos = t.indexOf('"OWASP-CSRFTOKEN"');
       if (pos > -1) {
