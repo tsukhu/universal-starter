@@ -2,13 +2,20 @@
     <step-indicator class="d-b" [cms]="(cms | async)" [stepIndex]="2" [customerType]="true"></step-indicator>
     <div class="row">
         <div class="span5">
-            <form class="account-form" #imeiForm="ngForm">
+            <form class="account-form" #imeiForm="ngForm" [formGroup]="imeiInfoForm">
                     <div class="form-row">
                         <label for="imeiNumber">{{(cms | async)?.imeiLabel}}</label>
                         <div class="field-group">
-                            <input id="IMEI" name="street2" class="span12" minlength="15" maxlength="15" (keyup)="validateNext($event)" placeholder="Ex: 12345678901234"
-                                [(ngModel)]="imeiNumber" type="text" aria-label="Apartment or suite number optional">
+                            <input id="IMEI" name="street2" class="span12" minlength="15" maxlength="15" placeholder="Ex: 12345678901234"
+                               type="text" aria-label="Apartment or suite number optional" 
+                               (keyup)="validateNext($event)" formControlName="imeiNumber" (focus)="elementFocused=true" (blur)="elementFocused=false">
                             <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
+                        </div>
+                        <div aria-live="polite" *ngIf="imeiNumber.hasError('required') && imeiNumber.touched" class="error-msg" id="street_address2">
+                            <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.imeiRequiredError}}
+                        </div>
+                        <div aria-live="polite" *ngIf="!elementFocused && imeiNumber.hasError('minlength')" class="error-msg" id="street_address2">
+                            <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.imeiLengthError}}
                         </div>
                         <p class="required-text">
                             <em [innerHTML]="((cms | async)?.ImeiCaptionHelpText)"></em>
@@ -33,7 +40,7 @@
     <p [innerHTML]="(cms | async)?.whatnextInstructionLine2"></p>
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
-        <button [disabled]="isInvalid" class="btn btn-primary-functional" id="unlockSubmit" type="button" (click)="unlockNext()">{{(cms | async)?.submitButton}}</button>
+        <button [disabled]="!imeiInfoForm.controls['imeiNumber'].valid" class="btn btn-primary-functional" id="unlockSubmit" type="button" (click)="unlockNext()">{{(cms | async)?.submitButton}}</button>
         <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{(cms | async)?.backButton}}</button>
     </div>
 </div>

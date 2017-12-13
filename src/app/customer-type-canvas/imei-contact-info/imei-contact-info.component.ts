@@ -2,6 +2,7 @@ import { UnlockService } from '../../common/services/unlock.service';
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
@@ -17,27 +18,55 @@ export class ImeiContactInfoComponent {
   // @Input()
   public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
-
-  public firstName = undefined;
-  public lastName = undefined;
-  public wirelessNumber = undefined;
-  public email = undefined;
-  public confirmEmail = undefined;
+  public elementFocused;
+  // public firstName = undefined;
+  // public lastName = undefined;
+  // public wirelessNumber = undefined;
+  // public email = undefined;
+  // public confirmEmail = undefined;
 
   public wirelessNumberValidErr: boolean = false;
   public firstNameValidErr: boolean = false;
   public lastNameValidErr: boolean = false;
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
+  imeiContactInfoForm: FormGroup;
 
   constructor(
     public modalService: ModalService,
     private router: Router,
     private route: ActivatedRoute,
+    private fb: FormBuilder,
     private store: Store<AppStore>) {
       this.cms = store.select('cms');
+      this.imeiContactInfoForm = fb.group({
+        firstName : ['', Validators.compose([Validators.required, Validators.maxLength(35)])],
+        lastName : ['', Validators.compose([Validators.required, Validators.maxLength(35)])],
+        wirelessNumber : ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+        email : ['', Validators.compose([Validators.required, Validators.email])],
+        confirmEmail : ['', Validators.compose([Validators.required, Validators.email])],
+        validate : ''
+      });
     }
 
+  get firstName() {
+     return this.imeiContactInfoForm.get('firstName');
+  }
+  get lastName() {
+     return this.imeiContactInfoForm.get('lastName');
+  }
+
+  get wirelessNumber() {
+     return this.imeiContactInfoForm.get('wirelessNumber');
+  }
+  get email() {
+     return this.imeiContactInfoForm.get('email');
+  }
+
+  get confirmEmail() {
+     return this.imeiContactInfoForm.get('confirmEmail');
+  }
+  
   public unlockNext() {
     this.router.navigate(['/unlockConfirm/', { customerType: false }]);
   }
@@ -47,53 +76,53 @@ export class ImeiContactInfoComponent {
     this.router.navigate(['/device-unlock']);
   }
 
-  public validateNext(event) {
-    if (this.firstName !== undefined && this.firstName.length === 0) {
-      this.firstNameValidErr = true;
-    } else {
-      this.firstNameValidErr = false;
-    }
+  // public validateNext(event) {
+  //   if (this.firstName !== undefined && this.firstName.length === 0) {
+  //     this.firstNameValidErr = true;
+  //   } else {
+  //     this.firstNameValidErr = false;
+  //   }
 
-    if (this.lastName !== undefined && this.lastName.length === 0) {
-      this.lastNameValidErr = true;
-    } else {
-      this.lastNameValidErr = false;
-    }
+  //   if (this.lastName !== undefined && this.lastName.length === 0) {
+  //     this.lastNameValidErr = true;
+  //   } else {
+  //     this.lastNameValidErr = false;
+  //   }
 
-    if (this.email !== undefined && this.email.length === 0) {
-      this.emailValidErr = true;
-    } else {
-      this.emailValidErr = false;
-    }
+  //   if (this.email !== undefined && this.email.length === 0) {
+  //     this.emailValidErr = true;
+  //   } else {
+  //     this.emailValidErr = false;
+  //   }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
-      this.confirmEmailValidErr = true;
-    } else {
-      this.confirmEmailValidErr = false;
-    }
+  //   if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
+  //     this.confirmEmailValidErr = true;
+  //   } else {
+  //     this.confirmEmailValidErr = false;
+  //   }
 
-    if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {
-      this.wirelessNumberValidErr = true;
-    } else {
-      this.wirelessNumberValidErr = false;
-    }
+  //   if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {
+  //     this.wirelessNumberValidErr = true;
+  //   } else {
+  //     this.wirelessNumberValidErr = false;
+  //   }
 
-    if (
-      this.firstName !== undefined &&
-      this.firstName.length !== 0 &&
-      this.lastName !== undefined &&
-      this.lastName.length !== 0 &&
-      this.wirelessNumber !== undefined &&
-      this.wirelessNumber.length !== 0 &&
-      this.email !== undefined &&
-      this.email.length !== 0 &&
-      this.confirmEmail !== undefined &&
-      this.confirmEmail.length !== 0 &&
-      this.email === this.confirmEmail
-    ) {
-      this.isInvalid = false;
-    } else {
-      this.isInvalid = true;
-    }
-  }
+  //   if (
+  //     this.firstName !== undefined &&
+  //     this.firstName.length !== 0 &&
+  //     this.lastName !== undefined &&
+  //     this.lastName.length !== 0 &&
+  //     this.wirelessNumber !== undefined &&
+  //     this.wirelessNumber.length !== 0 &&
+  //     this.email !== undefined &&
+  //     this.email.length !== 0 &&
+  //     this.confirmEmail !== undefined &&
+  //     this.confirmEmail.length !== 0 &&
+  //     this.email === this.confirmEmail
+  //   ) {
+  //     this.isInvalid = false;
+  //   } else {
+  //     this.isInvalid = true;
+  //   }
+  // }
 }
