@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./imei-contact-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImeiContactInfoComponent {
+export class ImeiContactInfoComponent{
   // @Input()
   public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
@@ -29,14 +29,17 @@ export class ImeiContactInfoComponent {
   public lastNameValidErr: boolean = false;
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
+  public invalidEmailFormatErr: boolean = false;
+  public invalidConfirmEmailFormatErr: boolean = false;
 
   constructor(
     public modalService: ModalService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppStore>) {
-      this.cms = store.select('cms');
-    }
+    private store: Store<AppStore>
+  ) {
+    this.cms = store.select('cms');
+  }
 
   public unlockNext() {
     this.router.navigate(['/unlockConfirm/', { customerType: false }]);
@@ -60,16 +63,40 @@ export class ImeiContactInfoComponent {
       this.lastNameValidErr = false;
     }
 
+    const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
     if (this.email !== undefined && this.email.length === 0) {
+      this.invalidEmailFormatErr = false;
       this.emailValidErr = true;
     } else {
-      this.emailValidErr = false;
+      if(this.email !== undefined && this.email.length !== 0 && !emailPattern.test(this.email)) {
+        this.invalidEmailFormatErr = true;
+        this.emailValidErr = false;
+      } else {
+        this.invalidEmailFormatErr = false;
+        this.emailValidErr = false;
+      }
     }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
+    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0 ) {
       this.confirmEmailValidErr = true;
+      this.invalidConfirmEmailFormatErr = false;
     } else {
-      this.confirmEmailValidErr = false;
+      if(this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
+       if(!emailPattern.test(this.confirmEmail) && this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = true;
+        this.confirmEmailValidErr = false;
+       } else if(this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = true;
+       } else {
+          this.invalidConfirmEmailFormatErr = false;
+          this.confirmEmailValidErr = false;
+       }
+      } else {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = false;
+      }
     }
 
     if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {

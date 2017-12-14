@@ -69,6 +69,9 @@
                             <div *ngIf="emailValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailRequiredError}}
                             </div>
+                            <div *ngIf="invalidEmailFormatErr" aria-live="polite" class="error-msg-color" id="street_address">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailValidationError}}
+                            </div>
                         </div>
                         <div class="form-row span5 offset1">
                             <label for="email_again">{{(cms | async)?.confirmEmail}}</label>
@@ -80,6 +83,9 @@
                             </div>
                             <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailMismatchError}}
+                            </div>
+                            <div *ngIf="invalidConfirmEmailFormatErr" aria-live="polite" class="error-msg-color" id="street_address">
+                                <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailValidationError}}
                             </div>
                         </div>
                     </div>

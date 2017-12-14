@@ -33,6 +33,8 @@ export class AccountInformationComponent {
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
   public passcodeValidErr: boolean = false;
+  public invalidEmailFormatErr: boolean = false;
+  public invalidConfirmEmailFormatErr: boolean = false;
 
   constructor(
     public modalService: ModalService,
@@ -42,7 +44,6 @@ export class AccountInformationComponent {
     private store: Store<AppStore>
   ) {
     this.cms = store.select('cms');
-    
     this.wirelessNumber = this.route.snapshot.params['wirelessNumber'];
   }
 
@@ -72,16 +73,40 @@ export class AccountInformationComponent {
       this.accLastNameValidErr = false;
     }
 
+    const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
     if (this.email !== undefined && this.email.length === 0) {
+      this.invalidEmailFormatErr = false;
       this.emailValidErr = true;
     } else {
-      this.emailValidErr = false;
+      if (this.email !== undefined && this.email.length !== 0 && !emailPattern.test(this.email)) {
+        this.invalidEmailFormatErr = true;
+        this.emailValidErr = false;
+      } else {
+        this.invalidEmailFormatErr = false;
+        this.emailValidErr = false;
+      }
     }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
+    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0 ) {
       this.confirmEmailValidErr = true;
+      this.invalidConfirmEmailFormatErr = false;
     } else {
-      this.confirmEmailValidErr = false;
+      if (this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
+       if (!emailPattern.test(this.confirmEmail) && this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = true;
+        this.confirmEmailValidErr = false;
+       } else if (this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = true;
+       } else {
+          this.invalidConfirmEmailFormatErr = false;
+          this.confirmEmailValidErr = false;
+       }
+      } else {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = false;
+      }
     }
 
     if (this.passcode !== undefined && this.passcode.length === 0) {
