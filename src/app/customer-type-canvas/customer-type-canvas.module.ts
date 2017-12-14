@@ -11,7 +11,7 @@ import { WirelessNumberComponent } from './wireless-number/index';
 import { AccountInformationComponent } from './account-information/index';
 import { ConfirmationComponent } from './confirmation/index';
 /*  */
-import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '../common/layout.module';
 
 @NgModule({
@@ -25,7 +25,6 @@ import { LayoutModule } from '../common/layout.module';
     CommonModule,
     FormsModule,
     LayoutModule,
-    ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: CustomerTypeCanvasComponent, pathMatch: 'full' }
     ])

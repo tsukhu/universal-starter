@@ -2,7 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../common/modal/index';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '../../common/layout.module';
 import { UnlockService } from '../../common/services/unlock.service';
 import { AccountIEMIInformationComponent } from './account-imei-information.component';
@@ -13,7 +13,6 @@ import { AccountIEMIInformationComponent } from './account-imei-information.comp
     CommonModule,
     FormsModule,
     LayoutModule,
-    ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: AccountIEMIInformationComponent, pathMatch: 'full' }
     ])

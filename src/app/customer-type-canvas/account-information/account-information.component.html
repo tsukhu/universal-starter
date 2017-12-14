@@ -2,6 +2,8 @@
     <step-indicator class="d-b" [cms]="(cms | async)" [stepIndex]="2" [customerType]="true"></step-indicator> 
     <div class="row">
         <div class="span12">            
+            <form class="account-form">
+                <fieldset>
                     <div class="row">
                         <div class="form-row">
                             <label for="textinputID-5a">{{(cms | async)?.wirelessNumberLabel}}</label>
@@ -9,20 +11,21 @@
                                 <input id="textinputID-5a" placeholder="Ex: 1234567890" class="span12" type="text" [disabled]="true" name="wirelessNumber" [(ngModel)]="wirelessNumber">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
+                            <div aria-live="polite" aria-atomic="true" class="error-msg">
+                                <i class="icon-badgealert" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
-                <form class="account-form" [formGroup]="accountInfoForm">
-                <fieldset> 
                     <div class="row">
                         <div class="form-row span5">
                             <label for="first_name">{{(cms | async)?.accountHolderFirstnameLabel}}</label>
                             <div class="field-group">
                                 <input class="form-control" id="first_name" class="span12" name="firstName" placeholder="Ex: Smith" tabindex="0" type="text"
                                     maxlength="35" type="text" aria-label="Street address"
-                                    formControlName="firstName" aria-required="true" (focus)="elementFocused=true" (blur)="elementFocused=false">
+                                    aria-required="true" [(ngModel)]="firstName" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
-                            <div *ngIf="firstName.hasError('required') && firstName.touched" aria-live="polite" aria-atomic="true" class="error-msg">
+                            <div *ngIf="accFirstNameValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.accountHolderFirstnameRequiredError}}
                             </div>
                         </div>
@@ -31,10 +34,10 @@
                             <div class="field-group">
                                 <input id="last_name" name="lastName" class="span12" maxlength="35" type="text"
                                     aria-label="Street address" aria-required="true" 
-                                    formControlName="lastName" placeholder="Ex: Mary" (focus)="elementFocused=true" (blur)="elementFocused=false">
+                                    placeholder="Ex: Mary" [(ngModel)]="lastName" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                             </div>
-                            <div *ngIf="lastName.hasError('required') && lastName.touched" aria-live="polite" class="error-msg">
+                            <div *ngIf="accLastNameValidErr" aria-live="polite" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.accountHolderLastnameRequiredError}}
                             </div>
                         </div>
@@ -44,11 +47,11 @@
                             <label for="passcode">{{(cms | async)?.passcodeLabel}}</label>
                             <div class="field-group">
                                 <input class="form-control" id="passcode" class="span12" name="passcode" placeholder="****" tabindex="0" type="password" 
-                                    maxlength="35" formControlName="passcode"
-                                    aria-label="Street address" aria-required="true" (focus)="elementFocused=true" (blur)="elementFocused=false">
+                                    maxlength="35" 
+                                    aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
-                            <div *ngIf="passcode.hasError('required') && passcode.touched" aria-live="polite" aria-atomic="true" class="error-msg">
+                            <div *ngIf="passcodeValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.passcodeRequiredError}}
                             </div>
                             <a href="javascript:void(0);" onclick="window.open('https://www.att.com/esupport/article.html#!/wireless/KM1049472','newwindow','left=10,top=10,height='+ (window.innerHeight - 20) +',width='+ (window.innerWidth- 20) +''); return false"><em>{{(cms | async)?.forgotPasswordLink}}</em></a>
@@ -59,11 +62,11 @@
                             <label for="email">{{(cms | async)?.emailLabel}}</label>
                             <div class="field-group">
                                 <input class="form-control" id="email" class="span12" name="email" placeholder="Ex: name@email.com" tabindex="0" type="email"
-                                    maxlength="35"  aria-label="Street address" formControlName="email"
-                                    aria-required="true"  (focus)="elementFocused=true" (blur)="elementFocused=false">
+                                    maxlength="35"  aria-label="Street address"
+                                    aria-required="true" [(ngModel)]="email" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
-                            <div *ngIf="email.hasError('required') && email.touched" aria-live="polite" aria-atomic="true" class="error-msg">
+                            <div *ngIf="emailValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailRequiredError}}
                             </div>
                         </div>
@@ -71,11 +74,11 @@
                             <label for="email_again">{{(cms | async)?.confirmEmail}}</label>
                             <div class="field-group">
                                 <input id="email_again" name="confirmEmail" class="span12" maxlength="35" type="email"
-                                    aria-label="Street address" aria-required="true"  formControlName="confirmEmail"
-                                    placeholder="Ex: name@email.com" (focus)="elementFocused=true" (blur)="elementFocused=false">
+                                    aria-label="Street address" aria-required="true" 
+                                    placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (keyup)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                             </div>
-                            <div *ngIf="confirmEmail.hasError('required') && confirmEmail.touched" aria-live="polite" class="error-msg" id="street_address">
+                            <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
                                 <i class="icon-badgealert" aria-hidden="true"></i> {{(cms | async)?.emailMismatchError}}
                             </div>
                         </div>
@@ -103,9 +106,7 @@
     </div>
     <hr class="lite">
     <div class="cta-button-group nodots align-right">
-        <button [disabled]="!accountInfoForm.controls['firstName'].valid || !accountInfoForm.controls['lastName'].valid 
-        || !accountInfoForm.controls['passcode'].valid || !accountInfoForm.controls['email'].valid 
-        || !accountInfoForm.controls['confirmEmail'].valid" id="accountInfoNext" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{(cms | async)?.nextButton}}</button>
+        <button [disabled]="isInvalid" id="accountInfoNext" class="btn btn-primary-functional" type="button" (click)="unlockNext()">{{(cms | async)?.nextButton}}</button>
         <button class="btn btn-secondary" type="button" (click)="unlockPrevious()">{{(cms | async)?.backButton}}</button>
     </div>
 </div>
