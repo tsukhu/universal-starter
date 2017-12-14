@@ -6,6 +6,8 @@ import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ImeiContactDetailsAction } from '../../common/actions/user.actions';
+import { ImeiContactDetails } from '../../common/models/steps.model';
 
 @Component({
   selector: 'imei-contact-info',
@@ -13,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./imei-contact-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImeiContactInfoComponent{
+export class ImeiContactInfoComponent implements OnInit {
   // @Input()
   public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
@@ -41,7 +43,29 @@ export class ImeiContactInfoComponent{
     this.cms = store.select('cms');
   }
 
+  public ngOnInit() {
+    const currentStore = this.getCurrentState();
+    console.log("currentStore", currentStore);
+    if (
+      currentStore.user !== undefined &&
+      currentStore.user.imeiContactDetails !== undefined
+    ) {
+      const details = currentStore.user.imeiContactDetails;
+      this.wirelessNumber = details.wirelessNumber;
+      this.firstName = details.firstName;
+      this.lastName = details.lastName;
+      this.email = details.email;
+    }
+  }
+
   public unlockNext() {
+    const imeiContactDetails: ImeiContactDetails = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      wirelessNumber: this.wirelessNumber,
+      email: this.email
+    };
+    this.store.dispatch(new ImeiContactDetailsAction(imeiContactDetails));
     this.router.navigate(['/unlockConfirm/', { customerType: false }]);
   }
 
@@ -122,5 +146,13 @@ export class ImeiContactInfoComponent{
     } else {
       this.isInvalid = true;
     }
+  }
+
+  private getCurrentState(): AppStore {
+    let state: AppStore;
+    this.store.take(1).subscribe((s) => {
+      state = s;
+    });
+    return state;
   }
 }

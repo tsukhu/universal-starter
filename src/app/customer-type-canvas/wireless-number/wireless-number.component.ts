@@ -1,9 +1,20 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { Router } from '@angular/router';
 import { UnlockService } from '../../common/services/unlock.service';
 import { PreloaderService } from '../../common/services/preloader.service';
 import { Observable } from 'rxjs/Observable';
+import { Store, Action } from '@ngrx/store';
+import { AppStore } from '../../common/models/appstore.model';
+import { WirelessDetails } from '../../common/models/steps.model';
+import { WirelessDetailsAction } from '../../common/actions/user.actions';
+import 'rxjs/add/operator/take';
+import { win32 } from 'path';
 
 @Component({
   selector: 'wireless-number',
@@ -37,12 +48,34 @@ export class WirelessNumberComponent implements OnInit {
     public modalService: ModalService,
     private unlockService: UnlockService,
     private route: Router,
-    private preloader: PreloaderService
-  ) {}
+    private preloader: PreloaderService,
+    private store: Store<AppStore>,
+    private ref: ChangeDetectorRef
+  ) { }
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    const currentStore = this.getCurrentState();
+    console.log("currentStore", currentStore);
+    if (
+      currentStore.user !== undefined &&
+      currentStore.user.wirelessDetails !== undefined
+    ) {
+      if (currentStore.user.wirelessDetails.customerType) {
+        const details = currentStore.user.wirelessDetails;
+        this.wirelessNumber = details.wirelessNumber;
+        this.customerType = details.customerType;
+      } else {
+        const details = currentStore.user.wirelessDetails;
+        this.customerType = details.customerType;
+        this.imeiNumber = details.imeiNumber;
+        this.deviceMake = details.make;
+        this.deviceModel = details.model;
+        this.showDeviceDetail = true;
+      }
+    }
+  }
 
-  public modalClosed(e) {}
+  public modalClosed(e) { }
 
   public onCustomerTypeChange(value: boolean) {
     this.customerType = value;
@@ -89,14 +122,15 @@ export class WirelessNumberComponent implements OnInit {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
           (data: any) => {
-            console.log('validate iemi');
-            console.log(data);
+
             // return data;
             // this.route.navigate['/unlock-canvas'];
             this.preloader.stop();
             this.showDeviceDetail = true;
             this.deviceMake = data.orderFlowResponseDO.make;
             this.deviceModel = data.orderFlowResponseDO.model;
+            this.ref.detectChanges();
+
           },
           (error) => {
             console.log(error);
@@ -134,11 +168,20 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   public unlockNext() {
+    const wirelessDetails: WirelessDetails = {
+      customerType: this.customerType,
+      imeiNumber: this.imeiNumber,
+      wirelessNumber: this.wirelessNumber,
+      make : this.deviceMake,
+      model: this.deviceModel
+    };
+
+    this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
     if (this.customerType) {
       this.unlockService.orderFlow(this.wirelessNumber).subscribe(
         (data: any) => {
           console.log(data);
-
+          //   this.store.dispatch({ type: 'ADD_WIRELESS_DETAILS', payload: wirelessDetails });
           this.route.navigate([
             '/unlockstep2/',
             { wirelessNumber: this.wirelessNumber }
@@ -179,5 +222,13 @@ export class WirelessNumberComponent implements OnInit {
         console.log('error', error);
       }
     );
+  }
+
+  private getCurrentState(): AppStore {
+    let state: AppStore;
+    this.store.take(1).subscribe((s) => {
+      state = s;
+    });
+    return state;
   }
 }

@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef } from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { UnlockService } from '../../common/services/unlock.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,7 +32,7 @@ export class ConfirmationComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppStore>,
-    private ref:ChangeDetectorRef
+    private ref: ChangeDetectorRef
   ) {
     this.cms = store.select('cms');
     this.cust = this.route.snapshot.params['customerType'];
@@ -44,4 +50,5 @@ export class ConfirmationComponent implements OnInit {
       this.ref.detectChanges();
     });
   }
+
 }
