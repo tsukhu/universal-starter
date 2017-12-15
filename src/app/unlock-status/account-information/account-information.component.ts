@@ -23,8 +23,8 @@ export class AccountInformationComponent implements OnDestroy {
   public elementFocused;
   public nonAttReqNoErr: boolean = false;
   public isInvalid: boolean = true;
+  public accountInfoForm: FormGroup;
   private subscriptionCaptcha: ISubscription;
-  accountInfoForm: FormGroup;
   constructor(
     public modalService: ModalService,
     private route: Router,
@@ -64,10 +64,8 @@ export class AccountInformationComponent implements OnDestroy {
     this.subscriptionCaptcha = this.unlockService
       .verifyCaptcha(event.token)
       .subscribe(
-        (data: any) => {
-          console.log('data', data);
-        },
-        error => {
+        (data: any) => {},
+        (error) => {
           console.log('error', error);
         }
       );

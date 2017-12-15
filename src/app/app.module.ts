@@ -23,8 +23,8 @@ import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { cmsReducer } from './common/reducers/cms.reducer';
-import { deviceDetailReducer } from './common/reducers/deviceDetail.reducer';
+import { cmsReducer, cmsInitialState } from './common/reducers/cms.reducer';
+import { userReducer, userInitialState } from './common/reducers/user.reducer';
 
 // tslint:disable-next-line:ban-types
 export function startupServiceFactory(
@@ -97,7 +97,7 @@ export function instrumentOptions() {
       ],
       { useHash: true , preloadingStrategy: PreloadAllModules }
     ),
-    StoreModule.forRoot({ cms: cmsReducer, deviceDetail: deviceDetailReducer })
+    StoreModule.forRoot({ cms: cmsReducer , user: userReducer })
     /*,
     StoreDevtoolsModule.instrument(instrumentOptions),
     StoreLogMonitorModule*/

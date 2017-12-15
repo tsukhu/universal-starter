@@ -108,3 +108,7 @@ This will install two command line tools, protractor and webdriver-manager. Try 
 `protractor protractor.conf.js`
 
 *Note**: This will open up chrome browser and it is controlled automatically to produce the results based on spec file.
+
+## Visualize Application Module Sizes
+* Build the production version of the app `npm run build:prerender`
+* Run the bundle-report `npm run bundle-report`

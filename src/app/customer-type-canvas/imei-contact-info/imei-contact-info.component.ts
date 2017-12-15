@@ -6,6 +6,8 @@ import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ImeiContactDetailsAction } from '../../common/actions/user.actions';
+import { ImeiContactDetails } from '../../common/models/steps.model';
 
 @Component({
   selector: 'imei-contact-info',
@@ -13,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./imei-contact-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImeiContactInfoComponent {
+export class ImeiContactInfoComponent implements OnInit {
   // @Input()
   public cms: Observable<UnlockData>;
   public isInvalid: boolean = true;
@@ -29,18 +31,36 @@ export class ImeiContactInfoComponent {
   public lastNameValidErr: boolean = false;
   public emailValidErr: boolean = false;
   public confirmEmailValidErr: boolean = false;
+  public invalidEmailFormatErr: boolean = false;
+  public invalidConfirmEmailFormatErr: boolean = false;
 
   constructor(
     public modalService: ModalService,
     private unlockService: UnlockService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppStore>) {
-      this.cms = store.select('cms');
+    private store: Store<AppStore>
+  ) {
+    this.cms = store.select('cms');
+  }
+
+  public ngOnInit() {
+    const currentStore = this.getCurrentState();
+    if (
+      currentStore.user !== undefined &&
+      currentStore.user.imeiContactDetails !== undefined
+    ) {
+      const details = currentStore.user.imeiContactDetails;
+      this.wirelessNumber = details.wirelessNumber;
+      this.firstName = details.firstName;
+      this.lastName = details.lastName;
+      this.email = details.email;
     }
+  }
 
   public unlockNext() {
-    this.unlockService.imeiOrderFlowSubmit(this.firstName, this.lastName, this.email).subscribe(
+    //TODO
+    /* this.unlockService.imeiOrderFlowSubmit(this.firstName, this.lastName, this.email).subscribe(
       (data: any) => {
         console.log(data);
         this.router.navigate(['/unlockConfirm/', { customerType: false }]);
@@ -48,7 +68,18 @@ export class ImeiContactInfoComponent {
       (error) => {
         console.log(error);
       }
-    );
+    ); */
+    
+    //TODO
+    const imeiContactDetails: ImeiContactDetails = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      wirelessNumber: this.wirelessNumber,
+      email: this.email
+    };
+    this.store.dispatch(new ImeiContactDetailsAction(imeiContactDetails));
+    this.router.navigate(['/unlockConfirm/', { customerType: false }]);
+
   }
 
   public unlockPrevious() {
@@ -69,16 +100,40 @@ export class ImeiContactInfoComponent {
       this.lastNameValidErr = false;
     }
 
+    const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
     if (this.email !== undefined && this.email.length === 0) {
+      this.invalidEmailFormatErr = false;
       this.emailValidErr = true;
     } else {
-      this.emailValidErr = false;
+      if(this.email !== undefined && this.email.length !== 0 && !emailPattern.test(this.email)) {
+        this.invalidEmailFormatErr = true;
+        this.emailValidErr = false;
+      } else {
+        this.invalidEmailFormatErr = false;
+        this.emailValidErr = false;
+      }
     }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
+    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0 ) {
       this.confirmEmailValidErr = true;
+      this.invalidConfirmEmailFormatErr = false;
     } else {
-      this.confirmEmailValidErr = false;
+      if(this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
+       if(!emailPattern.test(this.confirmEmail) && this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = true;
+        this.confirmEmailValidErr = false;
+       } else if(this.email != this.confirmEmail) {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = true;
+       } else {
+          this.invalidConfirmEmailFormatErr = false;
+          this.confirmEmailValidErr = false;
+       }
+      } else {
+        this.invalidConfirmEmailFormatErr = false;
+        this.confirmEmailValidErr = false;
+      }
     }
 
     if (this.wirelessNumber !== undefined && this.wirelessNumber.length === 0) {
@@ -104,5 +159,13 @@ export class ImeiContactInfoComponent {
     } else {
       this.isInvalid = true;
     }
+  }
+
+  private getCurrentState(): AppStore {
+    let state: AppStore;
+    this.store.take(1).subscribe((s) => {
+      state = s;
+    });
+    return state;
   }
 }

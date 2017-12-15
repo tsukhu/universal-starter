@@ -16,7 +16,7 @@ export function cmsReducer(
   switch (action.type) {
     case ADD_CMS_DATA:
       return Object.assign({}, state, action.payload);
-      default:
+    default:
       return state;
   }
 }
