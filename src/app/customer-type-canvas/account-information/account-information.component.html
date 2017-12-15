@@ -22,7 +22,7 @@
                             <div class="field-group">
                                 <input class="form-control" id="first_name" class="span12" name="firstName" placeholder="Ex: Smith" tabindex="0" type="text"
                                     maxlength="35" type="text" aria-label="Street address"
-                                    aria-required="true" [(ngModel)]="firstName" (keyup)="validateNext($event)">
+                                    aria-required="true" [(ngModel)]="firstName" (blur)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
                             <div *ngIf="accFirstNameValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
@@ -34,7 +34,7 @@
                             <div class="field-group">
                                 <input id="last_name" name="lastName" class="span12" maxlength="35" type="text"
                                     aria-label="Street address" aria-required="true" 
-                                    placeholder="Ex: Mary" [(ngModel)]="lastName" (keyup)="validateNext($event)">
+                                    placeholder="Ex: Mary" [(ngModel)]="lastName" (blur)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                             </div>
                             <div *ngIf="accLastNameValidErr" aria-live="polite" class="error-msg-color">
@@ -48,7 +48,7 @@
                             <div class="field-group">
                                 <input class="form-control" id="passcode" class="span12" name="passcode" placeholder="****" tabindex="0" type="password" 
                                     maxlength="35" 
-                                    aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (keyup)="validateNext($event)">
+                                    aria-label="Street address" aria-required="true" [(ngModel)]="passcode" (blur)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
                             <div *ngIf="passcodeValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
@@ -63,7 +63,7 @@
                             <div class="field-group">
                                 <input class="form-control" id="email" class="span12" name="email" placeholder="Ex: name@email.com" tabindex="0" type="email"
                                     maxlength="35"  aria-label="Street address"
-                                    aria-required="true" [(ngModel)]="email" (keyup)="validateNext($event)">
+                                    aria-required="true" [(ngModel)]="email" (blur)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field" aria-hidden="true"></button>
                             </div>
                             <div *ngIf="emailValidErr" aria-live="polite" aria-atomic="true" class="error-msg-color">
@@ -78,7 +78,7 @@
                             <div class="field-group">
                                 <input id="email_again" name="confirmEmail" class="span12" maxlength="35" type="email"
                                     aria-label="Street address" aria-required="true" 
-                                    placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (keyup)="validateNext($event)">
+                                    placeholder="Ex: name@email.com" [(ngModel)]="confirmEmail" (blur)="validateNext($event)">
                                 <button class="reset-field" type="button" tabindex="-1" aria-label="Reset text field"></button>
                             </div>
                             <div *ngIf="confirmEmailValidErr" aria-live="polite" class="error-msg-color" id="street_address">
