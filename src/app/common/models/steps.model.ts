@@ -21,8 +21,13 @@ export interface ImeiContactDetails {
   email?: string;
 }
 
+export interface CsrfTokenDetails {
+  csrfToken?: string;
+}
+
 export interface User {
   wirelessDetails?: WirelessDetails;
   customerAccountDetails?: CustomerAccountDetails;
   imeiContactDetails?: ImeiContactDetails;
+  csrfTokenDetails?: CsrfTokenDetails; 
 }

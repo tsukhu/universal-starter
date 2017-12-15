@@ -11,8 +11,11 @@ import { PreloaderService } from '../../common/services/preloader.service';
 import { Observable } from 'rxjs/Observable';
 import { Store, Action } from '@ngrx/store';
 import { AppStore } from '../../common/models/appstore.model';
-import { WirelessDetails } from '../../common/models/steps.model';
-import { WirelessDetailsAction } from '../../common/actions/user.actions';
+import { WirelessDetails, CsrfTokenDetails } from '../../common/models/steps.model';
+import {
+  WirelessDetailsAction,
+  CsrfTokenDetailsAction
+} from "../../common/actions/user.actions";
 import 'rxjs/add/operator/take';
 import { win32 } from 'path';
 
@@ -72,6 +75,24 @@ export class WirelessNumberComponent implements OnInit {
         this.showDeviceDetail = true;
       }
     }
+    this.unlockService.setHeader()
+      .subscribe((t) => {
+      const pos = t.indexOf('"OWASP-CSRFTOKEN"');
+      if (pos > -1) {
+        const csrfTokenDetails: CsrfTokenDetails = {
+          csrfToken: t.substr(pos + 20, 36)
+        };
+
+      this.store.dispatch(new CsrfTokenDetailsAction(csrfTokenDetails));
+      this.store.select('user').subscribe(
+      (data)=>{
+        console.log("data",data);
+      },
+      (error)=>{
+
+      });
+      }
+    });
   }
 
   public modalClosed(e) { }

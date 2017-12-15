@@ -6,7 +6,7 @@ import { AppStore } from '../models/appstore.model';
 
 @Injectable()
 export class UnlockService {
-  public baseUrl: string = 'http://zld03310.vci.att.com:8080/';
+  public baseUrl: string = 'https://oce5bpmrl.dev.att.com/';
   public redirectOCEWorkFlowUrl: string = 'apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow';
   public customerOrderFlow: string = 'apis/deviceunlock/OCEUnlockOrder/orderFlow';
   public validateEmailUrl: string = 'apis/deviceunlock/UnlockUtility/Verify/ValidateEmail';
@@ -15,18 +15,19 @@ export class UnlockService {
   public deviceDetail = undefined;
   public servletUrl = 'apis/deviceunlock/csrfguard/JavaScriptServlet';
 
-  constructor(private http: HttpClient, public store: Store<AppStore>) {
-    this.http.get(this.baseUrl + this.servletUrl,
-    { responseType: 'text' }).subscribe((t) => {
-      const pos = t.indexOf('"OWASP-CSRFTOKEN"');
-      if (pos > -1) {
-        this.csrfToken = t.substr(pos + 20, 36);
-        console.log('xxxxxxxxxx: ', this.csrfToken);
+  constructor(private http: HttpClient, public store: Store<AppStore>) {    
+    this.store.select('user').subscribe(
+      (d) => {
+        if(d!=undefined){
+          this.csrfToken = d.csrfTokenDetails.csrfToken;
+        }        
       }
-    });
-    this.store.select('deviceDetail').subscribe(
-      (d) => {this.deviceDetail = d;}
     );
+  }
+
+  public setHeader (){
+    return this.http.get(this.baseUrl + this.servletUrl,
+    { responseType: 'text' });
   }
 
   public orderFlow(customerNumber) {

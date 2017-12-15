@@ -2,7 +2,8 @@ import { ActionReducer, Action } from '@ngrx/store';
 import {
   WirelessDetails,
   CustomerAccountDetails,
-  ImeiContactDetails
+  ImeiContactDetails,
+  CsrfTokenDetails
 } from '../models/steps.model';
 
 export class WirelessDetailsAction implements Action {
@@ -28,4 +29,10 @@ export class ImeiContactDetailsAction implements Action {
 // tslint:disable-next-line:max-classes-per-file
 export class ResetUserAction implements Action {
   public type = 'RESET_USER';
+}
+
+export class CsrfTokenDetailsAction implements Action {
+  public type = 'ADD_CSRF_TOKEN';
+
+  constructor(public payload: CsrfTokenDetails) {}
 }

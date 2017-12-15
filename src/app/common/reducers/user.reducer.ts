@@ -3,7 +3,8 @@ import {
   User,
   CustomerAccountDetails,
   ImeiContactDetails,
-  WirelessDetails
+  WirelessDetails,
+  CsrfTokenDetails
 } from '../models/steps.model';
 import { WirelessDetailsAction } from '../actions/user.actions';
 
@@ -13,6 +14,7 @@ export const ADD_WIRELESS_DETAILS = 'ADD_WIRELESS_DETAILS';
 export const ADD_CUSTOMER_DETAILS = 'ADD_CUSTOMER_DETAILS';
 export const ADD_IMEI_DETAILS = 'ADD_IMEI_DETAILS';
 export const RESET_USER = 'RESET_USER';
+export const ADD_CSRF_TOKEN = 'ADD_CSRF_TOKEN';
 
 export interface ActionWithPayload<T> extends Action {
   payload: T;
@@ -30,6 +32,8 @@ export function userReducer(state: User, action: WirelessDetailsAction) {
       return Object.assign({}, state, { imeiContactDetails: action.payload });
     case RESET_USER:
       return userInitialState;
+    case ADD_CSRF_TOKEN:
+      return Object.assign({}, state, { csrfTokenDetails: action.payload });
     default:
       return state;
   }
