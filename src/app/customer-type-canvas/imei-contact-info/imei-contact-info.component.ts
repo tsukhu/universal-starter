@@ -45,7 +45,6 @@ export class ImeiContactInfoComponent implements OnInit {
 
   public ngOnInit() {
     const currentStore = this.getCurrentState();
-    console.log("currentStore", currentStore);
     if (
       currentStore.user !== undefined &&
       currentStore.user.imeiContactDetails !== undefined

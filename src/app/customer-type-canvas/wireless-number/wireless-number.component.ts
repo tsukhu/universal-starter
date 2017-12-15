@@ -55,7 +55,6 @@ export class WirelessNumberComponent implements OnInit {
 
   public ngOnInit() {
     const currentStore = this.getCurrentState();
-    console.log("currentStore", currentStore);
     if (
       currentStore.user !== undefined &&
       currentStore.user.wirelessDetails !== undefined
@@ -180,7 +179,6 @@ export class WirelessNumberComponent implements OnInit {
     if (this.customerType) {
       this.unlockService.orderFlow(this.wirelessNumber).subscribe(
         (data: any) => {
-          console.log(data);
           //   this.store.dispatch({ type: 'ADD_WIRELESS_DETAILS', payload: wirelessDetails });
           this.route.navigate([
             '/unlockstep2/',
@@ -194,8 +192,6 @@ export class WirelessNumberComponent implements OnInit {
     } else {
       this.unlockService.imeiOrderFlow(this.imeiNumber).subscribe(
         (data: any) => {
-          console.log(data);
-
           this.route.navigate(['/nonattunlock']);
         },
         (error) => {
@@ -213,11 +209,8 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   public getToken(event) {
-    console.log(event.token);
     this.unlockService.verifyCaptcha(event.token).subscribe(
-      (data: any) => {
-        console.log('data', data);
-      },
+      (data: any) => { },
       (error) => {
         console.log('error', error);
       }

@@ -51,7 +51,6 @@ export class AccountInformationComponent implements OnInit {
 
   public ngOnInit() {
     const currentStore = this.getCurrentState();
-    console.log("currentStore", currentStore);
     if (
       currentStore.user !== undefined &&
       currentStore.user.customerAccountDetails !== undefined
@@ -119,10 +118,10 @@ export class AccountInformationComponent implements OnInit {
       this.invalidConfirmEmailFormatErr = false;
     } else {
       if (this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
-       if (!emailPattern.test(this.confirmEmail) && this.email != this.confirmEmail) {
+       if (!emailPattern.test(this.confirmEmail) && this.email !== this.confirmEmail) {
         this.invalidConfirmEmailFormatErr = true;
         this.confirmEmailValidErr = false;
-       } else if (this.email != this.confirmEmail) {
+       } else if (this.email !== this.confirmEmail) {
         this.invalidConfirmEmailFormatErr = false;
         this.confirmEmailValidErr = true;
        } else {

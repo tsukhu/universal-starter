@@ -38,16 +38,6 @@ export class AccountIEMIInformationComponent  {
   }
 
   public unlockNext() {
-    // this.unlockService.orderFlow(this.wirelessNumber)
-    //   .subscribe((data: any) => {
-    //     console.log(data);
-
-    //     this.route.navigate['/unlockstep2'];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   });
-
     this.route.navigate(['/unlockConfirm/', { customerType: true }]);
   }
 

@@ -27,12 +27,9 @@ export class ReCaptchaComponent implements OnInit {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
-    console.log('render');
   }
 
   public verified(response) {
-    console.log('response.token');
-    console.log(response);
     // var requestParamToSiteVerify = {"googleReCaptchaRequest":{"token":response}}
     this.tokenChange.emit({
       token: response
