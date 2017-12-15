@@ -198,17 +198,11 @@ describe("AccountInformationComponent", () => {
 
   it("should check unlockNext", () => {
     component.unlockNext();
-  });  
+  });
 
-  /* 
+  /*
   it("should check getToken", () => {
     component.getToken('123456');
   }); */
 
 });
-
-/* describe("Unlock Status", () => {
-  it("component should be created", () => {
-    expect(true).toEqual(true);    
-  });
-}); */
