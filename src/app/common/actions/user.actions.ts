@@ -24,3 +24,8 @@ export class ImeiContactDetailsAction implements Action {
 
   constructor(public payload: ImeiContactDetails) {}
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class ResetUserAction implements Action {
+  public type = 'RESET_USER';
+}

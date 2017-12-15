@@ -12,6 +12,7 @@ export const userInitialState: User = {}; //
 export const ADD_WIRELESS_DETAILS = 'ADD_WIRELESS_DETAILS';
 export const ADD_CUSTOMER_DETAILS = 'ADD_CUSTOMER_DETAILS';
 export const ADD_IMEI_DETAILS = 'ADD_IMEI_DETAILS';
+export const RESET_USER = 'RESET_USER';
 
 export interface ActionWithPayload<T> extends Action {
   payload: T;
@@ -27,6 +28,8 @@ export function userReducer(state: User, action: WirelessDetailsAction) {
       });
     case ADD_IMEI_DETAILS:
       return Object.assign({}, state, { imeiContactDetails: action.payload });
+    case RESET_USER:
+      return userInitialState;
     default:
       return state;
   }

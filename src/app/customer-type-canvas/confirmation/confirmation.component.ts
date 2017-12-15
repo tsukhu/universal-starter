@@ -14,6 +14,8 @@ import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import { ResetUserAction } from '../../common/actions/user.actions';
+
 @Component({
   selector: 'confirmation',
   templateUrl: 'confirmation.component.html',
@@ -48,6 +50,7 @@ export class ConfirmationComponent implements OnInit {
     this.unlockService.confirmation().subscribe((data: any) => {
       this.requestNo = data.orderFlowResponseDO.requestNo;
       this.ref.detectChanges();
+      this.store.dispatch(new ResetUserAction());
     });
   }
 
