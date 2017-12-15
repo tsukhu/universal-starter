@@ -15,7 +15,7 @@ import { WirelessDetails, CsrfTokenDetails } from '../../common/models/steps.mod
 import {
   WirelessDetailsAction,
   CsrfTokenDetailsAction
-} from "../../common/actions/user.actions";
+} from '../../common/actions/user.actions';
 import 'rxjs/add/operator/take';
 import { win32 } from 'path';
 
@@ -48,7 +48,7 @@ export class WirelessNumberComponent implements OnInit {
   public showDeviceDetail: boolean = false;
 
   constructor(
-    public modalService: ModalService,    
+    public modalService: ModalService,
     private unlockService: UnlockService,
     private route: Router,
     private preloader: PreloaderService,
@@ -57,7 +57,7 @@ export class WirelessNumberComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    const currentStore = this.getCurrentState();
+    const currentStore = this.unlockService.getCurrentState();
     if (
       currentStore.user !== undefined &&
       currentStore.user.wirelessDetails !== undefined
@@ -83,19 +83,13 @@ export class WirelessNumberComponent implements OnInit {
           csrfToken: t.substr(pos + 20, 36)
         };
 
-      this.store.dispatch(new CsrfTokenDetailsAction(csrfTokenDetails));
-      this.store.select('user').subscribe(
-      (data)=>{
-        console.log("data",data);
-      },
-      (error)=>{
-
-      });
+        this.store.dispatch(new CsrfTokenDetailsAction(csrfTokenDetails));
       }
     });
   }
 
-  public modalClosed(e) { }
+  public modalClosed(e) {
+  }
 
   public onCustomerTypeChange(value: boolean) {
     this.customerType = value;
@@ -142,20 +136,29 @@ export class WirelessNumberComponent implements OnInit {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
           (data: any) => {
-            //TODO
-            // return data;
-            // this.route.navigate['/unlock-canvas'];
+            console.log('xxxxxxxxxxxxxx', data);
+            const respDo = data.orderFlowResponseDO;
             this.preloader.stop();
-            this.showDeviceDetail = true;
-            this.deviceDetail = data;
-            //TODO
-            /* this.store.dispatch({
-              type: 'ADD_DEVICE_DETAIL',
-              payload: data.orderFlowResponseDO
-            }); */
-            this.deviceMake = data.orderFlowResponseDO.make;
-            this.deviceModel = data.orderFlowResponseDO.model;
+            const wirelessDetails: WirelessDetails = {
+              customerType: this.customerType,
+              imeiNumber: this.imeiNumber,
+              make : respDo.make,
+              model: respDo.model,
+              imeiRefId: respDo.imeiRefId,
+              makeRefId: respDo.makeRefId,
+              modelRefId: respDo.modelRefId
+            };
+            this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
+            this.store.subscribe(
+              (d)=>{
+                console.log(d.user);
+              }
+            )
+            this.deviceMake = respDo.make;
+            this.deviceModel = respDo.model;
             this.ref.detectChanges();
+            this.showDeviceDetail = true;
+            // this.deviceDetail = data;
 
           },
           (error) => {
@@ -194,16 +197,13 @@ export class WirelessNumberComponent implements OnInit {
   }
 
   public unlockNext() {
-    const wirelessDetails: WirelessDetails = {
-      customerType: this.customerType,
-      imeiNumber: this.imeiNumber,
-      wirelessNumber: this.wirelessNumber,
-      make : this.deviceMake,
-      model: this.deviceModel
-    };
-
-    this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
     if (this.customerType) {
+      const wirelessDetails: WirelessDetails = {
+        customerType: this.customerType,
+        wirelessNumber: this.wirelessNumber
+      };
+
+      this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
       this.unlockService.orderFlow(this.wirelessNumber).subscribe(
         (data: any) => {
           //TODO
@@ -218,7 +218,7 @@ export class WirelessNumberComponent implements OnInit {
         }
       );
     } else {
-      this.unlockService.imeiOrderFlow(this.imeiNumber, this.deviceDetail).subscribe(
+      this.unlockService.imeiOrderFlow(this.imeiNumber).subscribe(
         (data: any) => {
           //TODO
           this.route.navigate(['/nonattunlock']);
@@ -244,13 +244,5 @@ export class WirelessNumberComponent implements OnInit {
         console.log('error', error);
       }
     );
-  }
-
-  private getCurrentState(): AppStore {
-    let state: AppStore;
-    this.store.take(1).subscribe((s) => {
-      state = s;
-    });
-    return state;
   }
 }

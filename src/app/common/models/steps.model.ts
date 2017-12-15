@@ -4,6 +4,9 @@ export interface WirelessDetails {
   imeiNumber?: string;
   make?: string;
   model?: string;
+  imeiRefId?: string;
+  makeRefId?: string;
+  modelRefId?: string;
 }
 
 export interface CustomerAccountDetails {
@@ -29,5 +32,5 @@ export interface User {
   wirelessDetails?: WirelessDetails;
   customerAccountDetails?: CustomerAccountDetails;
   imeiContactDetails?: ImeiContactDetails;
-  csrfTokenDetails?: CsrfTokenDetails; 
+  csrfTokenDetails?: CsrfTokenDetails;
 }
