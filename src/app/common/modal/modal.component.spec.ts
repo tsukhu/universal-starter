@@ -52,6 +52,7 @@ describe('Modal component', () => {
   });
 
   it(`Should really test model component ngOninit`, () => {
+    component.id = " ";
     component.ngOnInit();
   });
 
