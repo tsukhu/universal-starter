@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+/* import { TestBed, async } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ModalService } from '../../common/modal/modal.service';
 import { UnlockPanelComponent } from './unlock-panel.component';
@@ -20,3 +20,4 @@ describe('UnlockPanelComponent', () => {
     expect(app).toBeTruthy();
   }));
 });
+ */
