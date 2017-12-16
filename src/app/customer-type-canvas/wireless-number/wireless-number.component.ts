@@ -136,7 +136,6 @@ export class WirelessNumberComponent implements OnInit {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
           (data: any) => {
-            console.log('xxxxxxxxxxxxxx', data);
             const respDo = data.orderFlowResponseDO;
             this.preloader.stop();
             const wirelessDetails: WirelessDetails = {
@@ -149,11 +148,6 @@ export class WirelessNumberComponent implements OnInit {
               modelRefId: respDo.modelRefId
             };
             this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
-            this.store.subscribe(
-              (d)=>{
-                console.log(d.user);
-              }
-            )
             this.deviceMake = respDo.make;
             this.deviceModel = respDo.model;
             this.ref.detectChanges();
@@ -206,8 +200,6 @@ export class WirelessNumberComponent implements OnInit {
       this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
       this.unlockService.orderFlow(this.wirelessNumber).subscribe(
         (data: any) => {
-          //TODO
-          //   this.store.dispatch({ type: 'ADD_WIRELESS_DETAILS', payload: wirelessDetails });
           this.route.navigate([
             '/unlockstep2/',
             { wirelessNumber: this.wirelessNumber }
@@ -220,7 +212,6 @@ export class WirelessNumberComponent implements OnInit {
     } else {
       this.unlockService.imeiOrderFlow(this.imeiNumber).subscribe(
         (data: any) => {
-          //TODO
           this.route.navigate(['/nonattunlock']);
         },
         (error) => {
@@ -228,12 +219,9 @@ export class WirelessNumberComponent implements OnInit {
         }
       );
     }
-
-    // this.route.navigate(['/unlockstep2', {wirelessNumber: this.wirelessNumber}]);
   }
 
   public unlockPrevious() {
-    // alert("navigate");
     this.route.navigate(['/unlock-canvas']);
   }
 

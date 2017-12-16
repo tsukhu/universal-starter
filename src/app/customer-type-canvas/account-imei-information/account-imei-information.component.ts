@@ -1,5 +1,12 @@
 import { UnlockService } from '../../common/services/unlock.service';
-import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreloaderService } from '../../common/services/preloader.service';
@@ -7,6 +14,8 @@ import { AppStore } from '../../common/models/appstore.model';
 import { UnlockData, ActionCart } from '../../common/models/unlock.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { WirelessDetails } from '../../common/models/steps.model';
+import { WirelessDetailsAction, AddRequestNumberAction } from '../../common/actions/user.actions';
 
 @Component({
   selector: 'account-imei-information',
@@ -15,9 +24,11 @@ import { Observable } from 'rxjs/Observable';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class AccountIEMIInformationComponent  {
+export class AccountIEMIInformationComponent implements OnInit {
   // @Input()
   public cms: Observable<UnlockData>;
+  public wirelessNumber: string = undefined;
+  public customerType: boolean = true;
   public imeiNumber = undefined;
   public showDeviceDetail: boolean = false;
   public isInvalid: boolean = true;
@@ -31,22 +42,36 @@ export class AccountIEMIInformationComponent  {
     private route: Router,
 
     private preloader: PreloaderService,
-    private store: Store<AppStore>) {
+    private store: Store<AppStore>,
+    private ref: ChangeDetectorRef) {
     this.cms = store.select('cms');
   }
 
+  public ngOnInit() {
+    const currentStore = this.unlockService.getCurrentState();
+    if (
+      currentStore.user !== undefined &&
+      currentStore.user.wirelessDetails !== undefined
+    ) {
+      if (currentStore.user.wirelessDetails.customerType) {
+        const details = currentStore.user.wirelessDetails;
+        this.wirelessNumber = details.wirelessNumber;
+        this.customerType = details.customerType;
+      }
+    }
+  }
+
   public unlockNext() {
-    //TODO
-    /* this.unlockService.imeiVerificationFlow(this.imeiNumber, "4155199484").subscribe(
+    this.unlockService.imeiOrderFlowSubmit().subscribe(
       (data: any) => {
-        console.log(data);
-        this.route.navigate(['/unlockConfirm/', { customerType: true }]);
+        this.store.dispatch(new AddRequestNumberAction(
+          data.orderFlowResponseDO.requestNo
+        ));
       },
       (error) => {
         console.log(error);
       }
-    ); */
-    // this.route.navigate(['/unlockConfirm/', { customerType: true }]);
+    );
   }
 
   public unlockPrevious() {
@@ -70,12 +95,23 @@ export class AccountIEMIInformationComponent  {
         this.preloader.start();
         this.unlockService.imeiMakeModelResponse(this.imeiNumber).subscribe(
           (data: any) => {
-            // return data;
-            // this.route.navigate['/unlock-canvas'];
+            const respDo = data.orderFlowResponseDO;
             this.preloader.stop();
+            const wirelessDetails: WirelessDetails = {
+              wirelessNumber: this.wirelessNumber,
+              customerType: this.customerType,
+              imeiNumber: this.imeiNumber,
+              make: respDo.make,
+              model: respDo.model,
+              imeiRefId: respDo.imeiRefId,
+              makeRefId: respDo.makeRefId,
+              modelRefId: respDo.modelRefId
+            };
+            this.store.dispatch(new WirelessDetailsAction(wirelessDetails));
+            this.deviceMake = respDo.make;
+            this.deviceModel = respDo.model;
+            this.ref.detectChanges();
             this.showDeviceDetail = true;
-            this.deviceMake = data.orderFlowResponseDO.make;
-            this.deviceModel = data.orderFlowResponseDO.model;
           },
           (error) => {
             console.log(error);

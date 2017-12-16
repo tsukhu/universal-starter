@@ -45,7 +45,7 @@ export class ImeiContactInfoComponent implements OnInit {
   }
 
   public ngOnInit() {
-    const currentStore = this.getCurrentState();
+    const currentStore = this.unlockService.getCurrentState();
     if (
       currentStore.user !== undefined &&
       currentStore.user.imeiContactDetails !== undefined
@@ -59,18 +59,6 @@ export class ImeiContactInfoComponent implements OnInit {
   }
 
   public unlockNext() {
-    //TODO
-    /* this.unlockService.imeiOrderFlowSubmit(this.firstName, this.lastName, this.email).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.router.navigate(['/unlockConfirm/', { customerType: false }]);
-      },
-      (error) => {
-        console.log(error);
-      }
-    ); */
-    
-    //TODO
     const imeiContactDetails: ImeiContactDetails = {
       firstName: this.firstName,
       lastName: this.lastName,
@@ -78,8 +66,14 @@ export class ImeiContactInfoComponent implements OnInit {
       email: this.email
     };
     this.store.dispatch(new ImeiContactDetailsAction(imeiContactDetails));
-    this.router.navigate(['/unlockConfirm/', { customerType: false }]);
-
+    this.unlockService.imeiOrderFlowSubmit().subscribe(
+      (data: any) => {
+        this.router.navigate(['/unlockConfirm/']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public unlockPrevious() {
@@ -106,7 +100,7 @@ export class ImeiContactInfoComponent implements OnInit {
       this.invalidEmailFormatErr = false;
       this.emailValidErr = true;
     } else {
-      if(this.email !== undefined && this.email.length !== 0 && !emailPattern.test(this.email)) {
+      if (this.email !== undefined && this.email.length !== 0 && !emailPattern.test(this.email)) {
         this.invalidEmailFormatErr = true;
         this.emailValidErr = false;
       } else {
@@ -115,21 +109,21 @@ export class ImeiContactInfoComponent implements OnInit {
       }
     }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0 ) {
+    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
       this.confirmEmailValidErr = true;
       this.invalidConfirmEmailFormatErr = false;
     } else {
-      if(this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
-       if(!emailPattern.test(this.confirmEmail) && this.email != this.confirmEmail) {
-        this.invalidConfirmEmailFormatErr = true;
-        this.confirmEmailValidErr = false;
-       } else if(this.email != this.confirmEmail) {
-        this.invalidConfirmEmailFormatErr = false;
-        this.confirmEmailValidErr = true;
-       } else {
+      if (this.confirmEmail !== undefined && this.confirmEmail.length !== 0) {
+        if (!emailPattern.test(this.confirmEmail) && this.email !== this.confirmEmail) {
+          this.invalidConfirmEmailFormatErr = true;
+          this.confirmEmailValidErr = false;
+        } else if (this.email !== this.confirmEmail) {
+          this.invalidConfirmEmailFormatErr = false;
+          this.confirmEmailValidErr = true;
+        } else {
           this.invalidConfirmEmailFormatErr = false;
           this.confirmEmailValidErr = false;
-       }
+        }
       } else {
         this.invalidConfirmEmailFormatErr = false;
         this.confirmEmailValidErr = false;
@@ -159,13 +153,5 @@ export class ImeiContactInfoComponent implements OnInit {
     } else {
       this.isInvalid = true;
     }
-  }
-
-  private getCurrentState(): AppStore {
-    let state: AppStore;
-    this.store.take(1).subscribe((s) => {
-      state = s;
-    });
-    return state;
   }
 }

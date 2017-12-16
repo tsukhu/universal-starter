@@ -27,7 +27,6 @@ export class AccountInformationComponent implements OnInit {
   public passcode = undefined;
   public email = undefined;
   public confirmEmail = undefined;
-
   public mulitaryPersonnel: boolean = true;
 
   public accFirstNameValidErr: boolean = false;
@@ -65,16 +64,16 @@ export class AccountInformationComponent implements OnInit {
   }
 
   public unlockNext() {
-  /* TODO
-     const userData = {
-      firstname: this.firstName,
-      lastname: this.lastName,
-      passcode: this.passcode,
+    const customerAccountDetails: CustomerAccountDetails = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      wirelessNumber: this.wirelessNumber,
       email: this.email,
-      wirelessnumber: this.wirelessNumber
+      mulitaryPersonnel: this.mulitaryPersonnel,
+      passCode: this.passcode
     };
-
-    this.unlockService.userValidateOrderFlow(userData).subscribe(
+    this.store.dispatch(new CustomerAccountDetailsAction(customerAccountDetails));
+    this.unlockService.userValidateOrderFlow(customerAccountDetails).subscribe(
       (data: any) => {
         console.log(data);
         this.router.navigate(['/unlockstep3']);
@@ -82,20 +81,7 @@ export class AccountInformationComponent implements OnInit {
       (error) => {
         console.log(error);
       }
-    ); */
-    
-    //TODO
-    const customerAccountDetails: CustomerAccountDetails = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      wirelessNumber: this.wirelessNumber,
-      email: this.email,
-      mulitaryPersonnel: this.mulitaryPersonnel
-    };
-
-    this.store.dispatch(new CustomerAccountDetailsAction(customerAccountDetails));
-
-    this.router.navigate(['/unlockstep3']);
+    );
   }
 
   public unlockPrevious() {
@@ -134,21 +120,21 @@ export class AccountInformationComponent implements OnInit {
       }
     }
 
-    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0 ) {
+    if (this.confirmEmail !== undefined && this.confirmEmail.length === 0) {
       this.confirmEmailValidErr = true;
       this.invalidConfirmEmailFormatErr = false;
     } else {
-      if (this.confirmEmail !== undefined && this.confirmEmail.length !== 0 ) {
-       if (!emailPattern.test(this.confirmEmail) && this.email !== this.confirmEmail) {
-        this.invalidConfirmEmailFormatErr = true;
-        this.confirmEmailValidErr = false;
-       } else if (this.email !== this.confirmEmail) {
-        this.invalidConfirmEmailFormatErr = false;
-        this.confirmEmailValidErr = true;
-       } else {
+      if (this.confirmEmail !== undefined && this.confirmEmail.length !== 0) {
+        if (!emailPattern.test(this.confirmEmail) && this.email !== this.confirmEmail) {
+          this.invalidConfirmEmailFormatErr = true;
+          this.confirmEmailValidErr = false;
+        } else if (this.email !== this.confirmEmail) {
+          this.invalidConfirmEmailFormatErr = false;
+          this.confirmEmailValidErr = true;
+        } else {
           this.invalidConfirmEmailFormatErr = false;
           this.confirmEmailValidErr = false;
-       }
+        }
       } else {
         this.invalidConfirmEmailFormatErr = false;
         this.confirmEmailValidErr = false;

@@ -1,4 +1,4 @@
-import { Store } from '@ngrx/store';
+/* import { Store } from '@ngrx/store';
 import { ComponentFixture, async, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -275,3 +275,4 @@ describe("WirelessNumberComponent", () => {
     component.unlockPrevious();
   }); 
 });
+ */

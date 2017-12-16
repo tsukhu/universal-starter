@@ -4,7 +4,8 @@ import {
   Input,
   OnDestroy,
   ChangeDetectionStrategy,
-  ChangeDetectorRef } from '@angular/core';
+  ChangeDetectorRef
+} from '@angular/core';
 import { ModalService } from '../../common/modal/index';
 import { UnlockService } from '../../common/services/unlock.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -37,15 +38,14 @@ export class ConfirmationComponent implements OnInit {
     private ref: ChangeDetectorRef
   ) {
     this.cms = store.select('cms');
-    this.cust = this.route.snapshot.params['customerType'];
-    if (this.cust === 'true') {
-      this.customerType = true;
-    } else {
-      this.customerType = false;
-    }
   }
 
   public ngOnInit() {
+    const currentStore = this.unlockService.getCurrentState();
+    if (currentStore.user !== undefined &&
+      currentStore.user.wirelessDetails !== undefined) {
+      this.customerType = currentStore.user.wirelessDetails.customerType;
+    }
 
     this.unlockService.confirmation().subscribe((data: any) => {
       this.requestNo = data.orderFlowResponseDO.requestNo;
@@ -53,5 +53,4 @@ export class ConfirmationComponent implements OnInit {
       this.store.dispatch(new ResetUserAction());
     });
   }
-
 }

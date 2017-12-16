@@ -15,6 +15,7 @@ export interface CustomerAccountDetails {
   wirelessNumber?: string;
   email?: string;
   mulitaryPersonnel?: boolean;
+  passCode?: string;
 }
 
 export interface ImeiContactDetails {
@@ -33,4 +34,5 @@ export interface User {
   customerAccountDetails?: CustomerAccountDetails;
   imeiContactDetails?: ImeiContactDetails;
   csrfTokenDetails?: CsrfTokenDetails;
+  requestNumber?: string;
 }
