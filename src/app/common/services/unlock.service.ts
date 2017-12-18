@@ -8,7 +8,7 @@ import 'rxjs/add/operator/take';
 
 @Injectable()
 export class UnlockService {
-  /* public baseUrl: string = 'https://oce5bpmrl.dev.att.com/'; */
+  // public baseUrl: string = 'https://oce5bpmrl.dev.att.com/';
   public baseUrl: string = 'http://zld03310.vci.att.com:8082/';
   public redirectOCEWorkFlowUrl: string = 'apis/deviceunlock/OCEUnlockOrder/redirectOCEWorkFlow';
   public customerOrderFlow: string = 'apis/deviceunlock/OCEUnlockOrder/orderFlow';
